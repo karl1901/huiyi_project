@@ -1,0 +1,110 @@
+body{
+  padding: 0px;
+  margin: 0px;
+  background: rgb(161, 161, 161);
+}
+
+/* 头部样式 */
+header{
+  display: block;
+  text-align: center;
+}
+
+header div:first-child {
+  /* background: rgb(45, 206, 255); */
+  background-image: url(image/头部图片.jpg);
+  background-size: cover;
+  padding: 3rem;
+}
+
+
+/* 个人档案 、一些话*/
+.g1{
+  background: rgb(69, 208, 250);
+  width:100vw;
+  height: 500;
+}
+.g1>div{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.g2{
+  width:800px;
+  height: 300px;
+  padding: 1rem;
+}
+/* 横线 */
+.hx{
+  border: 1px solid #ffffff;
+  background: #ffffff;
+  width: 800px;
+  height: 2px;
+  margin-top: 2rem;
+}
+
+/* .taiy{
+  transform: rotate(20deg);
+} */
+
+
+
+
+脚部样式
+footer {
+  display: block;
+  text-align: center;
+}
+
+footer div:nth-child(1) {
+  background-image: url(image/脚部图片.png);
+background-size: cover;
+  padding: 7.5rem;
+}
+
+/* 首页导航样式 */
+header div:last-child {
+  background: rgb(255, 255, 255);
+  padding: 1.3rem;
+}
+
+.content-nav {
+  background-color: #f0f4f0;
+  overflow: hidden;
+}
+.content-nav ul {
+  width: 1000px;
+  margin: auto;
+  overflow: hidden;
+  height: 70px;
+}
+.content-nav ul a {
+  padding-top: 8px;
+  float: left;
+  width: 19%;
+  text-align: center;
+  font-size: 0.9rem;
+  font-weight: 3rem;
+  height: 62px;
+}
+
+.content-nav ul a {
+  color: #000201;
+  vertical-align: middle;
+  text-decoration: none;
+}
+.content-nav ul a img {
+  width: 40px;
+  height: 40px;
+}
+.content-nav ul a:hover {
+  background-color: #88e2f8;
+  border-top: 0px solid ;
+  border-radius: 0.8rem;
+  color: #ffffff;
+}
+.content-nav ul a:hover a {
+  color: #696d71;
+  display: block;
+  width: 100%;
+}
