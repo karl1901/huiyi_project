@@ -1,11 +1,11 @@
-body{
+body {
   padding: 0px;
   margin: 0px;
   background: rgb(161, 161, 161);
 }
 
 /* 头部样式 */
-header{
+header {
   display: block;
   text-align: center;
 }
@@ -13,53 +13,61 @@ header{
 header div:first-child {
   /* background: rgb(45, 206, 255); */
   background-image: url(image/头部图片.jpg);
+  position: relative;
   background-size: cover;
   padding: 3rem;
 }
 
 
 /* 个人档案 、一些话*/
-.g1{
+.g1 {
   background: rgb(69, 208, 250);
-  width:100vw;
+  width: 100vw;
   height: 500;
 }
-.g1>div{
+
+.g1>div {
   display: flex;
   justify-content: center;
   align-items: center;
 }
-.g2{
-  width:800px;
+
+.g2 {
+  width: 800px;
   height: 300px;
   padding: 1rem;
 }
+
 /* 横线 */
-.hx{
+.hx {
   border: 1px solid #ffffff;
   background: #ffffff;
   width: 800px;
   height: 2px;
-  margin-top: 2rem;
+  margin-top: 0.5rem;
 }
 
-/* .taiy{
-  transform: rotate(20deg);
-} */
+.taiy {
+  transform: rotate(15deg);
+  margin-left: -2rem;
+  margin-top: -1rem;
+}
 
 
 
 
-脚部样式
-footer {
+脚部样式 footer {
   display: block;
   text-align: center;
 }
 
-footer div:nth-child(1) {
-  background-image: url(image/脚部图片.png);
-background-size: cover;
-  padding: 7.5rem;
+.tu {
+  display: flex;
+  height: 180px;
+}
+
+.tu img {
+  width: 100vw;
 }
 
 /* 首页导航样式 */
@@ -71,14 +79,26 @@ header div:last-child {
 .content-nav {
   background-color: #f0f4f0;
   overflow: hidden;
+
 }
+
+.toux{
+  position: absolute;
+  left: 20.5rem;
+ top: 2rem;
+ transform: rotate(15deg);
+}
+
+
 .content-nav ul {
   width: 1000px;
   margin: auto;
   overflow: hidden;
   height: 70px;
 }
+
 .content-nav ul a {
+  position: relative;
   padding-top: 8px;
   float: left;
   width: 19%;
@@ -93,16 +113,19 @@ header div:last-child {
   vertical-align: middle;
   text-decoration: none;
 }
+
 .content-nav ul a img {
   width: 40px;
   height: 40px;
 }
+
 .content-nav ul a:hover {
   background-color: #88e2f8;
-  border-top: 0px solid ;
+  border-top: 0px solid;
   border-radius: 0.8rem;
   color: #ffffff;
 }
+
 .content-nav ul a:hover a {
   color: #696d71;
   display: block;
