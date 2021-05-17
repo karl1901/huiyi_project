@@ -1,9 +1,11 @@
 <template>
   <div class="main" v-loading="loading">
-    <div class="title">回忆主题网站后台管理</div>
+    <div class="title" v-if="ifus(userinfo)">回忆主题网站后台管理</div>
     <div class="usr">
+      <div class="usname" v-if="ifus(userinfo)">欢迎管理员：</div>
+      <div class="usname" v-if="!ifus(userinfo)">欢迎：</div>
       <el-dropdown split-button @command="handMenu">
-        <span>{{ userinfo.username }} ({{ userinfo.nickname }})</span>
+        <span>{{ userinfo.nickname }}</span>
         <el-dropdown-menu>
           <el-dropdown-item command="pwd">修改密码</el-dropdown-item>
           <el-dropdown-item command="exit">安全退出</el-dropdown-item>
@@ -29,7 +31,7 @@
       </div>
     </el-dialog>
 
-    <div class="btn">
+    <div class="btn" v-if="ifus(userinfo)">
       <div>
         <el-button type="primary" plain @click="ToIndex">首页管理</el-button>
       </div>
@@ -40,6 +42,8 @@
         <el-button type="primary" plain @click="ToCall">联系页管理</el-button>
       </div>
     </div>
+
+    <div class="no-btn" v-if="!ifus(userinfo)">抱歉，您不是管理员！无权进行后台管理</div>
   </div>
 </template>
 
@@ -52,10 +56,17 @@ export default {
       loading: false,
       pwd: '',
       pwd2: '',
-      pwdVisible: false
+      pwdVisible: false,
+      gl: 'kkkkk'
     };
   },
   methods: {
+    ifus(userinfo) {
+      if (userinfo.username == this.gl) {
+        return true;
+      }
+      return false;
+    },
     ToIndex() {
       this.$router.push('/back/index');
     },
@@ -112,7 +123,7 @@ export default {
       this.$ajax('/user/queryUserInfo', {}, function(data) {
         this.loading = false;
         if (!data.resultData.tbUser || !data.resultData.tbUser.username) {
-          this.$router.push('/user/login');
+          this.$router.push('../');
           return;
         }
         this.userinfo = data.resultData.tbUser;
@@ -149,6 +160,7 @@ export default {
   justify-content: flex-end;
   padding: 1rem;
   background: rgb(238, 240, 241);
+  border-top: 3px solid rgba(58, 56, 56, 0.575);
 }
 
 .btn {
@@ -159,5 +171,21 @@ export default {
 
 .btn > div {
   padding: 1.5rem;
+}
+
+.usname {
+  display: flex;
+  min-height: 100%;
+  align-items: center;
+  margin-right: 1rem;
+}
+
+.no-btn {
+  display: flex;
+  justify-content: center;
+  font-size: 2rem;
+  font-weight: bold;
+  margin-top: 2.5rem;
+  color: red;
 }
 </style>
