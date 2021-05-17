@@ -57,7 +57,7 @@ export default {
       pwd: '',
       pwd2: '',
       pwdVisible: false,
-      gl: 'kkkkk'
+      gl: 'karl2021'
     };
   },
   methods: {

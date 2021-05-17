@@ -4,6 +4,9 @@
     <div class="rt">
       <div><el-button type="primary" plain @click="rtindex">返回</el-button></div>
     </div>
+    <div>
+      主要功能区域
+    </div>
   </div>
 </template>
 
