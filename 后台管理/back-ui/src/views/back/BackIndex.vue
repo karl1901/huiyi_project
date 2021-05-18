@@ -1,6 +1,8 @@
 <template>
   <div class="main" v-loading="loading">
+    <!-- 标题部分 -->
     <div class="title" v-if="ifus(userinfo)">回忆主题网站后台管理</div>
+    <!-- 用户管理部分 -->
     <div class="usr">
       <div class="usname" v-if="ifus(userinfo)">欢迎管理员：</div>
       <div class="usname" v-if="!ifus(userinfo)">欢迎：</div>
@@ -13,6 +15,7 @@
       </el-dropdown>
     </div>
 
+    <!-- 修改密码表单部分 -->
     <el-dialog title="修改登录密码" :visible.sync="pwdVisible" :close-on-click-modal="false">
       <div>
         <el-form>
@@ -31,6 +34,7 @@
       </div>
     </el-dialog>
 
+    <!-- 页面管理跳转按钮部分 -->
     <div class="btn" v-if="ifus(userinfo)">
       <div>
         <el-button type="primary" plain @click="ToIndex">首页管理</el-button>
@@ -43,6 +47,7 @@
       </div>
     </div>
 
+    <!-- 普通用户登录提示字样部分 -->
     <div class="no-btn" v-if="!ifus(userinfo)">抱歉，您不是管理员！无权进行后台管理</div>
   </div>
 </template>

@@ -9,7 +9,7 @@
 
 <script>
 export default {
-  name: 'Call',
+  name: 'Img',
   data() {
     return {};
   },
