@@ -1,5 +1,5 @@
 <template>
-  <div class="main">
+  <div class="main" v-loading="activeloading" element-loading-text="拼命加载中" element-loading-spinner="el-icon-loading" element-loading-background="rgba(0, 0, 0, 0.8)">
     <!-- 标题部分 -->
     <div class="title"> 首页管理</div>
     <!-- 返回按钮 -->
@@ -14,7 +14,7 @@
           <div class="classhd">班级活动</div>
           <div>
             <div class="addbtn"><el-button type="success" icon="el-icon-plus" @click="openadd = true">添加活动</el-button></div>
-            <el-table :data="active" stripe>
+            <el-table :data="active" stripe v-loading="activeloading01">
               <el-table-column type="expand">
                 <template slot-scope="props">
                   <el-form label-position="left" inline class="demo-table-expand">
@@ -63,8 +63,11 @@
       <el-tab-pane label="路上风景">
         <el-tabs tabPosition="left" style="height: 500px;">
           <el-tab-pane label="标题">
+            <div class="tjimg">
+              <el-button type="success" icon="el-icon-plus" @click="openadd03 = true">添加标题</el-button>
+            </div>
             <div>
-              <el-table :data="btlist">
+              <el-table :data="btlist" v-loading="activeloading02">
                 <el-table-column label="标题内容" prop="title"></el-table-column>
                 <el-table-column label="操作">
                   <el-button type="primary" icon="el-icon-edit" @click="openbj01 = true">编辑</el-button>
@@ -74,8 +77,11 @@
             </div>
           </el-tab-pane>
           <el-tab-pane label="图片管理">
+            <div class="tjimg">
+              <el-button type="success" icon="el-icon-plus" @click="openadd01 = true">添加图片</el-button>
+            </div>
             <div>
-              <el-table :data="fjimg">
+              <el-table :data="fjimg" height="480" v-loading="activeloading03">
                 <el-table-column label="图片描述" prop="title"></el-table-column>
                 <el-table-column label="图片展示">
                   <template slot-scope="scope">
@@ -89,7 +95,10 @@
               </el-table>
             </div>
           </el-tab-pane>
-          <el-tab-pane label="其他内容">
+          <el-tab-pane label="其他内容" v-loading="activeloading04">
+            <div class="tjimg">
+              <el-button type="success" icon="el-icon-plus" @click="openadd04 = true">添加其他内容</el-button>
+            </div>
             <div>
               <el-table :data="btlist01">
                 <el-table-column label="其他内容" prop="title"></el-table-column>
@@ -103,7 +112,49 @@
         </el-tabs>
       </el-tab-pane>
       <!-- 更新日志 -->
-      <el-tab-pane label="更新日志">更新日志</el-tab-pane>
+      <el-tab-pane label="更新日志">
+        <div>
+          <div class="addbtn"><el-button type="success" icon="el-icon-plus" @click="openadd02 = true">添加日志</el-button></div>
+          <el-table :data="active01" stripe v-loading="activeloading05">
+            <el-table-column type="expand">
+              <template slot-scope="props">
+                <el-form label-position="left" inline class="demo-table-expand">
+                  <el-form-item label="日期：">
+                    <span>{{ props.row.date }}</span>
+                  </el-form-item>
+                  <el-form-item label="标题：">
+                    <span>{{ props.row.title }}</span>
+                  </el-form-item>
+                  <el-form-item label="描述：">
+                    <span>{{ props.row.txt }}</span>
+                  </el-form-item>
+                  <el-form-item label="图片：">
+                    <div>
+                      <el-tooltip content="点击查看图片" placement="right" effect="light">
+                        <img :src="props.row.imgurl" alt="" width="180px" height="120pxx" @click="openimgs(props.row.imgurl)" />
+                      </el-tooltip>
+                    </div>
+                    <div>
+                      <el-tooltip content="下载图片" placement="left" effect="light">
+                        <el-button icon="el-icon-download" @click="downloadimg(props.row.imgurl)"></el-button>
+                      </el-tooltip>
+                      <el-tooltip content="复制图片连接" placement="right" effect="light">
+                        <el-button icon="el-icon-paperclip" @click="fz(props.row.imgurl)"></el-button>
+                      </el-tooltip>
+                    </div>
+                  </el-form-item>
+                </el-form>
+              </template>
+            </el-table-column>
+            <el-table-column label="日期" prop="date" sortable></el-table-column>
+            <el-table-column label="标题" prop="title"></el-table-column>
+            <el-table-column label="操作">
+              <el-button type="primary" icon="el-icon-edit" @click="openbj04 = true">编辑</el-button>
+              <el-button type="danger" icon="el-icon-delete" @click="del">删除</el-button>
+            </el-table-column>
+          </el-table>
+        </div>
+      </el-tab-pane>
       <!-- 一些话 -->
       <el-tab-pane label="一些话">一些话</el-tab-pane>
     </el-tabs>
@@ -176,6 +227,21 @@
       </el-dialog>
     </div>
 
+    <!-- 添加路上风景标题的对话框 -->
+    <div>
+      <el-dialog :visible.sync="openadd03" :close-on-click-modal="false" title="添加标题">
+        <el-form :model="btlist">
+          <el-form-item>
+            <el-input v-model="btlist.title" placeholder="标题内容"></el-input>
+          </el-form-item>
+          <el-form-item>
+            <el-button type="success" @click="add03">添加</el-button>
+            <el-button @click="resetadd03">重置</el-button>
+          </el-form-item>
+        </el-form>
+      </el-dialog>
+    </div>
+
     <!-- 编辑路上风景标题的对话框 -->
     <div>
       <el-dialog :visible.sync="openbj01" :close-on-click-modal="false" title="编辑标题">
@@ -186,6 +252,27 @@
           <el-form-item>
             <el-button type="success" @click="bjqd01">确定</el-button>
             <el-button @click="openbj01 = false">关闭</el-button>
+          </el-form-item>
+        </el-form>
+      </el-dialog>
+    </div>
+
+    <!-- 添加路上风景图片的对话框 -->
+    <div>
+      <el-dialog :visible.sync="openadd01" :close-on-click-modal="false" title="添加图片">
+        <el-form :model="fjimg">
+          <el-form-item>
+            <el-input v-model="fjimg.title" placeholder="图片描述"></el-input>
+          </el-form-item>
+          <el-form-item>
+            图片：
+            <el-upload action="https://jsonplaceholder.typicode.com/posts/" list-type="picture-card" multiple="false">
+              <i class="el-icon-plus avatar-uploader-icon"></i>
+            </el-upload>
+          </el-form-item>
+          <el-form-item>
+            <el-button type="success" @click="add01">添加</el-button>
+            <el-button @click="resetadd01">重置</el-button>
           </el-form-item>
         </el-form>
       </el-dialog>
@@ -222,6 +309,78 @@
           <el-form-item>
             <el-button type="success" @click="bjqd02">确定</el-button>
             <el-button @click="openbj02 = false">关闭</el-button>
+          </el-form-item>
+        </el-form>
+      </el-dialog>
+    </div>
+
+    <!-- 编辑路上风景其他内容的对话框 -->
+    <div>
+      <el-dialog :visible.sync="openadd04" :close-on-click-modal="false" title="添加其他内容">
+        <el-form :model="btlis01t">
+          <el-form-item>
+            <el-input v-model="btlist.title" placeholder="内容"></el-input>
+          </el-form-item>
+          <el-form-item>
+            <el-button type="success" @click="add04">确定</el-button>
+            <el-button @click="resetadd04">重置</el-button>
+          </el-form-item>
+        </el-form>
+      </el-dialog>
+    </div>
+
+    <!-- 添加更新日志的对话框 -->
+    <div>
+      <el-dialog :visible.sync="openadd02" :close-on-click-modal="false" title="添加日志">
+        <el-form :model="active01">
+          <el-form-item>
+            日期：
+            <el-date-picker v-model="active01.date" type="date" placeholder="选择日期" format="yyyy 年 MM 月 dd 日" value-format="yyyy-MM-dd"> </el-date-picker>
+          </el-form-item>
+          <el-form-item>
+            <el-input v-model="active01.title" placeholder="标题"></el-input>
+          </el-form-item>
+          <el-form-item>
+            <el-input v-model="active01.txt" placeholder="描述"></el-input>
+          </el-form-item>
+          <el-form-item>
+            图片：
+            <el-upload action="https://jsonplaceholder.typicode.com/posts/" list-type="picture-card" multiple="false">
+              <i class="el-icon-plus avatar-uploader-icon"></i>
+            </el-upload>
+          </el-form-item>
+          <el-form-item>
+            <el-button type="success" @click="add02">添加</el-button>
+            <el-button @click="resetadd02">重置</el-button>
+          </el-form-item>
+        </el-form>
+      </el-dialog>
+    </div>
+
+    <!-- 编辑更新日志的对话框 -->
+    <div>
+      <el-dialog :visible.sync="openbj04" :close-on-click-modal="false" title="编辑日志">
+        <el-form :model="active01">
+          <el-form-item>
+            日期：
+            <el-date-picker v-model="active.date" type="date" placeholder="选择日期" format="yyyy 年 MM 月 dd 日" value-format="yyyy-MM-dd"> </el-date-picker>
+          </el-form-item>
+          <el-form-item>
+            <el-input v-model="active.title" placeholder="标题"></el-input>
+          </el-form-item>
+          <el-form-item>
+            <el-input v-model="active.txt" placeholder="描述"></el-input>
+          </el-form-item>
+          <el-form-item>
+            图片：
+            <el-upload action="https://jsonplaceholder.typicode.com/posts/" list-type="picture-card" multiple="false">
+              <img :src="active.imgurl" alt="" />
+              <i class="el-icon-plus avatar-uploader-icon"></i>
+            </el-upload>
+          </el-form-item>
+          <el-form-item>
+            <el-button type="success" @click="bjqd04">确定</el-button>
+            <el-button @click="openbj04 = false">关闭</el-button>
           </el-form-item>
         </el-form>
       </el-dialog>
@@ -270,6 +429,11 @@ export default {
       openbj01: false,
       openbj02: false,
       openbj03: false,
+      openadd01: false,
+      openadd02: false,
+      openbj04: false,
+      openadd03: false,
+      openadd04: false,
       list: {
         date: '',
         title: '',
@@ -312,11 +476,144 @@ export default {
         {
           title: '风景图片4',
           imgurl: 'https://cn.bing.com/th?id=OHR.ParanalStars_ZH-CN9247250519_1920x1080.jpg&rf=LaDigue_1920x1080.jpg&pid=hp'
+        },
+        {
+          title: '风景图片3',
+          imgurl: 'https://cn.bing.com/th?id=OHR.Guatape_ZH-CN9344556154_1920x1080.jpg&rf=LaDigue_1920x1080.jpg&pid=hp'
+        },
+        {
+          title: '风景图片2',
+          imgurl: 'https://cn.bing.com/th?id=OHR.Alesund_ZH-CN9437421934_1920x1080.jpg&rf=LaDigue_1920x1080.jpg&pid=hp'
+        },
+        {
+          title: '风景图片1',
+          imgurl: 'https://cn.bing.com/th?id=OHR.GreatHornbill_ZH-CN9550236034_1920x1080.jpg&rf=LaDigue_1920x1080.jpg&pid=hp'
         }
-      ]
+      ],
+      active01: [
+        {
+          date: '2021-03-19',
+          title: '团建活动',
+          txt: '团建活动，户外烧烤，真人cs等等',
+          imgurl: 'https://cn.bing.com/th?id=OHR.GreatHornbill_ZH-CN9550236034_1920x1080.jpg&rf=LaDigue_1920x1080.jpg&pid=hp'
+        },
+        {
+          date: '2010-01-13',
+          title: '社会实践',
+          txt: '三月学雷锋，组织户外社会实践，在学校打扫校道',
+          imgurl: 'https://cn.bing.com/th?id=OHR.Alesund_ZH-CN9437421934_1920x1080.jpg&rf=LaDigue_1920x1080.jpg&pid=hp'
+        },
+        {
+          date: '2001-09-11',
+          title: '元旦晚会',
+          txt: '吃的很丰富，装饰很飘里亮，玩的很开心！',
+          imgurl: 'https://cn.bing.com/th?id=OHR.Guatape_ZH-CN9344556154_1920x1080.jpg&rf=LaDigue_1920x1080.jpg&pid=hp'
+        },
+        {
+          date: '2011-03-21',
+          title: '入学军训',
+          txt: '刚刚入校，校园很大，天气炎热，军训开始',
+          imgurl: 'https://cn.bing.com/th?id=OHR.ParanalStars_ZH-CN9247250519_1920x1080.jpg&rf=LaDigue_1920x1080.jpg&pid=hp'
+        }
+      ],
+      activeloading: false,
+      activeloading01: false,
+      activeloading02: false,
+      activeloading03: false,
+      activeloading04: false,
+      activeloading05: false
     };
   },
   methods: {
+    resetadd04() {
+      this.btlist01 = {
+        title: ''
+      };
+    },
+    add04() {
+      this.openadd02 = false;
+      this.$notify({
+        title: '成功',
+        message: '添加成功',
+        type: 'success'
+      });
+      this.activeloading04 = true;
+      setTimeout(() => {
+        this.activeloading04 = false;
+      }, 600);
+    },
+    resetadd03() {
+      this.btlist = {
+        title: ''
+      };
+    },
+    add03() {
+      this.openadd03 = false;
+      this.$notify({
+        title: '成功',
+        message: '添加成功',
+        type: 'success'
+      });
+      this.activeloading02 = true;
+      setTimeout(() => {
+        this.activeloading02 = false;
+      }, 600);
+    },
+    query() {
+      this.activeloading = true;
+      setTimeout(() => {
+        this.activeloading = false;
+      }, 600);
+    },
+    bjqd04() {
+      this.openbj04 = false;
+      this.$notify({
+        title: '成功',
+        message: '保存成功',
+        type: 'success'
+      });
+      this.activeloading05 = true;
+      setTimeout(() => {
+        this.activeloading05 = false;
+      }, 600);
+    },
+    resetadd02() {
+      this.active01 = {
+        title: '',
+        txt: '',
+        imgurl: ''
+      };
+    },
+    add02() {
+      this.openadd02 = false;
+      this.$notify({
+        title: '成功',
+        message: '添加成功',
+        type: 'success'
+      });
+      this.activeloading05 = true;
+      setTimeout(() => {
+        this.activeloading05 = false;
+      }, 600);
+    },
+    resetadd01() {
+      this.fjimg = {
+        title: '',
+        imgurl: ''
+      };
+    },
+    add01() {
+      this.openadd01 = false;
+      this.$notify({
+        title: '成功',
+        message: '添加成功',
+        type: 'success'
+      });
+      this.activeloading03 = true;
+      setTimeout(() => {
+        this.activeloading03 = false;
+      }, 600);
+    },
     bjqd03() {
       this.openbj03 = false;
       this.$notify({
@@ -324,6 +621,10 @@ export default {
         message: '保存成功',
         type: 'success'
       });
+      this.activeloading03 = true;
+      setTimeout(() => {
+        this.activeloading03 = false;
+      }, 600);
     },
     bjqd02() {
       this.openbj02 = false;
@@ -332,6 +633,10 @@ export default {
         message: '保存成功',
         type: 'success'
       });
+      this.activeloading04 = true;
+      setTimeout(() => {
+        this.activeloading04 = false;
+      }, 600);
     },
     bjqd01() {
       this.openbj01 = false;
@@ -340,6 +645,10 @@ export default {
         message: '保存成功',
         type: 'success'
       });
+      this.activeloading02 = true;
+      setTimeout(() => {
+        this.activeloading02 = false;
+      }, 600);
     },
     openimgs(imgurl) {
       this.openimg = true;
@@ -373,6 +682,10 @@ export default {
         message: '保存成功',
         type: 'success'
       });
+      this.activeloading01 = true;
+      setTimeout(() => {
+        this.activeloading01 = false;
+      }, 600);
     },
     del() {
       this.$notify({
@@ -380,6 +693,26 @@ export default {
         message: '删除成功',
         type: 'success'
       });
+      this.activeloading01 = true;
+      setTimeout(() => {
+        this.activeloading01 = false;
+      }, 600);
+      this.activeloading02 = true;
+      setTimeout(() => {
+        this.activeloading02 = false;
+      }, 600);
+      this.activeloading03 = true;
+      setTimeout(() => {
+        this.activeloading03 = false;
+      }, 600);
+      this.activeloading04 = true;
+      setTimeout(() => {
+        this.activeloading04 = false;
+      }, 600);
+      this.activeloading05 = true;
+      setTimeout(() => {
+        this.activeloading05 = false;
+      }, 600);
     },
     resetadd() {
       this.list = {
@@ -402,10 +735,17 @@ export default {
         txt: '',
         imgtxt: ''
       };
+      this.activeloading01 = true;
+      setTimeout(() => {
+        this.activeloading01 = false;
+      }, 600);
     },
     rtindex() {
       this.$router.push('/back/backindex');
     }
+  },
+  created() {
+    this.query();
   }
 };
 </script>
@@ -465,5 +805,10 @@ export default {
   margin-right: 0;
   margin-bottom: 0;
   width: 100%;
+}
+
+.tjimg {
+  display: flex;
+  justify-content: flex-end;
 }
 </style>
