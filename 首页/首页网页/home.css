@@ -231,24 +231,23 @@ header div:last-child {
 /* 班级档案导航位置大小样式 */
 .da {
   width: 50%;
-  height: auto;
+  height: 440px;
   border: 0px solid transparent;
   box-shadow: 0px 0px 1rem #ffffff;
   border-radius: 1rem;
   background-color: rgba(0, 0, 0, 0.1);
   padding: 1rem;
-  margin-top: 0.5rem;
 }
 
 /* 班级档案图片位置大小样式 */
 .da1 {
   width: 45%;
-  height: 480px;
+  height: 440px;
   border: 0px solid transparent;
   box-shadow: 0px 0px 1rem #ffffff;
   border-radius: 1rem;
   background-color: rgba(0, 0, 0, 0.1);
-  padding: 0rem;
+  padding: 1rem;
   /* margin-bottom: 25%; */
 }
 
@@ -262,14 +261,13 @@ header div:last-child {
 /* 班级档案选择列表 */
 .ou {
   width: 100%;
-  height: 450px;
-  margin: 0;
-  padding: 0;
-  overflow-x: hidden;
+  height: auto;
+  margin: 0px;
+  padding: 0px;
 }
 
 .ou a {
-  padding: 16px;
+  padding: 2.5rem;
   background: rgb(250, 254, 255);
   color: #232424;
   font-size: 20px;
@@ -318,10 +316,9 @@ header div:last-child {
 
 .rz > ul{
   width: 100%;
-  height: 450px;
+  height: auto;
   margin: 0;
   padding: 0;
-  overflow-x: hidden;
 }
 
 .rz > ul div{
@@ -333,6 +330,65 @@ header div:last-child {
 
 /* 一些话 */
 
+
+
+/* 屏幕滚动动画 */
+.one {
+margin: 0px;
+}
+.two {
+  margin: 0px;
+}
+.three {
+  margin: 0px;
+}
+.four {
+  margin: 0px;
+}
+.five {
+  margin: 0px;    
+}
+.module {
+  position: relative;
+  float: left;
+  opacity: 0;
+}
+.module:nth-child(even) {
+  margin-right: 0;
+}
+.come-in {
+  transform: translateX(-50%);
+  animation: come-in 0.5s cubic-bezier(0, -0.01, 0, 0.99) forwards;
+}
+.come-in:nth-child(odd) {
+  animation-delay: 0.1s;
+  animation-duration:1s;
+}
+.leave {
+  transform: translateX(-50%);
+  animation: leave 0.5s cubic-bezier(0, -0.01, 0, 0.99) forwards;
+}
+.leave:nth-child(odd) {
+  animation-delay: 0.1s;
+  animation-duration: 1s;
+}
+.already-visible {
+  transform: translateY(0);
+  animation: none;
+  opacity: 1;
+}
+@keyframes come-in {
+  to {
+      transform: translateX(0);
+      opacity: 1;
+  }
+}
+@keyframes leave {
+  to {
+      transform: translateX(-50%);
+      opacity: 0;
+  }
+}
 /* 脚部样式  */
 footer {
   display: block;
