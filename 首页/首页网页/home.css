@@ -231,18 +231,18 @@ header div:last-child {
 /* 班级档案导航位置大小样式 */
 .da {
   width: 50%;
-  height: 440px;
+  height: auto;
   border: 0px solid transparent;
   box-shadow: 0px 0px 1rem #ffffff;
   border-radius: 1rem;
   background-color: rgba(0, 0, 0, 0.1);
-  padding: 1rem;
+   padding:1.5rem 1.5rem 0rem 1.5rem ;
 }
 
 /* 班级档案图片位置大小样式 */
 .da1 {
   width: 45%;
-  height: 440px;
+  height: 450px;
   border: 0px solid transparent;
   box-shadow: 0px 0px 1rem #ffffff;
   border-radius: 1rem;
@@ -262,7 +262,7 @@ header div:last-child {
 .ou {
   width: 100%;
   height: auto;
-  margin: 0px;
+  margin-top: 0px;
   padding: 0px;
 }
 
@@ -329,7 +329,32 @@ header div:last-child {
 }
 
 /* 一些话 */
+.hua{
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ width: 100%;
+ height: auto;
+ padding: 1rem;
+}
 
+.hua1{
+  padding: 2rem;
+  border: 0px solid transparent;
+ background-image: url('./image/笔记背景1.png');
+  background-size: cover;
+  width: 100%;
+  height: auto;
+  box-shadow: -1px 3px 3px 1px #454646;
+  color: #000000;
+}
+
+.hua2{
+  position: fixed;
+  bottom: 0%;
+  right: -1%;
+  transform: rotate(85deg);
+}
 
 
 /* 屏幕滚动动画 */

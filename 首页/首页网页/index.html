@@ -10,9 +10,36 @@
   <link rel="stylesheet" href="bootstrap.min.css">
   <link rel="stylesheet" href="iconfont.css">
 </head>
+<style>
+  /* 回到顶部样式 */
+  #top{ 
+	display:block;  
+	width:40px; 
+	height:40px;
+	position:fixed;  
+	bottom:50px; 
+  border-radius: 50%; 
+	right:40px;   
+	text-decoration:none;  
+  box-shadow: 0px 0px 1rem #070707;
+	display:none;  
+	background-color:#999999;     
+	}
+	#top span{ 
+		display:block; 
+		width:40px; 
+		color:#ffffff; 
+		font-size:20px; 
+		text-align:center; 
+    margin-top: 8px;
+	} 
+	#top:hover{ 
+		background-color: #454646;
+    cursor: pointer;
+	} 
+</style>
 
-
-<body>
+<body id="article">
   <!-- 头部样式及布局 -->
   <header>
     <!-- 头部图片 -->
@@ -24,7 +51,7 @@
       <ul class="nav">
         <a href="#m-1"><img src="image/班级档案.png"><br>班级档案</a>
         <a href="#m-2"><img src="image/路上风景.png"><br>路上风景</a>
-        <a href="#m-3"><img src="image/路上风景.png"><br>更新日志</a>
+        <a href="#m-3"><img src="image/更新日志.png"><br>更新日志</a>
         <a href="#m-4"><img src="image/一些话.png"><br>一些话</a>
         <a href=""><img src="image/联系我们.png"><br>联系我们</a>
       </ul>
@@ -61,7 +88,7 @@
                   </div>
                 </div>
               </a>
-              <a href="#" class="list-group-item" data-target="#mycarousel" data-slide-to="1">
+              <a href="#" class="list-group-item" data-target="#mycarousel" data-slide-to="1" class="">
                 <div class="media-left media-middle">
                   <div>
                     2019.11.04
@@ -185,8 +212,6 @@
           </section>
         </div>
       </div>
-
-
     </div>
   </div>
 
@@ -310,10 +335,25 @@
         <div class="hx1"></div>
         <div class="taiy1"><img src="image/蝴蝶.png" alt="" width="85px" height="50px"></div>
       </div>
-
+      <div class="hua module">
+        <div class="hua1">
+          <p>放下你的浮躁，放下你的懒惰，放下你的三分钟热度，闭上你什么都想聊两句的嘴巴，静下心来好好做你该做的事。你的努力是唯一能让你站稳脚跟的依靠。</p>
+          <p>做你想做的，趁阳光正好。去追逐梦想，趁还年轻。不浪费时间，不挥霍时光，不沉迷过去，不恐惧未来。努力从来不会白费，今日播下的种子，正在你看不见、想不到的某处悄悄地发芽。</p>
+          <p>你想要好的成绩，但是你不去学习；你想要富裕的生活，但是你不去拼搏奋斗；你想要健康的身体，但是你没能坚持锻炼；你想要称心如意的生活，但是你从未真正的改变过自己。你尽力了，才有资格说自己运气不好。</p>
+          <p>水再浑浊，只要长久沉淀，依然会分外清澄；人再愚钝，只要足够努力，一样能改写命运，不要愤懑起点太低，那只是我们站立的原点。人生是一场漫长竞赛，有些人笑在开始，有些人却赢在最后。</p>
+          <p>世界上最难的事，莫过于在热闹之中按兵不动，在诱惑面前不忘初心，别偏激，按兵不动不是让你停滞不前，不忘初心也并非不可以放眼未来，冷静，不是迟钝，沉默，不代表妥协。</p>
+        </div>
+        <div class="hua2">
+          <img src="./image/笔记装饰.png" alt="" width="80px" height="80">
+        </div>
+      </div>
     </div>
   </div>
 
+  <!-- 回到顶部按钮 -->
+  <a id="top">   
+    <span>UP</span> 
+  </a>
   <!-- 脚部样式 -->
   <footer>
     <div class="tu"><img src="image/脚部图片.png" alt=""></div>
