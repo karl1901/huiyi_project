@@ -128,7 +128,7 @@ export default {
       this.$ajax('/user/queryUserInfo', {}, function(data) {
         setTimeout(() => {
           this.loading = false;
-        }, 200);
+        }, 100);
         if (!data.resultData.tbUser || !data.resultData.tbUser.username) {
           this.$router.push('../');
           return;
