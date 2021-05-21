@@ -22,7 +22,7 @@ bg{
 .tupian{
   z-index: 1;
   position: fixed;
-  margin-top: -2.5rem;
+  margin-top: -4.5rem;
   margin-left: 16rem;
   transform: rotate(10deg);
 }
@@ -30,7 +30,7 @@ bg{
 .sucai{
   z-index: 2;
   position: fixed;
-  margin-top: 1rem;
+  margin-top: -2.5rem;
   margin-left: 17rem;
 }
 
