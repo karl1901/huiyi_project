@@ -31,7 +31,7 @@
             </div>
           </div>
           <div>
-            <el-table :data="activelist" stripe v-loading="activeloading" height="401">
+            <el-table :data="activelist" stripe v-loading="activeloading" height="330">
               <el-table-column label="日期" prop="activeTime" sortable>
                 <template slot-scope="scope">
                   <i class="el-icon-time"></i>
