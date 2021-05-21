@@ -1,0 +1,65 @@
+body{
+  padding: 0px;
+  margin: 0px;
+}
+
+bg{
+  background-size: cover;
+  padding:10px;
+}
+
+.tupian{
+  z-index: 1;
+  position: fixed;
+  margin-top: -2.5rem;
+  margin-left: 16rem;
+  transform: rotate(10deg);
+}
+
+.sucai{
+  z-index: 2;
+  position: fixed;
+  margin-top: 1rem;
+  margin-left: 17rem;
+}
+
+.sucai01{
+  z-index:2;
+  position: fixed;
+  margin-top: 1rem;
+  margin-left: 27rem;
+}
+
+.sucai02{
+  z-index:2;
+  position: fixed;
+  margin-top: 1rem;
+  margin-left: 37rem;
+}
+
+.sucai03{
+  z-index:2;
+  position: fixed;
+  margin-top: 1rem;
+  margin-left: 47rem;
+}
+
+.sucai04{
+  z-index:2;
+  position: fixed;
+  margin-top: 1rem;
+  margin-left: 57rem;
+}
+
+.circle{
+  z-index: 2;
+  position: fixed;
+  margin-top: 4rem;
+  margin-left: 58rem;
+  
+}
+
+.juxing{
+  margin-top: 7rem;
+  margin-left: 15rem;
+}
