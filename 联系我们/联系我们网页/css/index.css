@@ -8,6 +8,17 @@ bg{
   padding:10px;
 }
 
+.bg01{
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+.bg01 img{
+  height: 65px;
+  width: 100%;
+
+}
 .tupian{
   z-index: 1;
   position: fixed;
