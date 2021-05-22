@@ -61,4 +61,64 @@ server.ajax = function(url, param, cb, method, thisArg) {
     });
 };
 
+// 上传文件大小限制
+const MAX_FILE_SIZE = 1.5 * 1024 * 1024;
+// ajax文件上传，url,后端ip地址；file，上传的文件对象
+// params,附加的请求参数(json格式)；cb,回调
+server.sendFile = function(url, file, params, cb) {
+  console.log('文件信息：', file);
+  //必须有文件
+  if (file == null || !file) {
+    cb({
+      code: 500,
+      message: '必须选择文件',
+      success: false
+    });
+  }
+  // 限制文件上传大小
+  if (file.size > MAX_FILE_SIZE) {
+    cb({ message: '文件大小超过限制', code: 500, success: false });
+    return;
+  }
+  url = server.baseUrl + url;
+  // 上传的数据格式必须是FormData
+  let formdata = new FormData();
+  // 数据key还是要和后端一致
+  formdata.append('file', file);
+  // 通过迭代处理附加的json参数，不支持二级的json
+  // 实例：let jsono = {name:'abc',test:123};
+  // jsono['name']和jsono.name等效
+  // 针对json的foreach循环，key取到的就是json的字段名称
+  // 一次获取一个，也就是key第一次是name,第二次是test
+  // 而params[key]就是key对应的值
+  for (let key in params) {
+    formdata.append(key, params[key]);
+  }
+  // ajax请求
+  let promise = axios({
+    url: url,
+    data: formdata,
+    method: 'post',
+    headers: {
+      token: server.getToken(),
+      // 必须指定请求类型为multipart/form-data
+      'Content-Type': 'multipart/form-data'
+    }
+  });
+  promise
+    .then(function(resp) {
+      server.saveToken(resp.data);
+      cb(resp.data);
+    })
+    .catch(function(error) {
+      console.error('上传发生错误', error);
+      cb({
+        code: 500,
+        message: '上传发生错误',
+        success: false,
+        error: error
+      });
+    });
+};
+
 export default server;

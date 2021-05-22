@@ -25,7 +25,7 @@ export default {
     },
     sizes: {
       default() {
-        return [2, 5, 10, 20];
+        return [4, 8, 10, 20];
       }
     }
   },

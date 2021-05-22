@@ -1,7 +1,7 @@
 <template>
   <div class="main" v-loading="loading" element-loading-text="拼命加载中" element-loading-spinner="el-icon-loading" element-loading-background="rgba(0, 0, 0, 0.8)">
     <!-- 标题部分 -->
-    <div class="title"> 首页管理</div>
+    <div class="title">首页管理</div>
     <!-- 返回按钮 -->
     <div class="rt">
       <div><el-button type="primary" plain @click="rtindex">返回</el-button></div>
@@ -10,6 +10,7 @@
     <el-tabs type="border-card">
       <!-- 班级档案 -->
       <el-tab-pane label="班级档案">
+        <span slot="label"><i class="el-icon-folder-opened"> 班级档案</i></span>
         <div>
           <div class="classhd">班级活动</div>
 
@@ -31,7 +32,7 @@
             </div>
           </div>
           <div>
-            <el-table :data="activelist" stripe v-loading="activeloading" height="330">
+            <el-table :data="activelist" stripe v-loading="activeloading" height="340">
               <el-table-column label="日期" prop="activeTime" sortable>
                 <template slot-scope="scope">
                   <i class="el-icon-time"></i>
@@ -52,15 +53,172 @@
                 </template>
               </el-table-column>
             </el-table>
-            <page :page="activePage" @page-change="queryActive" class="pg"></page>
+            <page :page="activePage" @page-change="queryActive" v-loading="activeloading" class="pg"></page>
           </div>
         </div>
       </el-tab-pane>
       <!-- 路上风景 -->
+      <el-tab-pane label="路上风景">
+        <span slot="label"><i class="el-icon-sunrise-1"> 路上风景</i></span>
+        <div>
+          <el-tabs :tab-position="(tabPosition = 'left')" style="height: 500px;">
+            <el-tab-pane label="标题">
+              <span slot="label"><i class="el-icon-document"> 标题</i></span>
+              <div class="classhd">标题</div>
 
+              <div class="query-btn">
+                <div>
+                  <el-button type="success" icon="el-icon-plus" @click="openaddfjbt = true">添加</el-button>
+                </div>
+                <div>
+                  <el-button type="primary" icon="el-icon-refresh-right" round @click="queryNewfjbt">刷新</el-button>
+                </div>
+              </div>
+              <div>
+                <el-table :data="fjbtlist" stripe v-loading="fjbtloading" height="340">
+                  <el-table-column label="信息分组" prop="messageGroup"></el-table-column>
+                  <el-table-column label="信息关键词" prop="messageKey"></el-table-column>
+                  <el-table-column label="最后修改时间" sortable prop="lastupdate">
+                    <template slot-scope="scope">
+                      {{ scope.row.lastupdate | formatDate }}
+                    </template>
+                  </el-table-column>
+                  <el-table-column label="操作">
+                    <template slot-scope="socpe">
+                      <el-button type="success" plain icon="el-icon-search" @click="ckfjbt(socpe.row)">查看</el-button>
+                      <el-button type="primary" plain icon="el-icon-edit" @click="showupdatefjbt(socpe.row)">编辑</el-button>
+                      <el-button type="danger" plain icon="el-icon-delete" @click="delfjbt(socpe.row)">删除</el-button>
+                    </template>
+                  </el-table-column>
+                </el-table>
+                <page :page="fjbtPage" @page-change="queryFjbt" class="pg" v-loading="fjbtloading"></page>
+              </div>
+            </el-tab-pane>
+            <el-tab-pane label="展示图片">
+              <span slot="label"><i class="el-icon-picture"></i> 展示图片</span>
+              <div class="classhd">展示图片</div>
+
+              <div class="query-btn">
+                <div>
+                  <el-button type="success" icon="el-icon-plus" @click="openaddfjtp = true">添加</el-button>
+                </div>
+                <div>
+                  <el-button type="primary" icon="el-icon-refresh-right" round @click="queryNewfjtp">刷新</el-button>
+                </div>
+              </div>
+              <div>
+                <el-table :data="fjtplist" stripe v-loading="fjtploading" height="340">
+                  <el-table-column label="文件编号" prop="fid"></el-table-column>
+                  <el-table-column label="文件名称" prop="filename"></el-table-column>
+                  <el-table-column label="文件类型" prop="contentType"></el-table-column>
+                  <el-table-column label="文件描述" prop="fileinfo"></el-table-column>
+                  <el-table-column label="最后修改时间" sortable prop="lastupdate">
+                    <template slot-scope="scope">
+                      {{ scope.row.lastupdate | formatDate }}
+                    </template>
+                  </el-table-column>
+                  <el-table-column label="操作">
+                    <template slot-scope="socpe">
+                      <el-button type="success" plain icon="el-icon-search" v-if="isImage(socpe.row)" @click="showfjtp(socpe.row)">预览</el-button>
+                      <el-button type="primary" plain icon="el-icon-download" @click="downloadfjtp(socpe.row)"></el-button>
+                      <el-button type="danger" plain icon="el-icon-delete" @click="delfjtp(socpe.row)"></el-button>
+                    </template>
+                  </el-table-column>
+                </el-table>
+                <page :page="fjtpPage" @page-change="queryFjtp" v-loading="fjtploading" class="pg"></page>
+              </div>
+            </el-tab-pane>
+            <el-tab-pane label="图片信息">
+              <span slot="label"><i class="el-icon-document"> 图片信息</i></span>
+              <div class="classhd">图片信息</div>
+
+              <div class="query-btn">
+                <div>
+                  <el-button type="success" icon="el-icon-plus" @click="openaddfjtpxx = true">添加</el-button>
+                </div>
+                <div>
+                  <el-button type="primary" icon="el-icon-refresh-right" round @click="queryNewfjtpxx">刷新</el-button>
+                </div>
+              </div>
+              <div>
+                <el-table :data="fjtpxxlist" stripe v-loading="fjtpxxloading" height="340">
+                  <el-table-column label="信息分组" prop="messageGroup"></el-table-column>
+                  <el-table-column label="信息关键词" prop="messageKey"></el-table-column>
+                  <el-table-column label="最后修改时间" sortable prop="lastupdate">
+                    <template slot-scope="scope">
+                      {{ scope.row.lastupdate | formatDate }}
+                    </template>
+                  </el-table-column>
+                  <el-table-column label="操作">
+                    <template slot-scope="socpe">
+                      <el-button type="success" plain icon="el-icon-search" @click="ckfjtpxx(socpe.row)">查看</el-button>
+                      <el-button type="primary" plain icon="el-icon-edit" @click="showupdatefjtpxx(socpe.row)">编辑</el-button>
+                      <el-button type="danger" plain icon="el-icon-delete" @click="delfjtpxx(socpe.row)">删除</el-button>
+                    </template>
+                  </el-table-column>
+                </el-table>
+                <page :page="fjtpxxPage" @page-change="queryFjtpxx" class="pg" v-loading="fjtpxxloading"></page>
+              </div>
+            </el-tab-pane>
+          </el-tabs>
+        </div>
+      </el-tab-pane>
       <!-- 更新日志 -->
+      <el-tab-pane label="更新日志">
+        <span slot="label"><i class="el-icon-notebook-2"> 更新日志</i></span>
+        <div>
+          <div class="classhd">活动日志</div>
 
+          <div class="query-btn">
+            <div>
+              <el-input v-model="queryInfo.activeTime" placeholder="日期模糊查询"></el-input>
+            </div>
+            <div>
+              <el-input v-model="queryInfo.activeTitle" placeholder=" 标题模糊查询"></el-input>
+            </div>
+            <div>
+              <el-button type="primary" icon="el-icon-search" @click="queryActive">查询</el-button>
+            </div>
+            <div>
+              <el-button type="success" icon="el-icon-plus" @click="openadd = true">添加</el-button>
+            </div>
+            <div>
+              <el-button type="primary" icon="el-icon-refresh-right" round @click="queryNew">刷新</el-button>
+            </div>
+          </div>
+          <div>
+            <el-table :data="activelist" stripe v-loading="activeloading" height="340">
+              <el-table-column label="日期" prop="activeTime" sortable>
+                <template slot-scope="scope">
+                  <i class="el-icon-time"></i>
+                  <span style="margin-left: 10px">{{ scope.row.activeTime }}</span>
+                </template>
+              </el-table-column>
+              <el-table-column label="标题" prop="activeTitle"></el-table-column>
+              <el-table-column label="最后修改时间" sortable prop="lastupdate">
+                <template slot-scope="scope">
+                  {{ scope.row.lastupdate | formatDate }}
+                </template>
+              </el-table-column>
+              <el-table-column label="操作">
+                <template slot-scope="socpe">
+                  <el-button type="success" plain icon="el-icon-search" @click="ck(socpe.row)">查看</el-button>
+                  <el-button type="primary" plain icon="el-icon-edit" @click="showupdate(socpe.row)">编辑</el-button>
+                  <el-button type="danger" plain icon="el-icon-delete" @click="del(socpe.row)">删除</el-button>
+                </template>
+              </el-table-column>
+            </el-table>
+            <page :page="activePage" @page-change="queryActive" v-loading="activeloading" class="pg"></page>
+          </div>
+        </div>
+      </el-tab-pane>
       <!-- 一些话 -->
+      <el-tab-pane label="一些话">
+        <span slot="label"><i class="el-icon-chat-line-round"> 一些话</i></span>
+        <div>
+          一些话部分
+        </div>
+      </el-tab-pane>
     </el-tabs>
 
     <!-- 添加活动的对话框 -->
@@ -111,13 +269,180 @@
 
     <!-- 查看活动的对话框 -->
     <div>
-      <el-dialog :visible.sync="openck" :close-on-click-modal="false" title="查看活动"> </el-dialog>
+      <el-dialog :visible.sync="openck" :close-on-click-modal="false" title="查看活动">
+        <el-form>
+          <el-form-item label="日期：">
+            <span>{{ cklist.activeTime }}</span>
+          </el-form-item>
+          <el-form-item label="标题：">
+            <span>{{ cklist.activeTitle }}</span>
+          </el-form-item>
+          <el-form-item label="描述：">
+            <el-input v-model="cklist.activeInfo" placeholder="描述" type="textarea" autosize clearable></el-input>
+          </el-form-item>
+        </el-form>
+      </el-dialog>
+    </div>
+
+    <!-- 添加风景标题的对话框 -->
+    <div>
+      <el-dialog :visible.sync="openaddfjbt" :close-on-click-modal="false" title="添加标题">
+        <el-form>
+          <el-form-item label="信息分组：">
+            <el-input v-model="addInfofjbt.messageGroup" placeholder="信息分组"></el-input>
+          </el-form-item>
+          <el-form-item label="信息关键字：">
+            <el-input v-model="addInfofjbt.messageKey" placeholder="信息关键词" clearable></el-input>
+          </el-form-item>
+          <el-form-item label="内容描述：">
+            <el-input v-model="addInfofjbt.message" placeholder="信息内容" type="textarea" autosize clearable></el-input>
+          </el-form-item>
+          <el-form-item>
+            <el-button type="success" @click="addfjbt">添加</el-button>
+            <el-button @click="resetaddfjbt">重置</el-button>
+          </el-form-item>
+        </el-form>
+      </el-dialog>
+    </div>
+
+    <!-- 修改风景标题的对话框 -->
+    <div>
+      <el-dialog :visible.sync="openupdatefjbt" :close-on-click-modal="false" title="修改标题">
+        <div>
+          <el-form>
+            <el-form-item>
+              <el-input v-model="updateInfofjbt.messageGroup" placeholder="信息分组" clearable></el-input>
+            </el-form-item>
+            <el-form-item>
+              <el-input v-model="updateInfofjbt.messageKey" placeholder="信息关键词" type="textarea" autosize clearable></el-input>
+            </el-form-item>
+            <el-form-item>
+              <el-input v-model="updateInfofjbt.message" placeholder="信息内容" type="textarea" autosize clearable></el-input>
+            </el-form-item>
+            <el-form-item>
+              <el-button type="success" @click="updatefjbt">保存</el-button>
+              <el-button @click="openupdatefjbt = false">关闭</el-button>
+            </el-form-item>
+          </el-form>
+        </div>
+      </el-dialog>
+    </div>
+
+    <!-- 查看风景标题的对话框 -->
+    <div>
+      <el-dialog :visible.sync="openckfjbt" :close-on-click-modal="false" title="查看标题">
+        <div>
+          <el-form>
+            <el-form-item label="信息分组：">
+              <span>{{ ckfjbtlist.messageGroup }}</span>
+            </el-form-item>
+            <el-form-item label="信息关键词：">
+              <span>{{ ckfjbtlist.messageKey }}</span>
+            </el-form-item>
+            <el-form-item label="信息内容：">
+              <el-input v-model="ckfjbtlist.message" placeholder="信息内容" type="textarea" autosize clearable></el-input>
+            </el-form-item>
+          </el-form>
+        </div>
+      </el-dialog>
+    </div>
+
+    <!-- 添加风景图片的对话框 -->
+    <div>
+      <el-dialog :visible.sync="openaddfjtp" :close-on-click-modal="false" title="添加图片">
+        <el-form>
+          <el-form-item label="文件描述：">
+            <el-input v-model="addInfofjtp.fileinfo" placeholder="文件描述："></el-input>
+          </el-form-item>
+          <el-form-item>
+            <el-button @click="openFile">选择文件...</el-button>
+            <span v-if="file">&nbsp;{{ file.name }}</span>
+          </el-form-item>
+          <el-form-item>
+            <el-button type="success" @click="addfjtp">添加</el-button>
+            <el-button @click="resetaddfjtp">重置</el-button>
+          </el-form-item>
+        </el-form>
+      </el-dialog>
+    </div>
+
+    <!-- 预览风景图片的对话框 -->
+    <div>
+      <el-dialog title="图片预览" :visible.sync="ckfjtp">
+        <div class="show-img">
+          <img :src="imgUrl" alt="" />
+        </div>
+      </el-dialog>
+    </div>
+
+    <!-- 添加图片信息的对话框 -->
+    <div>
+      <el-dialog :visible.sync="openaddfjtpxx" :close-on-click-modal="false" title="添加图片信息">
+        <el-form>
+          <el-form-item label="信息分组：">
+            <el-input v-model="addInfofjtpxx.messageGroup" placeholder="信息分组"></el-input>
+          </el-form-item>
+          <el-form-item label="信息关键字：">
+            <el-input v-model="addInfofjtpxx.messageKey" placeholder="信息关键词" clearable></el-input>
+          </el-form-item>
+          <el-form-item label="内容描述：">
+            <el-input v-model="addInfofjtpxx.message" placeholder="信息内容" type="textarea" autosize clearable></el-input>
+          </el-form-item>
+          <el-form-item>
+            <el-button type="success" @click="addfjtpxx">添加</el-button>
+            <el-button @click="resetaddfjtpxx">重置</el-button>
+          </el-form-item>
+        </el-form>
+      </el-dialog>
+    </div>
+
+    <!-- 修改图片信息的对话框 -->
+    <div>
+      <el-dialog :visible.sync="openupdatefjtpxx" :close-on-click-modal="false" title="修改图片信息">
+        <div>
+          <el-form>
+            <el-form-item>
+              <el-input v-model="updateInfofjtpxx.messageGroup" placeholder="信息分组" clearable></el-input>
+            </el-form-item>
+            <el-form-item>
+              <el-input v-model="updateInfofjtpxx.messageKey" placeholder="信息关键词" type="textarea" autosize clearable></el-input>
+            </el-form-item>
+            <el-form-item>
+              <el-input v-model="updateInfofjtpxx.message" placeholder="信息内容" type="textarea" autosize clearable></el-input>
+            </el-form-item>
+            <el-form-item>
+              <el-button type="success" @click="updatefjtpxx">保存</el-button>
+              <el-button @click="openupdatefjtpxx = false">关闭</el-button>
+            </el-form-item>
+          </el-form>
+        </div>
+      </el-dialog>
+    </div>
+
+    <!-- 查看图片信息的对话框 -->
+    <div>
+      <el-dialog :visible.sync="openckfjtpxx" :close-on-click-modal="false" title="查看图片信息">
+        <div>
+          <el-form>
+            <el-form-item label="信息分组：">
+              <span>{{ ckfjtpxxlist.messageGroup }}</span>
+            </el-form-item>
+            <el-form-item label="信息关键词：">
+              <span>{{ ckfjtpxxlist.messageKey }}</span>
+            </el-form-item>
+            <el-form-item label="信息内容：">
+              <el-input v-model="ckfjtpxxlist.message" placeholder="信息内容" type="textarea" autosize clearable></el-input>
+            </el-form-item>
+          </el-form>
+        </div>
+      </el-dialog>
     </div>
   </div>
 </template>
 
 <script>
 import Page from '../../components/Page';
+import tools from '../../js/tools';
 export default {
   components: { Page },
   name: 'Index',
@@ -133,7 +458,7 @@ export default {
       },
       activelist: [],
       activePage: {
-        pageSize: 5,
+        pageSize: 4,
         pageNumber: 1
       },
       addInfo: {
@@ -144,11 +469,542 @@ export default {
       },
       openadd: false,
       openck: false,
+      cklist: {},
       openupdate: false,
-      updateInfo: {}
+      updateInfo: {},
+      fjbtlist: [],
+      fjbtPage: {
+        pageSize: 4,
+        pageNumber: 1
+      },
+      fjbtloading: false,
+      openaddfjbt: false,
+      addInfofjbt: {
+        accessKey: this.$accessKey,
+        messageGroup: 'index',
+        messageKey: 'fjbt',
+        message: ''
+      },
+      openckfjbt: false,
+      ckfjbtlist: {},
+      openupdatefjbt: false,
+      updateInfofjbt: {},
+      fjtplist: [],
+      fjtploading: false,
+      fjtpPage: {
+        pageSize: 4,
+        pageNumber: 1
+      },
+      queryInfofjtp: {
+        fileinfo: '',
+        filename: '',
+        contentType: ''
+      },
+      openaddfjtp: false,
+      file: null,
+      addInfofjtp: {
+        fileinfo: '风景图片'
+      },
+      imgUrl: '',
+      ckfjtp: false,
+      fjtpxxlist: [],
+      fjtpxxPage: {
+        pageSize: 4,
+        pageNumber: 1
+      },
+      fjtpxxloading: false,
+      openaddfjtpxx: false,
+      addInfofjtpxx: {
+        accessKey: this.$accessKey,
+        messageGroup: 'index',
+        messageKey: 'fjtpxx',
+        message: ''
+      },
+      openckfjtpxx: false,
+      ckfjtpxxlist: {},
+      openupdatefjtpxx: false,
+      updateInfofjtpxx: {}
     };
   },
   methods: {
+    // 刷新风景图片信息页面的方法
+    queryNewfjtpxx() {
+      this.queryFjtpxx();
+    },
+    // 获取风景图片信息修改数据的方法
+    showupdatefjtpxx(info) {
+      this.openupdatefjtpxx = true;
+      this.updateInfofjtpxx = JSON.parse(JSON.stringify(info));
+    },
+    // 修改风景图片信息的方法
+    updatefjtpxx() {
+      this.$ajax(
+        '/portable/message/update',
+        {
+          tbPortableMessage: this.updateInfofjtpxx
+        },
+        function(data) {
+          if (!data.success) {
+            this.$notify.error({
+              title: '失败',
+              message: '修改失败',
+              type: 'success'
+            });
+            return;
+          }
+          this.openupdatefjtpxx = false;
+          this.$notify({
+            title: '成功',
+            message: '修改成功',
+            type: 'success'
+          });
+          this.queryFjtpxx();
+        }
+      );
+      this.queryFjtpxx();
+    },
+    // 删除风景图片信息的方法
+    delfjtpxx(info) {
+      this.$confirm('是否删除此图片信息?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      })
+        .then(() => {
+          this.$ajax(
+            '/portable/message/delete',
+            {
+              tbPortableMessage: {
+                accessKey: this.$accessKey,
+                pmid: info.pmid
+              }
+            },
+            function(data) {
+              if (!data.success) {
+                this.$notify.error({
+                  title: '失败',
+                  message: '删除失败',
+                  type: 'success'
+                });
+                return;
+              }
+              this.$notify({
+                title: '成功',
+                message: '删除成功',
+                type: 'success'
+              });
+              this.queryFjtpxx();
+            }
+          );
+        })
+        .catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消删除'
+          });
+        });
+    },
+    // 查看风景图片信息的方法
+    ckfjtpxx(info) {
+      this.openckfjtpxx = true;
+      this.ckfjtpxxlist = JSON.parse(JSON.stringify(info));
+    },
+    // 重置风景图片信息添加表单的方法
+    resetaddfjtpxx() {
+      this.addInfofjtpxx = {
+        accessKey: this.$accessKey,
+        messageGroup: 'index',
+        messageKey: 'fjtpxx',
+        message: ''
+      };
+    },
+    // 添加风景图片信息的方法
+    addfjtpxx() {
+      if (this.addInfofjtpxx.messageGroup == '') {
+        this.$message({
+          message: '信息分组必须填写!',
+          type: 'warning'
+        });
+
+        return;
+      }
+      if (this.addInfofjtpxx.messageKey == '') {
+        this.$message({
+          message: '信息关键词必须填写!',
+          type: 'warning'
+        });
+        return;
+      }
+      if (this.addInfofjtpxx.message == '') {
+        this.$message({
+          message: '内容描述必须填写!',
+          type: 'warning'
+        });
+        return;
+      }
+      this.$ajax(
+        '/portable/message/add',
+        {
+          tbPortableMessage: this.addInfofjtpxx
+        },
+        function(data) {
+          if (!data.success) {
+            this.$notify.error({
+              title: '失败',
+              message: '添加失败，同一个分组信息关键词不能相同！！！',
+              type: 'success'
+            });
+            return;
+          }
+          this.openaddfjtpxx = false;
+          this.$notify({
+            title: '成功',
+            message: '添加成功',
+            type: 'success'
+          });
+          this.addInfofjtpxx = {
+            accessKey: this.$accessKey,
+            messageGroup: 'index',
+            messageKey: 'tpxx',
+            message: ''
+          };
+          this.queryFjtpxx();
+        }
+      );
+    },
+    // 查询风景图片信息的方法
+    queryFjtpxx() {
+      this.$ajax(
+        '/portable/message/queryAll',
+        {
+          tbPortableMessage: {
+            accessKey: this.$accessKey,
+            messageGroup: 'index'
+          },
+          page: this.fjtpxxPage
+        },
+        function(data) {
+          if (!data.success) {
+            this.$message.error(data.message);
+            return;
+          }
+          this.fjtpxxlist = data.resultData.list;
+          this.fjtpxxPage = data.resultData.page;
+        }
+      );
+      this.fjtpxxloading = true;
+      setTimeout(() => {
+        this.fjtpxxloading = false;
+      }, 200);
+    },
+    // 删除图片的方法
+    delfjtp(file) {
+      this.$confirm('是否删除此图片?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      })
+        .then(() => {
+          this.$ajax(
+            '/file/delete',
+            {
+              'tbFile.fid': file.fid
+            },
+            function(data) {
+              if (!data.success) {
+                this.$notify.error({
+                  title: '失败',
+                  message: '删除失败',
+                  type: 'success'
+                });
+                return;
+              }
+              this.$notify({
+                title: '成功',
+                message: '删除成功',
+                type: 'success'
+              });
+              this.queryFjtp();
+            }
+          );
+        })
+        .catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消删除'
+          });
+        });
+    },
+    // 判断是否是图片的方法
+    isImage(file) {
+      return file.contentType.substr(0, 6) == 'image/';
+    },
+    // 查看风景图片的方法
+    showfjtp(file) {
+      this.ckfjtp = true;
+      this.imgUrl = this.$getDownloadUrl(file.fid);
+    },
+    // 下载风景图片的方法
+    downloadfjtp(info) {
+      window.open(this.$getDownloadUrl(info.fid));
+    },
+    // 重置风景图片添加表单的方法
+    resetaddfjtp() {
+      this.addInfofjtp = {
+        fileinfo: '风景图片'
+      };
+      this.file = null;
+    },
+    // 获取风景图片的文件的方法
+    openFile() {
+      let app = this;
+      tools.openFile(function(file) {
+        app.file = file;
+      });
+    },
+    // 添加风景图片的方法
+    addfjtp() {
+      let app = this;
+      if (this.addInfofjtp.fileinfo == '') {
+        app.$message({
+          message: '文件描述必须填写!',
+          type: 'warning'
+        });
+        return;
+      }
+      if (app.file == null) {
+        app.$message({
+          message: '必须选择一个文件!',
+          type: 'warning'
+        });
+        return;
+      }
+      app.$sendFile(
+        '/file/upload',
+        app.file,
+        {
+          'tbFile.fileinfo': this.addInfofjtp.fileinfo
+        },
+        function(data) {
+          // app.$message(data.message);
+          if (!data.success) {
+            app.$notify.error({
+              title: '失败',
+              message: '添加失败,' + data.message,
+              type: 'success'
+            });
+            app.resetaddfjtp();
+            return;
+          }
+          app.$message(data.message);
+          app.openaddfjtp = false;
+          app.$notify({
+            title: '成功',
+            message: '添加成功',
+            type: 'success'
+          });
+          app.resetaddfjtp();
+          app.queryFjtp();
+        }
+      );
+    },
+    // 刷新风景图片页面的方法
+    queryNewfjtp() {
+      this.queryFjtp();
+    },
+    // 查询风景图片的方法
+    queryFjtp() {
+      this.$ajax(
+        '/file/query',
+        {
+          tbFile: this.queryInfofjtp,
+          page: this.fjtpPage
+        },
+        function(data) {
+          if (!data.success) {
+            this.$message.error(data.message);
+            return;
+          }
+          this.fjtplist = data.resultData.list;
+          this.fjtpPage = data.resultData.page;
+        }
+      );
+      this.fjtploading = true;
+      setTimeout(() => {
+        this.fjtploading = false;
+      }, 200);
+    },
+    // 刷新风景标题页面的方法
+    queryNewfjbt() {
+      this.queryFjbt();
+    },
+    // 获取风景标题修改数据的方法
+    showupdatefjbt(info) {
+      this.openupdatefjbt = true;
+      this.updateInfofjbt = JSON.parse(JSON.stringify(info));
+    },
+    // 修改风景标题的方法
+    updatefjbt() {
+      this.$ajax(
+        '/portable/message/update',
+        {
+          tbPortableMessage: this.updateInfofjbt
+        },
+        function(data) {
+          if (!data.success) {
+            this.$notify.error({
+              title: '失败',
+              message: '修改失败',
+              type: 'success'
+            });
+            return;
+          }
+          this.openupdatefjbt = false;
+          this.$notify({
+            title: '成功',
+            message: '修改成功',
+            type: 'success'
+          });
+          this.queryFjbt();
+        }
+      );
+      this.queryFjbt();
+    },
+    // 删除风景标题的方法
+    delfjbt(info) {
+      this.$confirm('是否删除此标题?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      })
+        .then(() => {
+          this.$ajax(
+            '/portable/message/delete',
+            {
+              tbPortableMessage: {
+                accessKey: this.$accessKey,
+                pmid: info.pmid
+              }
+            },
+            function(data) {
+              if (!data.success) {
+                this.$notify.error({
+                  title: '失败',
+                  message: '删除失败',
+                  type: 'success'
+                });
+                return;
+              }
+              this.$notify({
+                title: '成功',
+                message: '删除成功',
+                type: 'success'
+              });
+              this.queryFjbt();
+            }
+          );
+        })
+        .catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消删除'
+          });
+        });
+    },
+    // 查看风景标题的方法
+    ckfjbt(info) {
+      this.openckfjbt = true;
+      this.ckfjbtlist = JSON.parse(JSON.stringify(info));
+    },
+    // 重置风景标题添加表单的方法
+    resetaddfjbt() {
+      this.addInfofjbt = {
+        accessKey: this.$accessKey,
+        messageGroup: 'index',
+        messageKey: 'fjbt',
+        message: ''
+      };
+    },
+    // 添加风景标题的方法
+    addfjbt() {
+      if (this.addInfofjbt.messageGroup == '') {
+        this.$message({
+          message: '信息分组必须填写!',
+          type: 'warning'
+        });
+
+        return;
+      }
+      if (this.addInfofjbt.messageKey == '') {
+        this.$message({
+          message: '信息关键词必须填写!',
+          type: 'warning'
+        });
+        return;
+      }
+      if (this.addInfofjbt.message == '') {
+        this.$message({
+          message: '内容描述必须填写!',
+          type: 'warning'
+        });
+        return;
+      }
+      this.$ajax(
+        '/portable/message/add',
+        {
+          tbPortableMessage: this.addInfofjbt
+        },
+        function(data) {
+          if (!data.success) {
+            this.$notify.error({
+              title: '失败',
+              message: '添加失败，同一个分组信息关键词不能相同！！！',
+              type: 'success'
+            });
+            return;
+          }
+          this.openaddfjbt = false;
+          this.$notify({
+            title: '成功',
+            message: '添加成功',
+            type: 'success'
+          });
+          this.addInfofjbt = {
+            accessKey: this.$accessKey,
+            messageGroup: 'index',
+            messageKey: 'fjbt',
+            message: ''
+          };
+          this.queryFjbt();
+        }
+      );
+    },
+    // 查询风景标题的方法
+    queryFjbt() {
+      this.$ajax(
+        '/portable/message/queryAll',
+        {
+          tbPortableMessage: {
+            accessKey: this.$accessKey,
+            messageGroup: 'index'
+          },
+          page: this.fjbtPage
+        },
+        function(data) {
+          if (!data.success) {
+            this.$message.error(data.message);
+            return;
+          }
+          this.fjbtlist = data.resultData.list;
+          this.fjbtPage = data.resultData.page;
+        }
+      );
+      this.fjbtloading = true;
+      setTimeout(() => {
+        this.fjbtloading = false;
+      }, 200);
+    },
+    // 刷新活动信息页面的方法
     queryNew() {
       this.queryInfo = {
         accessKey: this.$accessKey,
@@ -157,10 +1013,12 @@ export default {
       };
       this.queryActive();
     },
+    // 获取活动信息修改数据的方法
     showupdate(info) {
       this.openupdate = true;
       this.updateInfo = JSON.parse(JSON.stringify(info));
     },
+    // 修改活动信息的方法
     update() {
       this.$ajax(
         '/portable/active/update',
@@ -187,6 +1045,7 @@ export default {
       );
       this.queryActive();
     },
+    // 删除活动信息的方法
     del(info) {
       this.$confirm('是否删除此活动?', '提示', {
         confirmButtonText: '确定',
@@ -227,10 +1086,12 @@ export default {
           });
         });
     },
+    // 查看活动信息的方法
     ck(info) {
       this.openck = true;
-      console.log(info.paid);
+      this.cklist = JSON.parse(JSON.stringify(info));
     },
+    // 重置活动信息添加表单的方法
     resetadd() {
       this.addInfo = {
         activeInfo: '',
@@ -238,6 +1099,7 @@ export default {
         activeTitle: ''
       };
     },
+    // 添加活动信息的方法
     add() {
       if (this.addInfo.activeTime == '') {
         this.$message({
@@ -291,6 +1153,7 @@ export default {
         }
       );
     },
+    // 查询活动信息的方法
     queryActive() {
       this.$ajax(
         '/portable/active/queryAll',
@@ -313,6 +1176,7 @@ export default {
         this.activeloading = false;
       }, 200);
     },
+    // 首页管理界面加载的方法
     queryAll() {
       this.loading = true;
       setTimeout(() => {
@@ -324,8 +1188,12 @@ export default {
     }
   },
   created() {
+    // 页面刷新出发的查询
     this.queryAll();
     this.queryActive();
+    this.queryFjbt();
+    this.queryFjtp();
+    this.queryFjtpxx();
   }
 };
 </script>
@@ -393,5 +1261,11 @@ body {
 
 .ck-info div {
   margin: 1rem;
+}
+
+.show-img img {
+  display: flex;
+  width: 100%;
+  height: auto;
 }
 </style>
