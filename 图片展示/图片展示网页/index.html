@@ -1,14 +1,102 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh">
 
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>图片展示</title>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>图片展示</title>
+
+	<!--可无视-->
+	<link rel="stylesheet" type="text/css" href="css/reset.css">
+
+
+	<!--主要样式-->
+	<link rel="stylesheet" href="css/style.css">
+
+
+
+
 </head>
 
 <body>
+
+
+	<div id="wrap">
+		<a href="#" class="hb">
+			<div class="c">
+				<img src="images/1.jpg" alt="" />
+				<div class="txt">
+					<h1>2019.09.07</h1>
+					<p>军训时光</p>
+				</div>
+			</div>
+		</a>
+		<div class="fullBg">
+			<img src="images/1.jpg" alt="" />
+		</div>
+		<a href="#" class="hb">
+			<div class="c">
+				<img src="images/2.jpg" alt="" />
+				<div class="txt">
+					<h1>2019.11.04</h1>
+					<p>与二班的篮球友谊赛</p>
+				</div>
+			</div>
+		</a>
+		<div class="fullBg">
+			<img src="images/2.jpg" alt="" />
+		</div>
+		<a href="#" class="hb">
+			<div class="c">
+				<img src="images/3.jpg" alt="" />
+				<div class="txt">
+					<h1>2019.11.07</h1>
+					<p>体育课</p>
+				</div>
+			</div>
+		</a>
+		<div class="fullBg">
+			<img src="images/3.jpg" alt="" />
+		</div>
+		<a href="#" class="hb">
+			<div class="c">
+				<img src="images/4.jpg" alt="" />
+				<div class="txt">
+					<h1>2019.11.25</h1>
+					<p>入学军训完之后的第一个讲座</p>
+				</div>
+			</div>
+		</a>
+		<div class="fullBg">
+			<img src="images/4.jpg" alt="" />
+		</div>
+	</div>
+
+	<script src="js/jquery-1.11.0.min.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		$(document).ready(function () {
+			var docWidth = $('body').width(),
+				$wrap = $('#wrap'),
+				$images = $('#wrap .hb'),
+				slidesWidth = $wrap.width();
+
+			$(window).on('resize', function () {
+				docWidth = $('body').width();
+				slidesWidth = $wrap.width();
+			})
+
+			$(document).mousemove(function (e) {
+				var mouseX = e.pageX,
+					offset = mouseX / docWidth * slidesWidth - mouseX / 2;
+
+				$images.css({
+					'-webkit-transform': 'translate3d(' + -offset + 'px,0,0)',
+					'transform': 'translate3d(' + -offset + 'px,0,0)'
+				});
+			});
+		})
+	</script>
 
 </body>
 
