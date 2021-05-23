@@ -19,15 +19,15 @@
     <el-dialog title="修改登录密码" :visible.sync="pwdVisible" :close-on-click-modal="false">
       <div>
         <el-form>
-          <el-form-item>
+          <el-form-item label="密码：">
             <el-input type="password" v-model="pwd" placeholder="密码"></el-input>
           </el-form-item>
-          <el-form-item>
+          <el-form-item label="确认密码：">
             <el-input type="password" v-model="pwd2" placeholder="确认密码"></el-input>
           </el-form-item>
 
           <el-form-item>
-            <el-button @click="modifyPwd">修改密码</el-button>
+            <el-button type="success" @click="modifyPwd">保存修改</el-button>
             <el-button @click="pwdVisible = false">关闭</el-button>
           </el-form-item>
         </el-form>

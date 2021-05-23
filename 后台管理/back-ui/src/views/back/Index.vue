@@ -12,49 +12,54 @@
       <el-tab-pane label="班级档案">
         <span slot="label"><i class="el-icon-folder-opened"> 班级档案</i></span>
         <div>
-          <div class="classhd">班级活动</div>
+          <el-tabs :tab-position="(tabPosition = 'left')" style="height: 500px;">
+            <el-tab-pane label="活动信息">
+              <span slot="label"><i class="el-icon-tickets"> 活动信息</i></span>
+              <div class="classhd">活动信息</div>
 
-          <div class="query-btn">
-            <div>
-              <el-input v-model="queryInfo.activeTime" placeholder="日期模糊查询"></el-input>
-            </div>
-            <div>
-              <el-input v-model="queryInfo.activeTitle" placeholder=" 标题模糊查询"></el-input>
-            </div>
-            <div>
-              <el-button type="primary" icon="el-icon-search" @click="queryActive">查询</el-button>
-            </div>
-            <div>
-              <el-button type="success" icon="el-icon-plus" @click="openadd = true">添加</el-button>
-            </div>
-            <div>
-              <el-button type="primary" icon="el-icon-refresh-right" round @click="queryNew">刷新</el-button>
-            </div>
-          </div>
-          <div>
-            <el-table :data="activelist" stripe v-loading="activeloading" height="340">
-              <el-table-column label="日期" prop="activeTime" sortable>
-                <template slot-scope="scope">
-                  <i class="el-icon-time"></i>
-                  <span style="margin-left: 10px">{{ scope.row.activeTime }}</span>
-                </template>
-              </el-table-column>
-              <el-table-column label="标题" prop="activeTitle"></el-table-column>
-              <el-table-column label="最后修改时间" sortable prop="lastupdate">
-                <template slot-scope="scope">
-                  {{ scope.row.lastupdate | formatDate }}
-                </template>
-              </el-table-column>
-              <el-table-column label="操作">
-                <template slot-scope="socpe">
-                  <el-button type="success" plain icon="el-icon-search" @click="ck(socpe.row)">查看</el-button>
-                  <el-button type="primary" plain icon="el-icon-edit" @click="showupdate(socpe.row)">编辑</el-button>
-                  <el-button type="danger" plain icon="el-icon-delete" @click="del(socpe.row)">删除</el-button>
-                </template>
-              </el-table-column>
-            </el-table>
-            <page :page="activePage" @page-change="queryActive" v-loading="activeloading" class="pg"></page>
-          </div>
+              <div class="query-btn">
+                <div>
+                  <el-input v-model="queryInfo.activeTime" placeholder="日期模糊查询"></el-input>
+                </div>
+                <div>
+                  <el-input v-model="queryInfo.activeTitle" placeholder=" 标题模糊查询"></el-input>
+                </div>
+                <div>
+                  <el-button type="primary" icon="el-icon-search" @click="queryActive">查询</el-button>
+                </div>
+                <div>
+                  <el-button type="success" icon="el-icon-plus" @click="openadd = true">添加</el-button>
+                </div>
+                <div>
+                  <el-button type="primary" icon="el-icon-refresh-right" round @click="queryNew">刷新</el-button>
+                </div>
+              </div>
+              <div>
+                <el-table :data="activelist" stripe v-loading="activeloading" height="340">
+                  <el-table-column label="日期" prop="activeTime" sortable>
+                    <template slot-scope="scope">
+                      <i class="el-icon-time"></i>
+                      <span style="margin-left: 10px">{{ scope.row.activeTime }}</span>
+                    </template>
+                  </el-table-column>
+                  <el-table-column label="标题" prop="activeTitle"></el-table-column>
+                  <el-table-column label="最后修改时间" sortable prop="lastupdate">
+                    <template slot-scope="scope">
+                      {{ scope.row.lastupdate | formatDate }}
+                    </template>
+                  </el-table-column>
+                  <el-table-column label="操作">
+                    <template slot-scope="socpe">
+                      <el-button type="success" plain icon="el-icon-search" @click="ck(socpe.row)">查看</el-button>
+                      <el-button type="primary" plain icon="el-icon-edit" @click="showupdate(socpe.row)">编辑</el-button>
+                      <el-button type="danger" plain icon="el-icon-delete" @click="del(socpe.row)">删除</el-button>
+                    </template>
+                  </el-table-column>
+                </el-table>
+                <page :page="activePage" @page-change="queryActive" v-loading="activeloading" class="pg"></page>
+              </div>
+            </el-tab-pane>
+          </el-tabs>
         </div>
       </el-tab-pane>
       <!-- 路上风景 -->
@@ -216,7 +221,35 @@
       <el-tab-pane label="一些话">
         <span slot="label"><i class="el-icon-chat-line-round"> 一些话</i></span>
         <div>
-          一些话部分
+          <div class="classhd">一些话</div>
+
+          <div class="query-btn">
+            <div>
+              <el-button type="success" icon="el-icon-plus" @click="openaddyxh = true">添加</el-button>
+            </div>
+            <div>
+              <el-button type="primary" icon="el-icon-refresh-right" round @click="queryNewyxh">刷新</el-button>
+            </div>
+          </div>
+          <div>
+            <el-table :data="yxhlist" stripe v-loading="yxhloading" height="340">
+              <el-table-column label="信息分组" prop="messageGroup"></el-table-column>
+              <el-table-column label="信息关键词" prop="messageKey"></el-table-column>
+              <el-table-column label="最后修改时间" sortable prop="lastupdate">
+                <template slot-scope="scope">
+                  {{ scope.row.lastupdate | formatDate }}
+                </template>
+              </el-table-column>
+              <el-table-column label="操作">
+                <template slot-scope="socpe">
+                  <el-button type="success" plain icon="el-icon-search" @click="ckyxh(socpe.row)">查看</el-button>
+                  <el-button type="primary" plain icon="el-icon-edit" @click="showupdateyxh(socpe.row)">编辑</el-button>
+                  <el-button type="danger" plain icon="el-icon-delete" @click="delyxh(socpe.row)">删除</el-button>
+                </template>
+              </el-table-column>
+            </el-table>
+            <page :page="yxhPage" @page-change="queryYxh" class="pg" v-loading="yxhloading"></page>
+          </div>
         </div>
       </el-tab-pane>
     </el-tabs>
@@ -437,6 +470,69 @@
         </div>
       </el-dialog>
     </div>
+
+    <!-- 添加一些话的对话框 -->
+    <div>
+      <el-dialog :visible.sync="openaddyxh" :close-on-click-modal="false" title="添加一些话">
+        <el-form>
+          <el-form-item label="信息分组：">
+            <el-input v-model="addInfoyxh.messageGroup" placeholder="信息分组"></el-input>
+          </el-form-item>
+          <el-form-item label="信息关键字：">
+            <el-input v-model="addInfoyxh.messageKey" placeholder="信息关键词" clearable></el-input>
+          </el-form-item>
+          <el-form-item label="内容描述：">
+            <el-input v-model="addInfoyxh.message" placeholder="信息内容" type="textarea" autosize clearable></el-input>
+          </el-form-item>
+          <el-form-item>
+            <el-button type="success" @click="addyxh">添加</el-button>
+            <el-button @click="resetaddyxh">重置</el-button>
+          </el-form-item>
+        </el-form>
+      </el-dialog>
+    </div>
+
+    <!-- 修改一些话的对话框 -->
+    <div>
+      <el-dialog :visible.sync="openupdateyxh" :close-on-click-modal="false" title="修改一些话">
+        <div>
+          <el-form>
+            <el-form-item>
+              <el-input v-model="updateInfoyxh.messageGroup" placeholder="信息分组" clearable></el-input>
+            </el-form-item>
+            <el-form-item>
+              <el-input v-model="updateInfoyxh.messageKey" placeholder="信息关键词" type="textarea" autosize clearable></el-input>
+            </el-form-item>
+            <el-form-item>
+              <el-input v-model="updateInfoyxh.message" placeholder="信息内容" type="textarea" autosize clearable></el-input>
+            </el-form-item>
+            <el-form-item>
+              <el-button type="success" @click="updateyxh">保存</el-button>
+              <el-button @click="openupdateyxh = false">关闭</el-button>
+            </el-form-item>
+          </el-form>
+        </div>
+      </el-dialog>
+    </div>
+
+    <!-- 查看一些话的对话框 -->
+    <div>
+      <el-dialog :visible.sync="openckyxh" :close-on-click-modal="false" title="查看一些话">
+        <div>
+          <el-form>
+            <el-form-item label="信息分组：">
+              <span>{{ ckyxhlist.messageGroup }}</span>
+            </el-form-item>
+            <el-form-item label="信息关键词：">
+              <span>{{ ckyxhlist.messageKey }}</span>
+            </el-form-item>
+            <el-form-item label="信息内容：">
+              <el-input v-model="ckyxhlist.message" placeholder="信息内容" type="textarea" autosize clearable></el-input>
+            </el-form-item>
+          </el-form>
+        </div>
+      </el-dialog>
+    </div>
   </div>
 </template>
 
@@ -448,7 +544,9 @@ export default {
   name: 'Index',
   data() {
     return {
+      // 全局loading
       loading: false,
+      // 班级活动、活动日志
       activeloading: false,
       queryInfo: {
         accessKey: this.$accessKey,
@@ -472,6 +570,7 @@ export default {
       cklist: {},
       openupdate: false,
       updateInfo: {},
+      // 风景标题
       fjbtlist: [],
       fjbtPage: {
         pageSize: 4,
@@ -481,7 +580,7 @@ export default {
       openaddfjbt: false,
       addInfofjbt: {
         accessKey: this.$accessKey,
-        messageGroup: 'index',
+        messageGroup: 'indexfjbt',
         messageKey: 'fjbt',
         message: ''
       },
@@ -489,6 +588,7 @@ export default {
       ckfjbtlist: {},
       openupdatefjbt: false,
       updateInfofjbt: {},
+      // 风景图片
       fjtplist: [],
       fjtploading: false,
       fjtpPage: {
@@ -507,6 +607,7 @@ export default {
       },
       imgUrl: '',
       ckfjtp: false,
+      // 风景图片信息
       fjtpxxlist: [],
       fjtpxxPage: {
         pageSize: 4,
@@ -516,17 +617,205 @@ export default {
       openaddfjtpxx: false,
       addInfofjtpxx: {
         accessKey: this.$accessKey,
-        messageGroup: 'index',
+        messageGroup: 'indexfjtpxx',
         messageKey: 'fjtpxx',
         message: ''
       },
       openckfjtpxx: false,
       ckfjtpxxlist: {},
       openupdatefjtpxx: false,
-      updateInfofjtpxx: {}
+      updateInfofjtpxx: {},
+      // 一些话
+      yxhlist: [],
+      yxhPage: {
+        pageSize: 4,
+        pageNumber: 1
+      },
+      yxhloading: false,
+      openaddyxh: false,
+      addInfoyxh: {
+        accessKey: this.$accessKey,
+        messageGroup: 'indexyxh',
+        messageKey: 'yxh',
+        message: ''
+      },
+      openckyxh: false,
+      ckyxhlist: {},
+      openupdateyxh: false,
+      updateInfoyxh: {}
     };
   },
   methods: {
+    // 刷新一些话页面的方法
+    queryNewyxh() {
+      this.queryYxh();
+    },
+    // 获取一些话修改数据的方法
+    showupdateyxh(info) {
+      this.openupdateyxh = true;
+      this.updateInfoyxh = JSON.parse(JSON.stringify(info));
+    },
+    // 修改一些话息的方法
+    updateyxh() {
+      this.$ajax(
+        '/portable/message/update',
+        {
+          tbPortableMessage: this.updateInfoyxh
+        },
+        function(data) {
+          if (!data.success) {
+            this.$notify.error({
+              title: '失败',
+              message: '修改失败',
+              type: 'success'
+            });
+            return;
+          }
+          this.openupdateyxh = false;
+          this.$notify({
+            title: '成功',
+            message: '修改成功',
+            type: 'success'
+          });
+          this.queryYxh();
+        }
+      );
+      this.queryYxh();
+    },
+    // 删除一些话的方法
+    delyxh(info) {
+      this.$confirm('是否删除此项话?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      })
+        .then(() => {
+          this.$ajax(
+            '/portable/message/delete',
+            {
+              tbPortableMessage: {
+                accessKey: this.$accessKey,
+                pmid: info.pmid
+              }
+            },
+            function(data) {
+              if (!data.success) {
+                this.$notify.error({
+                  title: '失败',
+                  message: '删除失败',
+                  type: 'success'
+                });
+                return;
+              }
+              this.$notify({
+                title: '成功',
+                message: '删除成功',
+                type: 'success'
+              });
+              this.queryYxh();
+            }
+          );
+        })
+        .catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消删除'
+          });
+        });
+    },
+    // 查看一些话的方法
+    ckyxh(info) {
+      this.openckyxh = true;
+      this.ckyxhlist = JSON.parse(JSON.stringify(info));
+    },
+    // 重置一些话添加表单的方法
+    resetaddyxh() {
+      this.addInfoyxh = {
+        accessKey: this.$accessKey,
+        messageGroup: 'indexyxh',
+        messageKey: 'yxh',
+        message: ''
+      };
+    },
+    // 添加一些话的方法
+    addyxh() {
+      if (this.addInfoyxh.messageGroup == '') {
+        this.$message({
+          message: '信息分组必须填写!',
+          type: 'warning'
+        });
+
+        return;
+      }
+      if (this.addInfoyxh.messageKey == '') {
+        this.$message({
+          message: '信息关键词必须填写!',
+          type: 'warning'
+        });
+        return;
+      }
+      if (this.addInfoyxh.message == '') {
+        this.$message({
+          message: '内容描述必须填写!',
+          type: 'warning'
+        });
+        return;
+      }
+      this.$ajax(
+        '/portable/message/add',
+        {
+          tbPortableMessage: this.addInfoyxh
+        },
+        function(data) {
+          if (!data.success) {
+            this.$notify.error({
+              title: '失败',
+              message: '添加失败，同一个分组信息关键词不能相同！！！',
+              type: 'success'
+            });
+            return;
+          }
+          this.openaddyxh = false;
+          this.$notify({
+            title: '成功',
+            message: '添加成功',
+            type: 'success'
+          });
+          this.addInfoyxh = {
+            accessKey: this.$accessKey,
+            messageGroup: 'indexyxh',
+            messageKey: 'yxh',
+            message: ''
+          };
+          this.queryYxh();
+        }
+      );
+    },
+    // 查询一些话息的方法
+    queryYxh() {
+      this.$ajax(
+        '/portable/message/queryAll',
+        {
+          tbPortableMessage: {
+            accessKey: this.$accessKey,
+            messageGroup: 'indexyxh'
+          },
+          page: this.yxhPage
+        },
+        function(data) {
+          if (!data.success) {
+            this.$message.error(data.message);
+            return;
+          }
+          this.yxhlist = data.resultData.list;
+          this.yxhPage = data.resultData.page;
+        }
+      );
+      this.yxhloading = true;
+      setTimeout(() => {
+        this.yxhloading = false;
+      }, 200);
+    },
     // 刷新风景图片信息页面的方法
     queryNewfjtpxx() {
       this.queryFjtpxx();
@@ -613,7 +902,7 @@ export default {
     resetaddfjtpxx() {
       this.addInfofjtpxx = {
         accessKey: this.$accessKey,
-        messageGroup: 'index',
+        messageGroup: 'indexfjtpxx',
         messageKey: 'fjtpxx',
         message: ''
       };
@@ -664,8 +953,8 @@ export default {
           });
           this.addInfofjtpxx = {
             accessKey: this.$accessKey,
-            messageGroup: 'index',
-            messageKey: 'tpxx',
+            messageGroup: 'indexfjtpxx',
+            messageKey: 'fjtpxx',
             message: ''
           };
           this.queryFjtpxx();
@@ -679,7 +968,7 @@ export default {
         {
           tbPortableMessage: {
             accessKey: this.$accessKey,
-            messageGroup: 'index'
+            messageGroup: 'indexfjtpxx'
           },
           page: this.fjtpxxPage
         },
@@ -986,7 +1275,7 @@ export default {
         {
           tbPortableMessage: {
             accessKey: this.$accessKey,
-            messageGroup: 'index'
+            messageGroup: 'indexfjbt'
           },
           page: this.fjbtPage
         },
@@ -1194,6 +1483,7 @@ export default {
     this.queryFjbt();
     this.queryFjtp();
     this.queryFjtpxx();
+    this.queryYxh();
   }
 };
 </script>
