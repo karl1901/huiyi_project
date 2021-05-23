@@ -154,9 +154,7 @@
                   <div id="mycarousel" class="carousel slide" data-ride="carousel">
                     <div class="carousel-inner">
                       <div class="item active">
-                        <img class="img-responsive"
-                          src="https://img.zcool.cn/community/01c8f15aeac135a801207fa16836ae.jpg@1280w_1l_2o_100sh.jpg"
-                          alt="">
+                        <img class="img-responsive" src="https://img.zcool.cn/community/01c8f15aeac135a801207fa16836ae.jpg@1280w_1l_2o_100sh.jpg" alt="">
                         <div class="carousel-caption">
                           活动有关图片1
                         </div>
@@ -166,9 +164,7 @@
                         </p>
                       </div>
                       <div class="item">
-                        <img class="img-responsive"
-                          src="https://img.zcool.cn/community/01c8f15aeac135a801207fa16836ae.jpg@1280w_1l_2o_100sh.jpg"
-                          alt="">
+                        <img class="img-responsive" src="https://img.zcool.cn/community/01c8f15aeac135a801207fa16836ae.jpg@1280w_1l_2o_100sh.jpg" alt="">
                         <div class="carousel-caption">
                           活动有关图片2
                         </div>
@@ -178,9 +174,7 @@
                         </p>
                       </div>
                       <div class="item">
-                        <img class="img-responsive"
-                          src="https://img.zcool.cn/community/01c8f15aeac135a801207fa16836ae.jpg@1280w_1l_2o_100sh.jpg"
-                          alt="">
+                        <img class="img-responsive" src="https://img.zcool.cn/community/01c8f15aeac135a801207fa16836ae.jpg@1280w_1l_2o_100sh.jpg" alt="">
                         <div class="carousel-caption">
                           活动有关图片3
                         </div>
@@ -190,9 +184,7 @@
                         </p>
                       </div>
                       <div class="item">
-                        <img class="img-responsive"
-                          src="https://img.zcool.cn/community/01c8f15aeac135a801207fa16836ae.jpg@1280w_1l_2o_100sh.jpg"
-                          alt="">
+                        <img class="img-responsive" src="https://img.zcool.cn/community/01c8f15aeac135a801207fa16836ae.jpg@1280w_1l_2o_100sh.jpg" alt="">
                         <div class="carousel-caption">
                           活动有关图片4
                         </div>
@@ -202,9 +194,7 @@
                         </p>
                       </div>
                       <div class="item">
-                        <img class="img-responsive"
-                          src="https://img.zcool.cn/community/01c8f15aeac135a801207fa16836ae.jpg@1280w_1l_2o_100sh.jpg"
-                          alt="">
+                        <img class="img-responsive" src="https://img.zcool.cn/community/01c8f15aeac135a801207fa16836ae.jpg@1280w_1l_2o_100sh.jpg" alt="">
                         <div class="carousel-caption">
                           活动有关图片5
                         </div>
@@ -214,9 +204,7 @@
                         </p>
                       </div>
                       <div class="item">
-                        <img class="img-responsive"
-                          src="https://img.zcool.cn/community/01c8f15aeac135a801207fa16836ae.jpg@1280w_1l_2o_100sh.jpg"
-                          alt="">
+                        <img class="img-responsive" src="https://img.zcool.cn/community/01c8f15aeac135a801207fa16836ae.jpg@1280w_1l_2o_100sh.jpg" alt="">
                         <div class="carousel-caption">
                           活动有关图片6
                         </div>
@@ -249,40 +237,20 @@
           </div>
           <div class="fj">
 
-            <div>
+            <div v-for="img in images" :key="img.fid">
               <div>{{resultFjtpxx.fjtpxx}}</div>
-              <img src="./image/头像.jpg" alt="">
+              <img :src="getImg(img.fid)" alt="">
             </div>
 
-            <div>
-              <div>{{resultFjtpxx.fjtpxx01}}</div>
-              <img src="./image/头像.jpg" alt="">
-            </div>
+            <span>
+              <a href="https:kangxianghui.top">更多>></a>
+            </span>
 
-            <div>
-              <div>{{resultFjtpxx.fjtpxx02}}</div>
-              <img src="./image/头像.jpg" alt="">
-            </div>
-
-            <div>
-              <div>{{resultFjtpxx.fjtpxx03}}</div>
-              <img src="./image/头像.jpg" alt="">
-            </div>
-
-            <div>
-              <div>{{resultFjtpxx.fjtpxx04}}</div>
-              <img src="./image/头像.jpg" alt="">
-            </div>
-
-            <div>
-              <div>{{resultFjtpxx.fjtpxx05}}</div>
-              <img src="./image/头像.jpg" alt="">
-            </div>
 
           </div>
           <br>
           <div class="bi">
-            <!-- 其他内容 -->
+
           </div>
         </div>
       </div>

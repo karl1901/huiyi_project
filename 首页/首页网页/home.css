@@ -162,7 +162,7 @@ header div:last-child {
   padding: 2rem;
 }
 
-.fj>div {
+.fj > div {
   display: block;
   position: relative;
   border: 10px solid #ffffff;
@@ -175,13 +175,31 @@ header div:last-child {
   margin: 1rem;
 }
 
-.fj>div img {
+.fj span {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+}
+
+.fj a {
+  color: rgb(0, 0, 0);
+  font-size: 1.3rem;
+  font-weight: bold;
+}
+
+.fj a:hover {
+  color: rgb(0, 0, 0);
+  font-size: 1.3rem;
+  font-weight: bold;
+}
+
+.fj > div img {
   width: 100%;
   height: 100%;
   background-size: cover;
 }
 
-.fj>div>div:nth-child(1) {
+.fj > div > div:nth-child(1) {
   position: absolute;
   padding: 1rem;
   color: #ffffff;
@@ -197,7 +215,7 @@ header div:last-child {
   transform: translate(-50%, -50%);
 }
 
-.fj>div:hover>div:nth-child(1) {
+.fj > div:hover > div:nth-child(1) {
   transform: translate(0%, 0%);
 }
 
@@ -309,24 +327,24 @@ header div:last-child {
   padding: 2rem;
 }
 
-.rz>ul>div:nth-child(odd) {
+.rz > ul > div:nth-child(odd) {
   background: rgba(255, 255, 255, 0.507);
   padding: 0.5rem;
 }
 
-.rz>ul>div:nth-child(even) {
+.rz > ul > div:nth-child(even) {
   background: rgb(253, 253, 253);
   padding: 0.5rem;
 }
 
-.rz>ul {
+.rz > ul {
   width: 100%;
   height: auto;
   margin: 0;
   padding: 0;
 }
 
-.rz>ul div {
+.rz > ul div {
   padding: 16px;
   color: #232424;
   font-size: 15px;
@@ -360,77 +378,6 @@ header div:last-child {
   margin-top: 25rem;
   margin-left: -4rem;
   transform: rotate(85deg);
-}
-
-/* 屏幕滚动动画 */
-.one {
-  margin: 0px;
-}
-
-.two {
-  margin: 0px;
-}
-
-.three {
-  margin: 0px;
-}
-
-.four {
-  margin: 0px;
-}
-
-.five {
-  margin: 0px;
-}
-
-.module {
-  position: relative;
-  float: left;
-  opacity: 0;
-}
-
-.module:nth-child(even) {
-  margin-right: 0;
-}
-
-.come-in {
-  transform: translateX(-50%);
-  animation: come-in 0.5s cubic-bezier(0, -0.01, 0, 0.99) forwards;
-}
-
-.come-in:nth-child(odd) {
-  animation-delay: 0.1s;
-  animation-duration: 1s;
-}
-
-.leave {
-  transform: translateX(-50%);
-  animation: leave 0.5s cubic-bezier(0, -0.01, 0, 0.99) forwards;
-}
-
-.leave:nth-child(odd) {
-  animation-delay: 0.1s;
-  animation-duration: 1s;
-}
-
-.already-visible {
-  transform: translateY(0);
-  animation: none;
-  opacity: 1;
-}
-
-@keyframes come-in {
-  to {
-    transform: translateX(0);
-    opacity: 1;
-  }
-}
-
-@keyframes leave {
-  to {
-    transform: translateX(-50%);
-    opacity: 0;
-  }
 }
 
 /* 脚部样式  */

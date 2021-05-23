@@ -67,12 +67,12 @@
           '/file/query',
           {
             // 只显示第一页前四个
-            page: { pageSize: 4, pageNumber: 1 },
+            page: { pageSize: 6, pageNumber: 1 },
             tbFile: {
               // 只查询图片
               contentType: 'image/',
               // 只查询风景图片的
-              fileinfo: '相册'
+              fileinfo: '风景图片'
             }
           },
           function (data) {
