@@ -36,6 +36,7 @@
               </div>
               <div>
                 <el-table :data="activelist" stripe v-loading="activeloading" height="340">
+                  <el-table-column label="活动编号" prop="paid"></el-table-column>
                   <el-table-column label="日期" prop="activeTime" sortable>
                     <template slot-scope="scope">
                       <i class="el-icon-time"></i>
@@ -50,13 +51,46 @@
                   </el-table-column>
                   <el-table-column label="操作">
                     <template slot-scope="socpe">
-                      <el-button type="success" plain icon="el-icon-search" @click="ck(socpe.row)">查看</el-button>
-                      <el-button type="primary" plain icon="el-icon-edit" @click="showupdate(socpe.row)">编辑</el-button>
-                      <el-button type="danger" plain icon="el-icon-delete" @click="del(socpe.row)">删除</el-button>
+                      <el-button type="success" size="medium" plain icon="el-icon-search" @click="ck(socpe.row)">查看</el-button>
+                      <el-button type="primary" size="medium" plain icon="el-icon-edit" @click="showupdate(socpe.row)">编辑</el-button>
+                      <el-button type="danger" size="medium" plain icon="el-icon-delete" @click="del(socpe.row)"></el-button>
                     </template>
                   </el-table-column>
                 </el-table>
                 <page :page="activePage" @page-change="queryActive" v-loading="activeloading" class="pg"></page>
+              </div>
+            </el-tab-pane>
+            <el-tab-pane label="活动图片">
+              <span slot="label"><i class="el-icon-picture-outline"></i> 活动图片</span>
+              <div class="classhd">活动图片</div>
+
+              <div class="query-btn">
+                <div>
+                  <el-button type="success" icon="el-icon-plus" @click="openaddactivetp = true">添加</el-button>
+                </div>
+                <div>
+                  <el-button type="primary" icon="el-icon-refresh-right" round @click="queryNewactivetp">刷新</el-button>
+                </div>
+              </div>
+              <div>
+                <el-table :data="activetplist" stripe v-loading="activetploading" height="340">
+                  <el-table-column label="活动编号" prop="paid"></el-table-column>
+                  <el-table-column label="图片文件编号" prop="fid"></el-table-column>
+                  <el-table-column label="图片描述信息" prop="imgInfo"></el-table-column>
+                  <el-table-column label="最后修改时间" sortable prop="lastupdate">
+                    <template slot-scope="scope">
+                      {{ scope.row.lastupdate | formatDate }}
+                    </template>
+                  </el-table-column>
+                  <el-table-column label="操作">
+                    <template slot-scope="socpe">
+                      <el-button type="success" plain icon="el-icon-search" v-if="isImage(socpe.row)" @click="showactivetp(socpe.row)">预览</el-button>
+                      <el-button type="primary" plain icon="el-icon-download" @click="downloadactivetp(socpe.row)"></el-button>
+                      <el-button type="danger" plain icon="el-icon-delete" @click="delactivetp(socpe.row)"></el-button>
+                    </template>
+                  </el-table-column>
+                </el-table>
+                <page :page="activetpPage" @page-change="queryActivetp" v-loading="activetploading" class="pg"></page>
               </div>
             </el-tab-pane>
           </el-tabs>
@@ -382,7 +416,7 @@
 
     <!-- 添加风景图片的对话框 -->
     <div>
-      <el-dialog :visible.sync="openaddfjtp" :close-on-click-modal="false" title="添加图片">
+      <el-dialog :visible.sync="openaddfjtp" :close-on-click-modal="false" title="添加风景图片">
         <el-form>
           <el-form-item label="文件描述：">
             <el-input v-model="addInfofjtp.fileinfo" placeholder="文件描述："></el-input>
@@ -401,7 +435,7 @@
 
     <!-- 预览风景图片的对话框 -->
     <div>
-      <el-dialog title="图片预览" :visible.sync="ckfjtp">
+      <el-dialog title="风景图片预览" :visible.sync="ckfjtp">
         <div class="show-img">
           <img :src="imgUrl" alt="" />
         </div>
@@ -533,6 +567,42 @@
         </div>
       </el-dialog>
     </div>
+
+    <!-- 添加活动图片的对话框 -->
+    <div>
+      <el-dialog :visible.sync="openaddactivetp" :close-on-click-modal="false" title="添加活动图片">
+        <el-form>
+          <el-form-item label="活动编号：">
+            <el-input v-model="addInfoactivetp.paid" placeholder="活动编号："></el-input>
+          </el-form-item>
+          <el-form-item label="图片编号：">
+            <el-input v-model="addInfoactivetp.fid" placeholder="图片文件编号："></el-input>
+          </el-form-item>
+          <el-form-item label="图片描述信息：">
+            <el-input v-model="addInfoactivetp.imgInfo" placeholder="图片描述信息："></el-input>
+          </el-form-item>
+          <el-form-item>
+            <el-input v-model="addInfofjtp.fileinfo" placeholder="上传文件描述"></el-input>
+            <el-button type="primary" @click="addfjtp">上传至服务器</el-button>
+            <el-button @click="openFile">选择文件...</el-button>
+            <span v-if="file">&nbsp;{{ file.name }}</span>
+          </el-form-item>
+          <el-form-item>
+            <el-button type="success" @click="addactivetp">添加</el-button>
+            <el-button @click="resetaddactivetp">重置</el-button>
+          </el-form-item>
+        </el-form>
+      </el-dialog>
+    </div>
+
+    <!-- 预览风景图片的对话框 -->
+    <div>
+      <el-dialog title="活动图片预览" :visible.sync="ckactivetp">
+        <div class="show-img">
+          <img :src="imgUrl01" alt="" />
+        </div>
+      </el-dialog>
+    </div>
   </div>
 </template>
 
@@ -546,7 +616,7 @@ export default {
     return {
       // 全局loading
       loading: false,
-      // 班级活动、活动日志
+      // 班级活动、活动日志信息
       activeloading: false,
       queryInfo: {
         accessKey: this.$accessKey,
@@ -570,6 +640,22 @@ export default {
       cklist: {},
       openupdate: false,
       updateInfo: {},
+      // 班级活动、活动日志图片
+      activetplist: [],
+      activetploading: false,
+      activetpPage: {
+        pageSize: 4,
+        pageNumber: 1
+      },
+      openaddactivetp: false,
+      addInfoactivetp: {
+        accessKey: this.$accessKey,
+        paid: '',
+        fid: '',
+        imgInfo: ''
+      },
+      imgUrl01: '',
+      ckactivetp: false,
       // 风景标题
       fjbtlist: [],
       fjbtPage: {
@@ -646,6 +732,104 @@ export default {
     };
   },
   methods: {
+    // 重置活动图片添加表单的方法
+    resetaddactivetp() {
+      (this.addInfoactivetp = {
+        accessKey: this.$accessKey,
+        paid: '',
+        fid: '',
+        imgInfo: ''
+      }),
+        (this.file = null);
+    },
+    // 添加活动图片的方法
+    addactivetp() {
+      let app = this;
+      if (this.addInfoactivetp.paid == '') {
+        app.$message({
+          message: '活动编号必须填写!',
+          type: 'warning'
+        });
+        return;
+      }
+      if (this.addInfoactivetp.fid == '') {
+        app.$message({
+          message: '图片文件编号须填写!',
+          type: 'warning'
+        });
+        return;
+      }
+      if (this.addInfoactivetp.imgInfo == '') {
+        app.$message({
+          message: '图片描述信息必须填写!',
+          type: 'warning'
+        });
+        return;
+      }
+      if (app.file == null) {
+        app.$message({
+          message: '必须选择一个文件!',
+          type: 'warning'
+        });
+        return;
+      }
+      app.$sendFile(
+        '/portable/active/imgaes/add',
+        {
+          tbPortableActiveImages: this.addInfoactivetp
+        },
+        function(data) {
+          // app.$message(data.message);
+          if (!data.success) {
+            app.$notify.error({
+              title: '失败',
+              message: '添加失败,' + data.message,
+              type: 'success'
+            });
+            app.resetaddactivetp();
+            return;
+          }
+          app.$message(data.message);
+          app.openaddactivetp = false;
+          app.$notify({
+            title: '成功',
+            message: '添加成功',
+            type: 'success'
+          });
+          // app.resetaddactivetp();
+          app.queryActivetp();
+        }
+      );
+    },
+    // 刷新活动图片页面的方法
+    queryNewactivetp() {
+      this.queryActivetp();
+    },
+    // 查询活动图片的方法
+    queryActivetp() {
+      this.$ajax(
+        '/portable/active/imgaes/queryAllByPaid',
+        {
+          tbPortableActiveImages: {
+            accessKey: this.$accessKey,
+            paid: this.activelist.paid
+          },
+          page: this.activetpPage
+        },
+        function(data) {
+          if (!data.success) {
+            this.$message.error(data.message);
+            return;
+          }
+          this.activetplist = data.resultData.list;
+          this.activetpPage = data.resultData.page;
+        }
+      );
+      this.activetploading = true;
+      setTimeout(() => {
+        this.activetploading = false;
+      }, 200);
+    },
     // 刷新一些话页面的方法
     queryNewyxh() {
       this.queryYxh();
@@ -1484,6 +1668,7 @@ export default {
     this.queryFjtp();
     this.queryFjtpxx();
     this.queryYxh();
+    this.queryActivetp();
   }
 };
 </script>
