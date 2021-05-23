@@ -243,7 +243,9 @@
           <div class="fj">
 
             <div v-for="img in images" :key="img.fid">
-              <div>{{resultFjtpxx.fjtpxx}}</div>
+              <div v-for="x in resultFjtpxx" v-if="x.messageKey==img.fid">
+                {{x.message}}
+              </div>
               <img :src="getImg(img.fid)" alt="">
             </div>
 

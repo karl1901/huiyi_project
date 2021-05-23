@@ -147,8 +147,9 @@
         }
       },
       function (data) {
-        let result = ajax.converData(data.resultData.list);
-        app.resultFjtpxx = result;
+        // let result = ajax.converData(data.resultData.list);
+        // app.resultFjtpxx = result;
+        app.resultFjtpxx = data.resultData.list;
       }
     );
   }
