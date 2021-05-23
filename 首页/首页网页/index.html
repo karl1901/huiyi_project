@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh">
 
 <head>
   <meta charset="UTF-8">
@@ -55,6 +55,9 @@
         <input type="text" v-model="imgcode" />
         <img :src="imgSrc" title="点击更换图片" @click="changeImg" />
         <button @click="login">登陆</button>
+        <div>
+          {{data.message}}
+        </div>
       </div>
     </span>
 
@@ -95,19 +98,21 @@
                   <a href="#" class="list-group-item active">
                     班级活动
                   </a>
-                  <a href="#" class="list-group-item" data-target="#mycarousel" data-slide-to="0">
-                    <div class="media-left media-middle">
-                      <div>
-                        2019.8.30
+                  <span v-for="a in resultActive" :key="a.paid">
+                    <a href="#" class="list-group-item" data-target="#mycarousel" data-slide-to="0">
+                      <div class="media-left media-middle">
+                        <div class="hd-time">
+                          {{a.activeTime}}
+                        </div>
                       </div>
-                    </div>
-                    <div class="media-body">
-                      <div class="ti">
-                        <h4 class="media-heading">入学军训</h4>
+                      <div class="media-body">
+                        <div class="ti">
+                          <h4 class="media-heading">{{a.activeTitle}}</h4>
+                        </div>
                       </div>
-                    </div>
-                  </a>
-                  <a href="#" class="list-group-item" data-target="#mycarousel" data-slide-to="1" class="">
+                    </a>
+                  </span>
+                  <!-- <a href="#" class="list-group-item" data-target="#mycarousel" data-slide-to="1" class="">
                     <div class="media-left media-middle">
                       <div>
                         2019.11.04
@@ -142,7 +147,7 @@
                         <h4 class="media-heading">计算机班团聚</h4>
                       </div>
                     </div>
-                  </a>
+                  </a> -->
                 </ul>
               </article>
             </div>
@@ -156,14 +161,14 @@
                       <div class="item active">
                         <img class="img-responsive" src="https://img.zcool.cn/community/01c8f15aeac135a801207fa16836ae.jpg@1280w_1l_2o_100sh.jpg" alt="">
                         <div class="carousel-caption">
-                          活动有关图片1
+                          <!-- 活动有关图片1 -->
                         </div>
                         <br>
                         <p class="text-left">
                         <h5>我们学会了坚韧不拔，学会了服从命令。军训，就是要培养我们的品质，磨砺我们的意志。经历了军训，我们获益匪浅;通过了军训，我们无比骄傲</h5>
                         </p>
                       </div>
-                      <div class="item">
+                      <!-- <div class="item">
                         <img class="img-responsive" src="https://img.zcool.cn/community/01c8f15aeac135a801207fa16836ae.jpg@1280w_1l_2o_100sh.jpg" alt="">
                         <div class="carousel-caption">
                           活动有关图片2
@@ -212,7 +217,7 @@
                         <p class="text-center">
                           活动介绍或者感悟...
                         </p>
-                      </div>
+                      </div> -->
                     </div>
                   </div>
                 </div>
@@ -243,7 +248,7 @@
             </div>
 
             <span>
-              <a href="https:kangxianghui.top">更多>></a>
+              <a href="../../图片展示/图片展示资源包/图片展示排版参考/index.html">更多>></a>
             </span>
 
 

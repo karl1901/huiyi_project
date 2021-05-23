@@ -394,3 +394,8 @@ footer {
 .tu img {
   width: 100%;
 }
+
+.hd-time {
+  display: flex;
+  width: 8vw;
+}

@@ -5,7 +5,9 @@
     el: '#app',
     data() {
       return {
-        // title: '个人相册',
+        // 服务器请求结果
+        data: {},
+        // title: '风景图片',
         imgcode: '',
         tbUser: {
           username: '',
@@ -15,7 +17,7 @@
         imgSrc: '',
         loginUser: ajax.loadUser(),
         images: [],
-        resultActive: {},
+        resultActive: [],
         queryActive: {
           accessKey: ajax.getAccessKey(),
           activeTime: '',
@@ -55,7 +57,9 @@
               app.query();
               app.queryActive();
               app.queryFjbt();
+              app.queryYxh();
             }
+            app.data = data;
           }
         );
       },
@@ -76,7 +80,7 @@
             }
           },
           function (data) {
-            console.log(data);
+            // console.log(data);
             if (data.success) {
               app.images = data.resultData.list;
             }
@@ -110,9 +114,9 @@
       },
       function (data) {
         console.log(data.resultData.list);
-        let result = ajax.converData01(data.resultData.list);
-        console.log(result);
-        app.resultActive = result;
+        // let result = ajax.converData01(data.resultData.list);
+        // console.log(result);
+        app.resultActive = data.resultData.list;
       }
     );
   }
