@@ -98,7 +98,7 @@
                   <a href="#" class="list-group-item active">
                     班级活动
                   </a>
-                  <span v-for="a in resultActive" :key="a.paid">
+                  <span v-for="a in resultActive">
                     <a href="#" class="list-group-item" data-target="#mycarousel" data-slide-to="0">
                       <div class="media-left media-middle">
                         <div class="hd-time">
@@ -274,17 +274,17 @@
           </div>
           <div class="rz">
             <ul>
-              <div class="media">
+              <div class="media" v-for="a1 in resultActive">
                 <div class="media-left">
                   <img class="media-object " src="./image/头像.jpg" alt="" width="60px" height="60px">
                   <!-- <div class="yuan">2019.9.1</div> -->
                 </div>
                 <div class="media-body">
-                  <h4 class="media-heading">日志日期或者标题（2019.8.30）</h4>
-                  我们学会了坚韧不拔，学会了服从命令。军训，就是要培养我们的品质，磨砺我们的意志。经历了军训，我们获益匪浅;通过了军训，我们无比骄傲
+                  <h4 class="media-heading">{{a1.activeTitle}} （{{a1.activeTime}}）</h4>
+                  {{a1.activeInfo}}
                 </div>
               </div>
-
+              <!-- 
               <div class="media">
                 <div class="media-body">
                   <h4 class="media-heading">日志日期或者标题（2021.5.18）</h4>
@@ -292,14 +292,14 @@
                 </div>
                 <div class="media-right">
                   <img class="media-object " src="./image/头像.jpg" alt="" width="60px" height="60px">
-                  <!-- <div class="yuan">2019.9.1</div> -->
+                  
                 </div>
               </div>
 
               <div class="media">
                 <div class="media-left">
                   <img class="media-object " src="./image/头像.jpg" alt="" width="60px" height="60px">
-                  <!-- <div class="yuan">2019.9.1</div> -->
+                  
                 </div>
                 <div class="media-body">
                   <h4 class="media-heading">日志日期或者标题（2021.5.18）</h4>
@@ -314,9 +314,9 @@
                 </div>
                 <div class="media-right">
                   <img class="media-object " src="./image/头像.jpg" alt="" width="60px" height="60px">
-                  <!-- <div class="yuan">2019.9.1</div> -->
+                  
                 </div>
-              </div>
+              </div> -->
             </ul>
           </div>
         </div>
