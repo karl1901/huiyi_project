@@ -100,7 +100,7 @@
       <el-tab-pane label="路上风景">
         <span slot="label"><i class="el-icon-sunrise-1"> 路上风景</i></span>
         <div>
-          <el-tabs :tab-position="(tabPosition = 'left')" style="height: 500px;">
+          <el-tabs :tab-position="(tabPosition = 'left')" style="height: 570px;">
             <el-tab-pane label="标题">
               <span slot="label"><i class="el-icon-document"> 标题</i></span>
               <div class="classhd">标题</div>
@@ -180,9 +180,16 @@
                 </div>
               </div>
               <div>
-                <el-table :data="fjtpxxlist" stripe v-loading="fjtpxxloading" height="340">
+                <el-table :data="fjtpxxlist" stripe v-loading="fjtpxxloading" height="420">
                   <el-table-column label="信息分组" prop="messageGroup"></el-table-column>
                   <el-table-column label="信息关键词" prop="messageKey"></el-table-column>
+                  <el-table-column label="对应的展示图片">
+                    <template slot-scope="socpe">
+                      <el-tooltip content="点击查看图片" placement="right" effect="light">
+                        <img :src="getUrl(socpe.row)" alt="" height="55px" width="110px" @click="ckimg(socpe.row)" />
+                      </el-tooltip>
+                    </template>
+                  </el-table-column>
                   <el-table-column label="最后修改时间" sortable prop="lastupdate">
                     <template slot-scope="scope">
                       {{ scope.row.lastupdate | formatDate }}
@@ -190,9 +197,9 @@
                   </el-table-column>
                   <el-table-column label="操作">
                     <template slot-scope="socpe">
-                      <el-button type="success" plain icon="el-icon-search" @click="ckfjtpxx(socpe.row)">查看</el-button>
-                      <el-button type="primary" plain icon="el-icon-edit" @click="showupdatefjtpxx(socpe.row)">编辑</el-button>
-                      <el-button type="danger" plain icon="el-icon-delete" @click="delfjtpxx(socpe.row)">删除</el-button>
+                      <el-button type="success" size="medium" plain icon="el-icon-search" @click="ckfjtpxx(socpe.row)">查看</el-button>
+                      <el-button type="primary" size="medium" plain icon="el-icon-edit" @click="showupdatefjtpxx(socpe.row)">编辑</el-button>
+                      <el-button type="danger" size="medium" plain icon="el-icon-delete" @click="delfjtpxx(socpe.row)"></el-button>
                     </template>
                   </el-table-column>
                 </el-table>
@@ -505,6 +512,15 @@
       </el-dialog>
     </div>
 
+    <!-- 查看图片的对话框 -->
+    <div>
+      <el-dialog title="图片预览" :visible.sync="ckfjtp01">
+        <div class="show-img">
+          <img :src="imgUrl02" alt="" />
+        </div>
+      </el-dialog>
+    </div>
+
     <!-- 添加一些话的对话框 -->
     <div>
       <el-dialog :visible.sync="openaddyxh" :close-on-click-modal="false" title="添加一些话">
@@ -709,6 +725,8 @@ export default {
       },
       openckfjtpxx: false,
       ckfjtpxxlist: {},
+      imgUrl02: '',
+      ckfjtp01: false,
       openupdatefjtpxx: false,
       updateInfofjtpxx: {},
       // 一些话
@@ -1144,6 +1162,15 @@ export default {
           this.queryFjtpxx();
         }
       );
+    },
+    // 查看图片的方法
+    ckimg(info) {
+      this.ckfjtp01 = true;
+      this.imgUrl02 = this.$getDownloadUrl(info.messageKey);
+    },
+    // 获取图片连接的方法
+    getUrl(info) {
+      return this.$getDownloadUrl(info.messageKey);
     },
     // 查询风景图片信息的方法
     queryFjtpxx() {
