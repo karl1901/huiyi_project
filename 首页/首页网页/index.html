@@ -12,38 +12,29 @@
 </head>
 <style>
   /* 回到顶部样式 */
-  #top {
-    display: block;
-    width: 40px;
-    height: 40px;
-    position: fixed;
-    bottom: 50px;
+  .top {
+    border: 1px solid transparent;
     border-radius: 50%;
-    right: 40px;
-    text-decoration: none;
-    box-shadow: 0px 0px 1rem #070707;
-    display: none;
-    background-color: #999999;
+    width: 50px;
+    height: 50px;
+    background-color: teal;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    right: 0px;
+    bottom: 0px;
   }
 
-  #top span {
-    display: block;
-    width: 40px;
-    color: #ffffff;
-    font-size: 20px;
-    text-align: center;
-    margin-top: 8px;
-  }
-
-  #top:hover {
-    background-color: #454646;
-    cursor: pointer;
+  .top a {
+    color: white;
   }
 </style>
 
 <body>
-
+  <a name="top" id="top"></a>
   <span id="app">
+
     <span v-if="!loginUser">
       <div>
         用户名:
@@ -256,10 +247,7 @@
 
 
           </div>
-          <br>
-          <div class="bi">
 
-          </div>
         </div>
       </div>
 
@@ -349,16 +337,15 @@
 
 
       <!-- 回到顶部按钮 -->
-      <a id="top">
-        <span>UP</span>
-      </a>
+      <div class="top">
+        <a href="#top" target="_self">UP</a>
+      </div>
+
 
       <!-- 脚部样式 -->
       <footer>
         <div class="tu"><img src="image/脚部图片.png" alt=""></div>
       </footer>
-
-
 
 
       <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.0/jquery.min.js"></script>
@@ -371,8 +358,8 @@
       <script src="js/ajax.js"></script>
       <script src="js/ajax-ndex.js"></script>
       <script src="home.js"></script>
-    </span>
 
+    </span>
   </span>
 </body>
 
