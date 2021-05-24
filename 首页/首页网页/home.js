@@ -47,9 +47,5 @@ win.scroll(function (event) {
 //       $('#top').stop().fadeOut(400); //如果返回或者没有超过,就淡入.必须加上stop()停止之前动画,否则会出现闪动
 //     }
 //   });
-//   $('#top').click(function () {
-//     //当点击标签的时候,使用animate在200毫秒的时间内,滚到顶部
-//     $('html,body').animate({ scrollTop: '0px' }, 200);
-//   });
 // });
 
