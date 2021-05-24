@@ -14,7 +14,7 @@ header {
 
 header div:first-child {
   /* background: rgb(45, 206, 255); */
-  background-image: url(../image/头部图片.jpg);
+  background-image: url('../首页网页/image/头部图片.jpg');
   height: 100px;
   position: relative;
   background-size: cover;
