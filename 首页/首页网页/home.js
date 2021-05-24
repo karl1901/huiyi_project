@@ -34,10 +34,7 @@ win.scroll(function (event) {
   });
 });
 
-<<<<<<< HEAD
 
-
-=======
 // 回到顶部动画
 // $(function () {
 //   $(window).scroll(function () {
@@ -55,4 +52,4 @@ win.scroll(function (event) {
 //     $('html,body').animate({ scrollTop: '0px' }, 200);
 //   });
 // });
->>>>>>> 02ad0eea5a15126d3eb404f1b280b8bdc4150402
+
