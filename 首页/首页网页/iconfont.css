@@ -6,11 +6,9 @@
 }
 
 @font-face {
-  font-family: 'iconfont'; /* Project id 1552819 */
-  src: url('//at.alicdn.com/t/font_1552819_1gkonxquq1t.woff2?t=1621348674505')
-      format('woff2'),
-    url('//at.alicdn.com/t/font_1552819_1gkonxquq1t.woff?t=1621348674505')
-      format('woff'),
-    url('//at.alicdn.com/t/font_1552819_1gkonxquq1t.ttf?t=1621348674505')
-      format('truetype');
+  font-family: 'iconfont';
+  /* Project id 1552819 */
+  src: url('//at.alicdn.com/t/font_1552819_ec2tzfzubwt.woff2?t=1621939251028') format('woff2'),
+    url('//at.alicdn.com/t/font_1552819_ec2tzfzubwt.woff?t=1621939251028') format('woff'),
+    url('//at.alicdn.com/t/font_1552819_ec2tzfzubwt.ttf?t=1621939251028') format('truetype');
 }

@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="zh">
-
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -12,36 +11,33 @@
 </head>
 <style>
   /* 回到顶部样式 */
-
-  .top {
-    display: block;
+  .btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
     width: 40px;
     height: 40px;
-    position: fixed;
-    bottom: 50px;
+    border: 1px solid transparent;
     border-radius: 50%;
-    background-color: rgba(0, 128, 128, 0.61);
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+
+  .btn a {
     display: flex;
     justify-content: center;
     align-items: center;
-    position: fixed;
-    right: 8rem;
-    bottom: 30px;
-  }
-
-  .top a {
-    color: white;
+    font-size: 2rem;
+    color: #ffffff;
+    cursor: pointer;
     text-decoration: none;
   }
 
-  .top:hover {
-    background-color: #454646b4;
-    cursor: pointer;
+  .btn a:hover {
+    color: #27d1fc;
   }
 </style>
 
 <body>
-  <a name="top" id="top"></a>
   <span id="app">
 
     <span v-if="!loginUser">
@@ -62,9 +58,8 @@
 
     <span v-if="loginUser">
 
-
       <!-- 头部样式及布局 -->
-      <header>
+      <header class="bs-docs-nav navbar navbar-static-top" id="top">
         <!-- 头部图片 -->
         <div></div>
         <!-- 头像 -->
@@ -160,7 +155,9 @@
                   <div id="mycarousel" class="carousel slide" data-ride="carousel">
                     <div class="carousel-inner">
                       <div class="item active">
-                        <img class="img-responsive" src="https://img.zcool.cn/community/01c8f15aeac135a801207fa16836ae.jpg@1280w_1l_2o_100sh.jpg" alt="">
+                        <img class="img-responsive"
+                          src="https://img.zcool.cn/community/01c8f15aeac135a801207fa16836ae.jpg@1280w_1l_2o_100sh.jpg"
+                          alt="">
                         <div class="carousel-caption">
                           <!-- 活动有关图片1 -->
                         </div>
@@ -344,13 +341,10 @@
         </div>
       </div>
 
-
       <!-- 回到顶部按钮 -->
-      <div class="top">
-        <a href="#top" target="_self">UP</a>
+      <div class="btn">
+        <a onclick="pageScroll()"><i class="iconfont">&#xe631;</i></a>
       </div>
-
-
 
       <!-- 脚部样式 -->
       <footer>
@@ -358,6 +352,20 @@
       </footer>
 
 
+      <!-- 回顶动画js -->
+      <script>
+        function pageScroll() {
+          //把内容滚动指定的像素数（第一个参数是向右滚动的像素数，第二个参数是向下滚动的像素数）
+          window.scrollBy(0, -100);
+          //延时递归调用，模拟滚动向上效果
+          scrolldelay = setTimeout('pageScroll()', 20);
+          //获取scrollTop值，声明了DTD的标准网页取document.documentElement.scrollTop，否则取document.body.scrollTop；因为二者只有一个会生效，另一个就恒为0，所以取和值可以得到网页的真正的scrollTop值
+          var sTop = document.documentElement.scrollTop + document.body.scrollTop;
+          //判断当页面到达顶部，取消延时代码（否则页面滚动到顶部会无法再向下正常浏览页面）
+          if (sTop == 0) clearTimeout(scrolldelay);
+        }
+      </script>
+      
       <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.0/jquery.min.js"></script>
       <!-- bootstrap的js导入 -->
       <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js"></script>

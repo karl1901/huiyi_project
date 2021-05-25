@@ -33,7 +33,7 @@ header div:last-child {
 .toux {
   position: absolute;
   left: 20%;
-  top: 3%;
+  top: 10%;
   transform: rotate(15deg);
 }
 
