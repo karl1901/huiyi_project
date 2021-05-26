@@ -12,88 +12,60 @@
       <el-tab-pane label="班级档案">
         <span slot="label"><i class="el-icon-folder-opened"> 班级档案</i></span>
         <div>
-          <el-tabs :tab-position="(tabPosition = 'left')" style="height: 500px;">
-            <el-tab-pane label="活动信息">
-              <span slot="label"><i class="el-icon-tickets"> 活动信息</i></span>
-              <div class="classhd">活动信息</div>
+          <!-- <el-tabs :tab-position="(tabPosition = 'left')" style="height: 500px;"> -->
+          <!-- <el-tab-pane label="活动信息"> -->
+          <!-- <span slot="label"><i class="el-icon-tickets"> 活动信息</i></span> -->
+          <div class="classhd">活动信息</div>
 
-              <div class="query-btn">
-                <div>
-                  <el-input v-model="queryInfo.activeTime" placeholder="日期模糊查询"></el-input>
-                </div>
-                <div>
-                  <el-input v-model="queryInfo.activeTitle" placeholder=" 标题模糊查询"></el-input>
-                </div>
-                <div>
-                  <el-button type="primary" icon="el-icon-search" @click="queryActive">查询</el-button>
-                </div>
-                <div>
-                  <el-button type="success" icon="el-icon-plus" @click="openadd = true">添加</el-button>
-                </div>
-                <div>
-                  <el-button type="primary" icon="el-icon-refresh-right" round @click="queryNew">刷新</el-button>
-                </div>
-              </div>
-              <div>
-                <el-table :data="activelist" stripe v-loading="activeloading" height="340">
-                  <el-table-column label="活动编号" prop="paid"></el-table-column>
-                  <el-table-column label="日期" prop="activeTime" sortable>
-                    <template slot-scope="scope">
-                      <i class="el-icon-time"></i>
-                      <span style="margin-left: 10px">{{ scope.row.activeTime }}</span>
-                    </template>
-                  </el-table-column>
-                  <el-table-column label="标题" prop="activeTitle"></el-table-column>
-                  <el-table-column label="最后修改时间" sortable prop="lastupdate">
-                    <template slot-scope="scope">
-                      {{ scope.row.lastupdate | formatDate }}
-                    </template>
-                  </el-table-column>
-                  <el-table-column label="操作">
-                    <template slot-scope="socpe">
-                      <el-button type="success" size="medium" plain icon="el-icon-search" @click="ck(socpe.row)">查看</el-button>
-                      <el-button type="primary" size="medium" plain icon="el-icon-edit" @click="showupdate(socpe.row)">编辑</el-button>
-                      <el-button type="danger" size="medium" plain icon="el-icon-delete" @click="del(socpe.row)"></el-button>
-                    </template>
-                  </el-table-column>
-                </el-table>
-                <page :page="activePage" @page-change="queryActive" v-loading="activeloading" class="pg"></page>
-              </div>
-            </el-tab-pane>
-            <el-tab-pane label="活动图片">
-              <span slot="label"><i class="el-icon-picture-outline"></i> 活动图片</span>
-              <div class="classhd">活动图片</div>
-
-              <div class="query-btn">
-                <div>
-                  <el-button type="success" icon="el-icon-plus" @click="openaddactivetp = true">添加</el-button>
-                </div>
-                <div>
-                  <el-button type="primary" icon="el-icon-refresh-right" round @click="queryNewactivetp">刷新</el-button>
-                </div>
-              </div>
-              <div>
-                <el-table :data="activetplist" stripe v-loading="activetploading" height="340">
-                  <el-table-column label="活动编号" prop="paid"></el-table-column>
-                  <el-table-column label="图片文件编号" prop="fid"></el-table-column>
-                  <el-table-column label="图片描述信息" prop="imgInfo"></el-table-column>
-                  <el-table-column label="最后修改时间" sortable prop="lastupdate">
-                    <template slot-scope="scope">
-                      {{ scope.row.lastupdate | formatDate }}
-                    </template>
-                  </el-table-column>
-                  <el-table-column label="操作">
-                    <template slot-scope="socpe">
-                      <el-button type="success" plain icon="el-icon-search" v-if="isImage(socpe.row)" @click="showactivetp(socpe.row)">预览</el-button>
-                      <el-button type="primary" plain icon="el-icon-download" @click="downloadactivetp(socpe.row)"></el-button>
-                      <el-button type="danger" plain icon="el-icon-delete" @click="delactivetp(socpe.row)"></el-button>
-                    </template>
-                  </el-table-column>
-                </el-table>
-                <page :page="activetpPage" @page-change="queryActivetp" v-loading="activetploading" class="pg"></page>
-              </div>
-            </el-tab-pane>
-          </el-tabs>
+          <div class="query-btn">
+            <div>
+              <el-input v-model="queryInfo.activeTime" placeholder="日期模糊查询"></el-input>
+            </div>
+            <div>
+              <el-input v-model="queryInfo.activeTitle" placeholder=" 标题模糊查询"></el-input>
+            </div>
+            <div>
+              <el-button type="primary" icon="el-icon-search" @click="queryActive">查询</el-button>
+            </div>
+            <div>
+              <el-button type="success" icon="el-icon-plus" @click="openadd = true">添加活动</el-button>
+            </div>
+            <div>
+              <el-button type="success" icon="el-icon-plus" @click="openaddactivetp = true">添加活动图片</el-button>
+            </div>
+            <div>
+              <el-button type="primary" icon="el-icon-refresh-right" round @click="queryNew">刷新</el-button>
+            </div>
+          </div>
+          <div>
+            <el-table :data="activelist" stripe v-loading="activeloading" height="460">
+              <el-table-column label="活动编号" prop="paid"></el-table-column>
+              <el-table-column label="日期" prop="activeTime" sortable>
+                <template slot-scope="scope">
+                  <i class="el-icon-time"></i>
+                  <span style="margin-left: 10px">{{ scope.row.activeTime }}</span>
+                </template>
+              </el-table-column>
+              <el-table-column label="标题" prop="activeTitle"></el-table-column>
+              <el-table-column label="最后修改时间" sortable prop="lastupdate">
+                <template slot-scope="scope">
+                  {{ scope.row.lastupdate | formatDate }}
+                </template>
+              </el-table-column>
+              <el-table-column label="操作">
+                <template slot-scope="socpe">
+                  <el-button type="success" size="medium" plain icon="el-icon-search" @click="ck(socpe.row)">信息</el-button>
+                  <el-button type="success" size="medium" plain icon="el-icon-search" @click="selectActiveImg(socpe.row)">图片</el-button>
+                  <br />
+                  <el-button type="primary" size="medium" plain icon="el-icon-edit" @click="showupdate(socpe.row)">编辑</el-button>
+                  <el-button type="danger" size="medium" plain icon="el-icon-delete" @click="del(socpe.row)">删除</el-button>
+                </template>
+              </el-table-column>
+            </el-table>
+            <page :page="activePage" @page-change="queryActive" v-loading="activeloading" class="pg"></page>
+          </div>
+          <!-- </el-tab-pane> -->
+          <!-- </el-tabs> -->
         </div>
       </el-tab-pane>
       <!-- 路上风景 -->
@@ -146,10 +118,16 @@
                 </div>
               </div>
               <div>
-                <el-table :data="fjtplist" stripe v-loading="fjtploading" height="340">
+                <el-table :data="fjtplist" stripe v-loading="fjtploading" height="420">
                   <el-table-column label="文件编号" prop="fid"></el-table-column>
                   <el-table-column label="文件名称" prop="filename"></el-table-column>
-                  <el-table-column label="文件类型" prop="contentType"></el-table-column>
+                  <el-table-column label="风景图片">
+                    <template slot-scope="scope">
+                      <el-tooltip content="点击查看图片" placement="right" effect="light">
+                        <img :src="scope.row.fid | fileurl" alt="" height="55px" width="110px" @click="showfjtp(scope.row)" />
+                      </el-tooltip>
+                    </template>
+                  </el-table-column>
                   <el-table-column label="文件描述" prop="fileinfo"></el-table-column>
                   <el-table-column label="最后修改时间" sortable prop="lastupdate">
                     <template slot-scope="scope">
@@ -211,9 +189,12 @@
       </el-tab-pane>
       <!-- 更新日志 -->
       <el-tab-pane label="更新日志">
-        <span slot="label"><i class="el-icon-notebook-2"> 更新日志</i></span>
+        <span slot="label"><i class="el-icon-folder-opened"> 更新日志</i></span>
         <div>
-          <div class="classhd">活动日志</div>
+          <!-- <el-tabs :tab-position="(tabPosition = 'left')" style="height: 500px;"> -->
+          <!-- <el-tab-pane label="活动信息"> -->
+          <!-- <span slot="label"><i class="el-icon-tickets"> 活动信息</i></span> -->
+          <div class="classhd">日志信息</div>
 
           <div class="query-btn">
             <div>
@@ -226,14 +207,18 @@
               <el-button type="primary" icon="el-icon-search" @click="queryActive">查询</el-button>
             </div>
             <div>
-              <el-button type="success" icon="el-icon-plus" @click="openadd = true">添加</el-button>
+              <el-button type="success" icon="el-icon-plus" @click="openadd = true">添加活动</el-button>
+            </div>
+            <div>
+              <el-button type="success" icon="el-icon-plus" @click="openaddactivetp = true">添加活动图片</el-button>
             </div>
             <div>
               <el-button type="primary" icon="el-icon-refresh-right" round @click="queryNew">刷新</el-button>
             </div>
           </div>
           <div>
-            <el-table :data="activelist" stripe v-loading="activeloading" height="340">
+            <el-table :data="activelist" stripe v-loading="activeloading" height="460">
+              <el-table-column label="活动编号" prop="paid"></el-table-column>
               <el-table-column label="日期" prop="activeTime" sortable>
                 <template slot-scope="scope">
                   <i class="el-icon-time"></i>
@@ -248,14 +233,18 @@
               </el-table-column>
               <el-table-column label="操作">
                 <template slot-scope="socpe">
-                  <el-button type="success" plain icon="el-icon-search" @click="ck(socpe.row)">查看</el-button>
-                  <el-button type="primary" plain icon="el-icon-edit" @click="showupdate(socpe.row)">编辑</el-button>
-                  <el-button type="danger" plain icon="el-icon-delete" @click="del(socpe.row)">删除</el-button>
+                  <el-button type="success" size="medium" plain icon="el-icon-search" @click="ck(socpe.row)">信息</el-button>
+                  <el-button type="success" size="medium" plain icon="el-icon-search" @click="selectActiveImg(socpe.row)">图片</el-button>
+                  <br />
+                  <el-button type="primary" size="medium" plain icon="el-icon-edit" @click="showupdate(socpe.row)">编辑</el-button>
+                  <el-button type="danger" size="medium" plain icon="el-icon-delete" @click="del(socpe.row)">删除</el-button>
                 </template>
               </el-table-column>
             </el-table>
             <page :page="activePage" @page-change="queryActive" v-loading="activeloading" class="pg"></page>
           </div>
+          <!-- </el-tab-pane> -->
+          <!-- </el-tabs> -->
         </div>
       </el-tab-pane>
       <!-- 一些话 -->
@@ -384,13 +373,13 @@
       <el-dialog :visible.sync="openupdatefjbt" :close-on-click-modal="false" title="修改标题">
         <div>
           <el-form>
-            <el-form-item>
+            <el-form-item label="信息分组：">
               <el-input v-model="updateInfofjbt.messageGroup" placeholder="信息分组" clearable></el-input>
             </el-form-item>
-            <el-form-item>
+            <el-form-item label="信息关键词：">
               <el-input v-model="updateInfofjbt.messageKey" placeholder="信息关键词" type="textarea" autosize clearable></el-input>
             </el-form-item>
-            <el-form-item>
+            <el-form-item label="内容描述：">
               <el-input v-model="updateInfofjbt.message" placeholder="信息内容" type="textarea" autosize clearable></el-input>
             </el-form-item>
             <el-form-item>
@@ -442,7 +431,7 @@
 
     <!-- 预览风景图片的对话框 -->
     <div>
-      <el-dialog title="风景图片预览" :visible.sync="ckfjtp">
+      <el-dialog top="5rem" title="风景图片预览" :visible.sync="ckfjtp">
         <div class="show-img">
           <img :src="imgUrl" alt="" />
         </div>
@@ -459,6 +448,9 @@
           <el-form-item label="信息关键字：">
             <el-input v-model="addInfofjtpxx.messageKey" placeholder="信息关键词" clearable></el-input>
           </el-form-item>
+          <el-form-item label="选择文件：">
+            <el-button @click="fileVisible03 = true">浏览文件</el-button>
+          </el-form-item>
           <el-form-item label="内容描述：">
             <el-input v-model="addInfofjtpxx.message" placeholder="信息内容" type="textarea" autosize clearable></el-input>
           </el-form-item>
@@ -470,18 +462,30 @@
       </el-dialog>
     </div>
 
+    <!-- 浏览文件选择文件的对话框 -->
+    <div>
+      <el-dialog top="3rem" :close-on-click-modal="false" :visible.sync="fileVisible03" title="文件选择对话框">
+        <div>
+          <file-choose @file-selected="fileSelected01"></file-choose>
+        </div>
+      </el-dialog>
+    </div>
+
     <!-- 修改图片信息的对话框 -->
     <div>
       <el-dialog :visible.sync="openupdatefjtpxx" :close-on-click-modal="false" title="修改图片信息">
         <div>
           <el-form>
-            <el-form-item>
+            <el-form-item label="信息分组：">
               <el-input v-model="updateInfofjtpxx.messageGroup" placeholder="信息分组" clearable></el-input>
             </el-form-item>
-            <el-form-item>
+            <el-form-item label="信息关键词：">
               <el-input v-model="updateInfofjtpxx.messageKey" placeholder="信息关键词" type="textarea" autosize clearable></el-input>
             </el-form-item>
-            <el-form-item>
+            <el-form-item label="选择文件：">
+              <el-button @click="fileVisible04 = true">浏览文件</el-button>
+            </el-form-item>
+            <el-form-item label="信息内容：">
               <el-input v-model="updateInfofjtpxx.message" placeholder="信息内容" type="textarea" autosize clearable></el-input>
             </el-form-item>
             <el-form-item>
@@ -489,6 +493,15 @@
               <el-button @click="openupdatefjtpxx = false">关闭</el-button>
             </el-form-item>
           </el-form>
+        </div>
+      </el-dialog>
+    </div>
+
+    <!-- 浏览文件选择文件的对话框 -->
+    <div>
+      <el-dialog top="3rem" :close-on-click-modal="false" :visible.sync="fileVisible04" title="文件选择对话框">
+        <div>
+          <file-choose @file-selected="fileSelected02"></file-choose>
         </div>
       </el-dialog>
     </div>
@@ -514,7 +527,7 @@
 
     <!-- 查看图片的对话框 -->
     <div>
-      <el-dialog title="图片预览" :visible.sync="ckfjtp01">
+      <el-dialog top="5rem" title="图片预览" :visible.sync="ckfjtp01">
         <div class="show-img">
           <img :src="imgUrl02" alt="" />
         </div>
@@ -588,34 +601,52 @@
     <div>
       <el-dialog :visible.sync="openaddactivetp" :close-on-click-modal="false" title="添加活动图片">
         <el-form>
-          <el-form-item label="活动编号：">
-            <el-input v-model="addInfoactivetp.paid" placeholder="活动编号："></el-input>
+          <el-form-item label="文件编号：">
+            <el-input v-model="addInfotp.fid" placeholder="文件编号" clearable></el-input>
           </el-form-item>
-          <el-form-item label="图片编号：">
-            <el-input v-model="addInfoactivetp.fid" placeholder="图片文件编号："></el-input>
+          <el-form-item label="选择文件：">
+            <el-button @click="fileVisible = true">浏览文件</el-button>
           </el-form-item>
-          <el-form-item label="图片描述信息：">
-            <el-input v-model="addInfoactivetp.imgInfo" placeholder="图片描述信息："></el-input>
-          </el-form-item>
-          <el-form-item>
-            <el-input v-model="addInfofjtp.fileinfo" placeholder="上传文件描述"></el-input>
-            <el-button type="primary" @click="addfjtp">上传至服务器</el-button>
-            <el-button @click="openFile">选择文件...</el-button>
-            <span v-if="file">&nbsp;{{ file.name }}</span>
+          <el-form-item label="图片信息描述：">
+            <el-input v-model="addInfotp.imgInfo" placeholder="图片描述信息" type="textarea" autosize clearable></el-input>
           </el-form-item>
           <el-form-item>
-            <el-button type="success" @click="addactivetp">添加</el-button>
-            <el-button @click="resetaddactivetp">重置</el-button>
+            <el-form-item label="活动编号：">
+              <el-input v-model="addInfotp.paid" placeholder="活动编号" clearable></el-input>
+            </el-form-item>
+            <el-form-item label="选择活动：">
+              <el-button @click="fileVisible01 = true">浏览活动</el-button>
+            </el-form-item>
+            <el-button type="success" @click="addtp">添加</el-button>
+            <el-button @click="resetaddtp">重置</el-button>
           </el-form-item>
         </el-form>
       </el-dialog>
     </div>
 
-    <!-- 预览风景图片的对话框 -->
+    <!-- 浏览文件选择文件的对话框 -->
     <div>
-      <el-dialog title="活动图片预览" :visible.sync="ckactivetp">
-        <div class="show-img">
-          <img :src="imgUrl01" alt="" />
+      <el-dialog top="3rem" :close-on-click-modal="false" :visible.sync="fileVisible" title="文件选择对话框">
+        <div>
+          <file-choose @file-selected="fileSelected"></file-choose>
+        </div>
+      </el-dialog>
+    </div>
+
+    <!-- 浏览活动选择活动的对话框 -->
+    <div>
+      <el-dialog :close-on-click-modal="false" :visible.sync="fileVisible01" title="活动选择对话框">
+        <div>
+          <active-choose @active-selected="activeSelected"></active-choose>
+        </div>
+      </el-dialog>
+    </div>
+
+    <!-- 查看活动图片的对话框 -->
+    <div>
+      <el-dialog :close-on-click-modal="false" :visible.sync="fileVisible02" title="查看活动图片">
+        <div>
+          <active-img-choose :info.sync="activeinfo"></active-img-choose>
         </div>
       </el-dialog>
     </div>
@@ -625,8 +656,11 @@
 <script>
 import Page from '../../components/Page';
 import tools from '../../js/tools';
+import FileChoose from '../../components/FileChoose';
+import ActiveChoose from '../../components/ActiveChoose';
+import ActiveImgChoose from '../../components/ActiveImg';
 export default {
-  components: { Page },
+  components: { Page, FileChoose, ActiveChoose, ActiveImgChoose },
   name: 'Index',
   data() {
     return {
@@ -656,22 +690,6 @@ export default {
       cklist: {},
       openupdate: false,
       updateInfo: {},
-      // 班级活动、活动日志图片
-      activetplist: [],
-      activetploading: false,
-      activetpPage: {
-        pageSize: 4,
-        pageNumber: 1
-      },
-      openaddactivetp: false,
-      addInfoactivetp: {
-        accessKey: this.$accessKey,
-        paid: '',
-        fid: '',
-        imgInfo: ''
-      },
-      imgUrl01: '',
-      ckactivetp: false,
       // 风景标题
       fjbtlist: [],
       fjbtPage: {
@@ -698,7 +716,7 @@ export default {
         pageNumber: 1
       },
       queryInfofjtp: {
-        fileinfo: '',
+        fileinfo: '风景',
         filename: '',
         contentType: ''
       },
@@ -720,7 +738,7 @@ export default {
       addInfofjtpxx: {
         accessKey: this.$accessKey,
         messageGroup: 'indexfjtpxx',
-        messageKey: 'fjtpxx',
+        messageKey: '',
         message: ''
       },
       openckfjtpxx: false,
@@ -729,6 +747,8 @@ export default {
       ckfjtp01: false,
       openupdatefjtpxx: false,
       updateInfofjtpxx: {},
+      fileVisible03: false,
+      fileVisible04: false,
       // 一些话
       yxhlist: [],
       yxhPage: {
@@ -746,110 +766,116 @@ export default {
       openckyxh: false,
       ckyxhlist: {},
       openupdateyxh: false,
-      updateInfoyxh: {}
+      updateInfoyxh: {},
+      // 班级活动，更新日志图片
+      openaddactivetp: false,
+      addInfotp: {
+        accessKey: this.$accessKey,
+        fid: '',
+        imgInfo: '',
+        paid: ''
+      },
+      fileVisible: false,
+      fileVisible01: false,
+      fileVisible02: false,
+      activeinfo: {}
     };
   },
   methods: {
-    // 重置活动图片添加表单的方法
-    resetaddactivetp() {
-      (this.addInfoactivetp = {
+    // 修改风景图片信息选择文件的方法
+    fileSelected02(file) {
+      this.updateInfofjtpxx.messageKey = file.fid;
+      this.fileVisible04 = false;
+    },
+    // 添加风景图片信息选择文件的方法
+    fileSelected01(file) {
+      this.addInfofjtpxx.messageKey = file.fid;
+      this.fileVisible03 = false;
+    },
+    // 查看活动图片的方法
+    selectActiveImg(info) {
+      this.fileVisible02 = true;
+      this.activeinfo = info;
+    },
+    // 重置活动图片添加的表单的方法
+    resetaddtp() {
+      this.addInfotp = {
         accessKey: this.$accessKey,
-        paid: '',
         fid: '',
-        imgInfo: ''
-      }),
-        (this.file = null);
+        imgInfo: '',
+        paid: ''
+      };
     },
     // 添加活动图片的方法
-    addactivetp() {
-      let app = this;
-      if (this.addInfoactivetp.paid == '') {
-        app.$message({
-          message: '活动编号必须填写!',
+    addtp() {
+      if (this.addInfotp.fid == '') {
+        this.$message({
+          message: '文件编号必须填写!',
           type: 'warning'
         });
+
         return;
       }
-      if (this.addInfoactivetp.fid == '') {
-        app.$message({
-          message: '图片文件编号须填写!',
-          type: 'warning'
-        });
-        return;
-      }
-      if (this.addInfoactivetp.imgInfo == '') {
-        app.$message({
+      if (this.addInfotp.imgInfo == '') {
+        this.$message({
           message: '图片描述信息必须填写!',
           type: 'warning'
         });
         return;
       }
-      if (app.file == null) {
-        app.$message({
-          message: '必须选择一个文件!',
+      if (this.addInfotp.paid == '') {
+        this.$message({
+          message: '活动编号必须填写!',
           type: 'warning'
         });
         return;
       }
-      app.$sendFile(
+      this.$ajax(
         '/portable/active/imgaes/add',
         {
-          tbPortableActiveImages: this.addInfoactivetp
+          tbPortableActiveImages: this.addInfotp
         },
         function(data) {
-          // app.$message(data.message);
           if (!data.success) {
-            app.$notify.error({
+            this.$notify.error({
               title: '失败',
-              message: '添加失败,' + data.message,
+              message: '添加失败，' + data.message,
               type: 'success'
             });
-            app.resetaddactivetp();
             return;
           }
-          app.$message(data.message);
-          app.openaddactivetp = false;
-          app.$notify({
+          this.openaddactivetp = false;
+          this.$notify({
             title: '成功',
             message: '添加成功',
             type: 'success'
           });
-          // app.resetaddactivetp();
-          app.queryActivetp();
-        }
-      );
-    },
-    // 刷新活动图片页面的方法
-    queryNewactivetp() {
-      this.queryActivetp();
-    },
-    // 查询活动图片的方法
-    queryActivetp() {
-      this.$ajax(
-        '/portable/active/imgaes/queryAllByPaid',
-        {
-          tbPortableActiveImages: {
+          this.addInfotp = {
             accessKey: this.$accessKey,
-            paid: this.activelist.paid
-          },
-          page: this.activetpPage
-        },
-        function(data) {
-          if (!data.success) {
-            this.$message.error(data.message);
-            return;
-          }
-          this.activetplist = data.resultData.list;
-          this.activetpPage = data.resultData.page;
+            fid: '',
+            imgInfo: '',
+            paid: ''
+          };
+          this.queryNew();
         }
       );
-      this.activetploading = true;
-      setTimeout(() => {
-        this.activetploading = false;
-      }, 200);
+    },
+    // 选择活动的方法
+    activeSelected(info) {
+      this.addInfotp.paid = info.paid;
+      this.fileVisible01 = false;
+    },
+    // 添加活动信息选择文件的方法
+    fileSelected(file) {
+      this.addInfotp.fid = file.fid;
+      this.fileVisible = false;
     },
     // 刷新一些话页面的方法
     queryNewyxh() {
+      this.yxhPage = {
+        pageSize: 4,
+        pageNumber: 1
+      };
       this.queryYxh();
     },
     // 获取一些话修改数据的方法
@@ -1020,6 +1046,10 @@ export default {
     },
     // 刷新风景图片信息页面的方法
     queryNewfjtpxx() {
+      this.fjtpxxPage = {
+        pageSize: 4,
+        pageNumber: 1
+      };
       this.queryFjtpxx();
     },
     // 获取风景图片信息修改数据的方法
@@ -1038,7 +1068,7 @@ export default {
           if (!data.success) {
             this.$notify.error({
               title: '失败',
-              message: '修改失败',
+              message: '修改失败，' + data.message,
               type: 'success'
             });
             return;
@@ -1105,7 +1135,7 @@ export default {
       this.addInfofjtpxx = {
         accessKey: this.$accessKey,
         messageGroup: 'indexfjtpxx',
-        messageKey: 'fjtpxx',
+        messageKey: '',
         message: ''
       };
     },
@@ -1156,7 +1186,7 @@ export default {
           this.addInfofjtpxx = {
             accessKey: this.$accessKey,
             messageGroup: 'indexfjtpxx',
-            messageKey: 'fjtpxx',
+            messageKey: '',
             message: ''
           };
           this.queryFjtpxx();
@@ -1310,6 +1340,10 @@ export default {
     },
     // 刷新风景图片页面的方法
     queryNewfjtp() {
+      this.fjtpPage = {
+        pageSize: 4,
+        pageNumber: 1
+      };
       this.queryFjtp();
     },
     // 查询风景图片的方法
@@ -1336,6 +1370,10 @@ export default {
     },
     // 刷新风景标题页面的方法
     queryNewfjbt() {
+      this.fjbtPage = {
+        pageSize: 4,
+        pageNumber: 1
+      };
       this.queryFjbt();
     },
     // 获取风景标题修改数据的方法
@@ -1506,6 +1544,10 @@ export default {
     },
     // 刷新活动信息页面的方法
     queryNew() {
+      this.activePage = {
+        pageSize: 4,
+        pageNumber: 1
+      };
       this.queryInfo = {
         accessKey: this.$accessKey,
         activeTime: '',
@@ -1695,7 +1737,6 @@ export default {
     this.queryFjtp();
     this.queryFjtpxx();
     this.queryYxh();
-    this.queryActivetp();
   }
 };
 </script>
@@ -1724,7 +1765,7 @@ body {
 
 .rt {
   display: flex;
-  padding: 1rem 2rem 1rem 0rem;
+  padding: 0.2rem 4rem 0.2rem 0rem;
   border-top: 3px solid rgba(58, 56, 56, 0.575);
 }
 

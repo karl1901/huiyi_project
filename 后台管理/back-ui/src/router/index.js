@@ -2,6 +2,8 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 // 后台管理路由配置
 import back_index from './back';
+// 文件和门户管理路由配置
+import allinfo_index from './allinfo';
 
 Vue.use(VueRouter);
 
@@ -12,7 +14,9 @@ const routes = [
     name: 'Home',
     component: () => import('../views/Home.vue')
   }
-].concat(back_index);
+]
+  .concat(back_index)
+  .concat(allinfo_index);
 
 const router = new VueRouter({
   routes

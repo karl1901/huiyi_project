@@ -25,10 +25,18 @@
         },
         resultFjbt: {},
         resultFjtpxx: {},
-        resultYxh: {}
+        resultYxh: {},
+        resultHdimg: {},
+        activetplist: [],
+        hdimgpaid: ''
       };
     },
     methods: {
+      ckActiveimg(paid) {
+        // console.log(paid);
+        app.hdimgpaid = paid;
+        queryActivetp();
+      },
       changeImg() {
         ajax.send(
           '/tools/imageCode ',
@@ -58,6 +66,7 @@
               app.queryActive();
               app.queryFjbt();
               app.queryYxh();
+              app.queryActivetp();
             }
             app.data = data;
           }
@@ -102,6 +111,7 @@
       queryFjbt();
       queryFjtpxx();
       queryYxh();
+      queryActivetp();
     }
   });
 
@@ -113,10 +123,15 @@
         tbPortableActive: app.queryActive
       },
       function (data) {
-        console.log(data.resultData.list);
+        // console.log(data.resultData.list);
         // let result = ajax.converData01(data.resultData.list);
         // console.log(result);
         app.resultActive = data.resultData.list;
+        let result = ajax.converData01(data.resultData.list);
+        // console.log(result);
+        app.hdimgpaid = result[0];
+        // console.log(app.activetplist01);
+        queryActivetp();
       }
     );
   }
@@ -166,6 +181,24 @@
       function (data) {
         let result = ajax.converData(data.resultData.list);
         app.resultYxh = result;
+      }
+    );
+  }
+
+  function queryActivetp() {
+    ajax.send(
+      '/portable/active/imgaes/queryAllByPaid ',
+      {
+        tbPortableActiveImages: {
+          accessKey: ajax.getAccessKey(),
+          paid: app.hdimgpaid
+        },
+        page: { pageSize: 1, pageNumber: 1 }
+      },
+      function (data) {
+        // console.log(app.hdimgpaid);
+        // console.log(data.resultData.list);
+        app.activetplist = data.resultData.list;
       }
     );
   }

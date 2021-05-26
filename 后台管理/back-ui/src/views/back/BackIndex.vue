@@ -4,7 +4,7 @@
     <div class="title" v-if="ifus(userinfo)">回忆主题网站后台管理</div>
     <!-- 用户管理部分 -->
     <div class="usr">
-      <div class="usname" v-if="ifus(userinfo)">欢迎管理员：</div>
+      <div class="usname" v-if="ifus(userinfo)">欢迎管理员<i class="el-icon-s-custom">：</i></div>
       <div class="usname" v-if="!ifus(userinfo)">欢迎：</div>
       <el-dropdown split-button @command="handMenu">
         <span>{{ userinfo.nickname }}</span>
@@ -37,13 +37,22 @@
     <!-- 页面管理跳转按钮部分 -->
     <div class="btn" v-if="ifus(userinfo)">
       <div>
-        <el-button type="primary" plain @click="ToIndex">首页管理</el-button>
+        <el-button type="primary" icon="el-icon-s-home" plain @click="ToIndex">首页管理</el-button>
       </div>
       <div>
-        <el-button type="primary" plain @click="ToImg">图片展示页管理</el-button>
+        <el-button type="primary" icon="el-icon-picture-outline" plain @click="ToImg">图片展示页管理</el-button>
       </div>
       <div>
-        <el-button type="primary" plain @click="ToCall">联系页管理</el-button>
+        <el-button type="primary" icon="el-icon-phone-outline" plain @click="ToCall">联系页管理</el-button>
+      </div>
+    </div>
+
+    <div class="btn01" v-if="ifus(userinfo)">
+      <div>
+        <el-button type="primary" icon="el-icon-folder" plain @click="ToFile">文件信息管理</el-button>
+      </div>
+      <div>
+        <el-button type="primary" icon="el-icon-s-custom" plain @click="ToMh">门户信息管理</el-button>
       </div>
     </div>
 
@@ -71,6 +80,12 @@ export default {
         return true;
       }
       return false;
+    },
+    ToMh() {
+      this.$router.push('/allinfo/protable');
+    },
+    ToFile() {
+      this.$router.push('/allinfo/file');
     },
     ToIndex() {
       this.$router.push('/back/index');
@@ -173,10 +188,19 @@ export default {
 .btn {
   display: flex;
   justify-content: center;
-  padding: 5rem;
+  padding: 5rem 5rem 2rem 5rem;
 }
 
 .btn > div {
+  padding: 1.5rem;
+}
+
+.btn01 {
+  display: flex;
+  justify-content: center;
+}
+
+.btn01 > div {
   padding: 1.5rem;
 }
 

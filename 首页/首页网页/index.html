@@ -100,7 +100,7 @@
                     班级活动
                   </a>
                   <span v-for="a in resultActive">
-                    <a href="#" class="list-group-item" data-target="#mycarousel" data-slide-to="0">
+                    <a href="#" class="list-group-item" data-target="#mycarousel" data-slide-to="0" @click="ckActiveimg(a.paid)">
                       <div class="media-left media-middle">
                         <div class="hd-time">
                           {{a.activeTime}}
@@ -159,15 +159,18 @@
                 <div>
                   <div id="mycarousel" class="carousel slide" data-ride="carousel">
                     <div class="carousel-inner">
-                      <div class="item active">
-                        <img class="img-responsive" src="https://img.zcool.cn/community/01c8f15aeac135a801207fa16836ae.jpg@1280w_1l_2o_100sh.jpg" alt="">
-                        <div class="carousel-caption">
-                          <!-- 活动有关图片1 -->
-                        </div>
-                        <br>
-                        <p class="text-left">
-                        <h5>我们学会了坚韧不拔，学会了服从命令。军训，就是要培养我们的品质，磨砺我们的意志。经历了军训，我们获益匪浅;通过了军训，我们无比骄傲</h5>
-                        </p>
+                      <div class="item active" v-for="a1 in resultActive" :key="a1.paid">
+                        <span v-for="aimg in activetplist" v-if="a1.paid==aimg.paid">
+                          <img class="img-responsive" :src="getImg(aimg.fid)" alt="">
+                          <div class="carousel-caption">
+                            <!-- 活动有关图片1 -->
+                            {{aimg.imgInfo}}
+                          </div>
+                          <br>
+                          <p class="text-left">
+                          <h5>{{a1.activeInfo}}</h5>
+                          </p>
+                        </span>
                       </div>
                       <!-- <div class="item">
                         <img class="img-responsive" src="https://img.zcool.cn/community/01c8f15aeac135a801207fa16836ae.jpg@1280w_1l_2o_100sh.jpg" alt="">
@@ -273,8 +276,12 @@
           <div class="rz">
             <ul>
               <div class="media" v-for="a1 in resultActive">
-                <div class="media-left">
-                  <img class="media-object " src="./image/头像.jpg" alt="" width="60px" height="60px">
+                <div class="media-left" v-for="bimg in activetplist">
+
+                  <span v-if="bimg.paid==a1.paid">
+
+                    <img class="media-object " :src="getImg(bimg.fid)" alt="" width="60px" height="60px">
+                  </span>
                   <!-- <div class="yuan">2019.9.1</div> -->
                 </div>
                 <div class="media-body">
