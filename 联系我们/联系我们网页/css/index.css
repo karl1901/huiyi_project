@@ -10,7 +10,6 @@ bg{
 
 .bg01{
   position: fixed;
-  top: 0;
   width: 100%;
 }
 
@@ -22,55 +21,136 @@ bg{
 .tupian{
   z-index: 1;
   position: fixed;
-  margin-top: -4.5rem;
-  margin-left: 16rem;
+  margin-top: 1rem;
+  margin-left: 14rem;
+  width: 80px;
   transform: rotate(10deg);
 }
 
 .sucai{
   z-index: 2;
   position: fixed;
-  margin-top: -2.5rem;
-  margin-left: 17rem;
+  margin-top: 4.5rem;
+  margin-left: 15rem;
 }
 
 .sucai01{
   z-index:2;
   position: fixed;
-  margin-top: 1rem;
-  margin-left: 27rem;
+  margin-top: 4.5rem;
+  margin-left: 32rem;
 }
 
 .sucai02{
   z-index:2;
   position: fixed;
-  margin-top: 1rem;
-  margin-left: 37rem;
+  margin-top: 4.5rem;
+  margin-left: 49rem;
 }
 
 .sucai03{
   z-index:2;
   position: fixed;
-  margin-top: 1rem;
-  margin-left: 47rem;
+  margin-top: 4.5rem;
+  margin-left: 66rem;
 }
 
 .sucai04{
   z-index:2;
   position: fixed;
-  margin-top: 1rem;
-  margin-left: 57rem;
+  margin-top:  4.5rem;
+  margin-left: 83rem;
 }
 
 .circle{
   z-index: 2;
   position: fixed;
-  margin-top: 4rem;
-  margin-left: 58rem;
+  margin-top:7.7rem;
+  margin-left: 64rem;
   
 }
 
 .juxing{
-  margin-top: 7rem;
-  margin-left: 15rem;
+  z-index: 2;
+  position: fixed;
+  margin-top:9rem;
+  margin-left: 14rem;
+}
+
+.juxing01{
+  z-index: 2;
+  position: fixed;
+  margin-top:9rem;
+  margin-left: 29rem
+}
+.juxing02{
+  z-index: 2;
+  position: fixed;
+  justify-content: center;
+  margin-top:16rem;
+  margin-left: 12rem;
+  background-color: white;
+  border-radius:14px ;
+  text-align: center;
+  font-size: 1.2rem;
+  color:rgb(50, 184, 184) ;
+}
+
+.ziti{
+  z-index: 2;
+  position: fixed;
+  margin-top: 8rem;
+  margin-left: 14.5rem;
+}
+
+.ziti01{
+  z-index: 2;
+  position: fixed;
+  margin-top: 8rem;
+  margin-left: 30rem;
+}
+
+.ziti02{
+  z-index: 2;
+  position: fixed;
+  margin-top: 8rem;
+  margin-left: 14.5rem;
+}
+
+.ziti03{
+  z-index: 2;
+  position: fixed;
+  margin-top: 8rem;
+  margin-left: 14.5rem;
+}
+
+.ziti04{
+  z-index: 2;
+  position: fixed;
+  margin-top: 8rem;
+  margin-left: 14.5rem;
+}
+
+
+.tubiao{
+  z-index:3;
+  position: fixed;
+  width: 90px;
+  height: 55px;
+  margin-top: 10.5rem;
+  margin-left: 29rem;
+}
+
+.juxing03{
+  z-index: 3;
+  position: fixed;
+  margin-top: 14rem ;
+  margin-left: 30.5rem;
+  width: 800px;
+  height: 6px;
+  background-color: rgb(123, 221, 221);
+}
+
+.ys{
+  margin-top: 0.8rem;
 }
