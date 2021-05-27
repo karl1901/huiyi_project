@@ -37,13 +37,13 @@
     <!-- 页面管理跳转按钮部分 -->
     <div class="btn" v-if="ifus(userinfo)">
       <div>
-        <el-button type="primary" icon="el-icon-s-home" plain @click="ToIndex">首页管理</el-button>
+        <el-button type="success" icon="el-icon-s-home" plain @click="ToIndex">首页管理</el-button>
       </div>
       <div>
-        <el-button type="primary" icon="el-icon-picture-outline" plain @click="ToImg">图片展示页管理</el-button>
+        <el-button type="success" icon="el-icon-picture-outline" plain @click="ToImg">图片展示页管理</el-button>
       </div>
       <div>
-        <el-button type="primary" icon="el-icon-phone-outline" plain @click="ToCall">联系页管理</el-button>
+        <el-button type="success" icon="el-icon-phone-outline" plain @click="ToCall">联系页管理</el-button>
       </div>
     </div>
 
@@ -117,6 +117,8 @@ export default {
           this.loading = false;
           if (data.success) {
             this.$message(data.message);
+            this.pwd = '';
+            this.pwd2 = '';
           } else {
             this.$message.error(data.message);
           }

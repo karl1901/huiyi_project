@@ -31,12 +31,17 @@
 
     <!-- 数据表格 -->
     <div>
-      <el-table :data="list">
+      <el-table :data="list" height="550px">
         <el-table-column label="文件编号" prop="fid"></el-table-column>
         <el-table-column label="文件名称" prop="filename"></el-table-column>
         <el-table-column label="文件描述" prop="fileinfo"></el-table-column>
         <el-table-column label="文件类型" prop="contentType"></el-table-column>
-        <el-table-column label="文件大小" prop="fileSize"></el-table-column>
+        <!-- <el-table-column label="文件大小" prop="fileSize"></el-table-column> -->
+        <el-table-column label="图片">
+          <template slot-scope="scope">
+            <img :src="scope.row.fid | fileurl" alt="" width="130px" height="90px" />
+          </template>
+        </el-table-column>
         <el-table-column label="上传时间">
           <template slot-scope="scope">
             {{ scope.row.lastupdate | formatDate }}
@@ -100,7 +105,7 @@ export default {
     return {
       page: {
         pageNumber: 1,
-        pageSize: 5
+        pageSize: 4
       },
       queryInfo: {
         fileinfo: '',
@@ -177,7 +182,7 @@ export default {
     reset() {
       this.page = {
         pageNumber: 1,
-        pageSize: 5
+        pageSize: 4
       };
       this.queryInfo = {
         fileinfo: '',
@@ -235,7 +240,7 @@ export default {
 }
 
 .bt {
-  font-size: 1.5rem;
+  font-size: 1.8rem;
   font-weight: bold;
   text-align: center;
   margin: 1rem;
@@ -247,6 +252,9 @@ export default {
 }
 
 .cx {
-  text-align: center;
+  /* text-align: center; */
+  display: flex;
+  justify-content: flex-end;
+  margin: 2rem 3rem;
 }
 </style>
