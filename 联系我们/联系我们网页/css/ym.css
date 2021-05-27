@@ -38,32 +38,91 @@ bg{
 .div1{
   z-index: 2;
   position: fixed;
-  margin-left: 9.8rem;
+  margin-top: 5.8rem;
+  display: flex;
+  justify-content: center;
+  width: 100%;
 }
 
 .div1 img{
-  width: 60px;
-  height: 60px;
-  /* display: flex; */
-  flex-direction: column;
-  align-items: flex-start;
+  width: 50px;
+  height: 50px;
   justify-content: space-around;
   text-align: center;
-  margin-top: 5rem;
-  margin-left: 9.8rem;
+  margin: 0rem 5.5rem;
 }
 
 .div2{
   z-index: 2;
   position: fixed;
-  margin-top: 9rem;
-  margin-left: 9.8rem;
+  margin-top: 9.3rem;
+  width: 100%;
+  display: flex;
+  justify-content: center;
   color:rgba(28, 187, 187, 0.836);
 }
 
 .div2 span{
   font-size: 1rem;
-  text-align: center;
-  margin-left: 9.8rem;
+  margin: 0rem 5.2rem;
 }
 
+.div3{
+  z-index: 2;
+  position: fixed;
+  margin-top: 10.3rem;
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+}
+
+.div3 img{
+  width: 25px;
+  height: 25px;
+  margin-right: 19rem;
+}
+
+.juxing{
+  position: fixed;
+  width: 200px;
+  height: 500px;
+  background-color: rgb(111, 221, 216);
+  margin: 13rem 15rem;
+}
+
+.juxing02{
+  position: fixed;
+  width: 12%;
+  height: 35px;
+  background-color: rgb(242, 247, 245);
+  margin: 10rem 0rem;
+  border-radius:0rem 2rem 2rem 0rem;
+}
+
+.yudian{
+  position: fixed;
+  width: 30px;
+  height: 30px;
+  margin: 0rem 1rem;
+}
+
+.ziti{
+  font-size: 1.2rem;
+  margin: 0.2rem 4rem;
+  width: 100%;
+}
+
+.ziti02{
+  font-size: 1.2rem;
+  margin-top: 15rem;
+  margin-left: 5rem;
+  color: white;
+}
+
+.juxing03{
+  position: fixed;
+  width: 850px;
+  height: 500px;
+  background-color: rgb(202, 245, 238);
+  margin: 13rem 27.5rem;
+}
