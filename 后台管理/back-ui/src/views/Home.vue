@@ -89,6 +89,7 @@ export default {
     };
   },
   methods: {
+    // 重填
     loadkong() {
       this.formdata.tbUser = {
         username: '',
@@ -105,7 +106,29 @@ export default {
         'get'
       );
     },
+    // 登录
     login() {
+      if (this.formdata.tbUser.username == '') {
+        this.$message({
+          message: '用户名不能为空！',
+          type: 'warning'
+        });
+        return;
+      }
+      if (this.formdata.tbUser.password == '') {
+        this.$message({
+          message: '密码不能为空！',
+          type: 'warning'
+        });
+        return;
+      }
+      if (this.formdata.imgcode == '') {
+        this.$message({
+          message: '验证码必须填写！',
+          type: 'warning'
+        });
+        return;
+      }
       this.loading = true;
       this.formdata.tbUser.password = this.$md5(this.formdata.tbUser.password);
       this.$ajax(
@@ -130,6 +153,7 @@ export default {
         }
       );
     },
+    // 验证码
     changeImg() {
       this.imgLoading = true;
       this.$ajax(

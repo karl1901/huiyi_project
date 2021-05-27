@@ -1,5 +1,6 @@
 <template>
-  <div>
+  <div class="main" v-loading="loading" element-loading-text="拼命加载中" element-loading-spinner="el-icon-loading" element-loading-background="rgba(0, 0, 0, 0.8)">
+    <!-- 数据表格部分 -->
     <div>
       <div class="classhd">门户信息管理</div>
 
@@ -114,6 +115,8 @@ export default {
   name: 'Protable',
   data() {
     return {
+      // 全局loading
+      loading: false,
       yxhlist: [],
       yxhPage: {
         pageSize: 4,
@@ -138,6 +141,7 @@ export default {
     };
   },
   methods: {
+    // 返回首页路由
     backindex() {
       this.$router.push('/back/backindex');
     },
@@ -315,9 +319,17 @@ export default {
       setTimeout(() => {
         this.yxhloading = false;
       }, 200);
+    },
+    // 门户信息管理界面加载的方法
+    queryAll() {
+      this.loading = true;
+      setTimeout(() => {
+        this.loading = false;
+      }, 200);
     }
   },
   created() {
+    this.queryAll();
     this.queryYxh();
   }
 };

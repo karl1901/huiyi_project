@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="main" v-loading="loading01" element-loading-text="拼命加载中" element-loading-spinner="el-icon-loading" element-loading-background="rgba(0, 0, 0, 0.8)">
     <div class="bt">文件管理</div>
 
     <!-- 查询表单 -->
@@ -103,6 +103,8 @@ export default {
   components: { Page },
   data() {
     return {
+      // 全局加载
+      loading01: false,
       page: {
         pageNumber: 1,
         pageSize: 4
@@ -125,13 +127,16 @@ export default {
     };
   },
   methods: {
+    // 返回首页路由
     backindex() {
       this.$router.push('/back/backindex');
     },
+    // 查看图片链接
     showFileUrl(fid) {
       let app = this;
       app.$message(app.$getDownloadUrl(fid));
     },
+    // 删除文件
     del(file) {
       let app = this;
       app
@@ -147,12 +152,14 @@ export default {
         })
         .cath(function() {});
     },
+    // 选择文件
     openFile() {
       let app = this;
       tools.openFile(function(file) {
         app.file = file;
       });
     },
+    // 上传文件
     upload() {
       let app = this;
       app.$sendFile(
@@ -169,16 +176,19 @@ export default {
         }
       );
     },
+    // 打开上传对话框
     toAdd() {
       this.resetAdd();
       this.addDialog = true;
     },
+    // 重置添加表单
     resetAdd() {
       this.file = null;
       this.addInfo = {
         fileinfo: ''
       };
     },
+    // 刷新
     reset() {
       this.page = {
         pageNumber: 1,
@@ -190,13 +200,16 @@ export default {
       };
       this.query();
     },
+    // 预览图片
     showImage(file) {
       this.imgUrl = this.$getDownloadUrl(file.fid);
       this.imgDialog = true;
     },
+    // 判断是否为图片
     isImage(file) {
       return file.contentType.substr(0, 6) == 'image/';
     },
+    // 下载图片
     download(fid) {
       console.log('下载的文件id：', fid);
       // 下载是get请求，需要后端服务器完整地址
@@ -205,6 +218,7 @@ export default {
       console.log('下载的请求地址：', this.$getDownloadUrl(fid));
       window.open(this.$getDownloadUrl(fid));
     },
+    // 查询文件
     query() {
       this.loading = true;
       this.$ajax(
@@ -223,16 +237,31 @@ export default {
           this.$message.error(data.message);
         }
       );
+    },
+    // 文件管理界面加载的方法
+    queryAll() {
+      this.loading01 = true;
+      setTimeout(() => {
+        this.loading01 = false;
+      }, 200);
     }
   },
   created() {
+    this.queryAll();
     this.query();
   }
 };
 </script>
 
 <style scoped>
-/* 每个饿了么ui的组件都套用了同名的class */
+.main {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  min-width: 100vw;
+  min-height: 100vh;
+}
+
 .el-dialog img {
   display: block;
   width: 100%;

@@ -15,6 +15,18 @@ export default {
       editor: null
     };
   },
+  props: {
+    upmessage: {
+      default() {
+        return {};
+      }
+    }
+  },
+  watch: {
+    info: function(ov, nv) {
+      console.log(ov, nv);
+    }
+  },
   mounted() {
     let editor = new wangEditor('.my-wang-editor-component > div');
     editor.config.onchange = function(data) {
@@ -23,6 +35,7 @@ export default {
     // 建议写成属性控制
     editor.config.excludeMenus = ['video'];
     editor.create();
+    editor.txt.html(app.upmessage);
     app.editor = editor;
   },
   created() {

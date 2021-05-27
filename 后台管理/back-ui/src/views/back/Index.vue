@@ -4,7 +4,7 @@
     <div class="title">首页管理</div>
     <!-- 返回按钮 -->
     <div class="rt">
-      <div><el-button type="primary" plain @click="rtindex">返回</el-button></div>
+      <div><el-button type="info" icon="el-icon-d-arrow-left" @click="rtindex">返回</el-button></div>
     </div>
 
     <el-tabs type="border-card">
@@ -34,7 +34,7 @@
               <el-button type="success" icon="el-icon-plus" @click="openaddactivetp = true">添加活动图片</el-button>
             </div>
             <div>
-              <el-button type="primary" icon="el-icon-refresh-right" round @click="queryNew">刷新</el-button>
+              <el-button type="warning" icon="el-icon-refresh-right" round @click="queryNew">刷新</el-button>
             </div>
           </div>
           <div>
