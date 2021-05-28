@@ -23,8 +23,12 @@ export default {
     }
   },
   watch: {
-    info: function(ov, nv) {
-      console.log(ov, nv);
+    upmessage: {
+      deep: true, // 深度监听
+      handler(newVal, oldVal) {
+        console.log(newVal, oldVal);
+        app.editor.txt.html(app.upmessage);
+      }
     }
   },
   mounted() {
@@ -35,6 +39,7 @@ export default {
     // 建议写成属性控制
     editor.config.excludeMenus = ['video'];
     editor.create();
+    // console.log(app.upmessage);
     editor.txt.html(app.upmessage);
     app.editor = editor;
   },
