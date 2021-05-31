@@ -1,158 +1,149 @@
-body{
+body {
   padding: 0px;
   margin: 0px;
+  overflow-x: hidden;
 }
 
-bg{
+/* .bg01 > div > div:img {
   background-size: cover;
-  padding:10px;
-}
-
-.bg01{
-  position: fixed;
   width: 100%;
-}
+  height: 30px;
+} */
 
-.bg01 img{
-  height: 75px;
-  width: 100%;
-
-}
-.tupian{
-  z-index: 1;
-  position: fixed;
-  margin-top: 1rem;
-  margin-left: 14rem;
-  width: 80px;
-  transform: rotate(10deg);
-}
-
-.sucai{
-  z-index: 2;
-  position: fixed;
-  margin-top: 4.5rem;
-  margin-left: 15rem;
-}
-
-.sucai01{
-  z-index:2;
-  position: fixed;
-  margin-top: 4.5rem;
-  margin-left: 32rem;
-}
-
-.sucai02{
-  z-index:2;
-  position: fixed;
-  margin-top: 4.5rem;
-  margin-left: 49rem;
-}
-
-.sucai03{
-  z-index:2;
-  position: fixed;
-  margin-top: 4.5rem;
-  margin-left: 66rem;
-}
-
-.sucai04{
-  z-index:2;
-  position: fixed;
-  margin-top:  4.5rem;
-  margin-left: 83rem;
-}
-
-.circle{
-  z-index: 2;
-  position: fixed;
-  margin-top:7.7rem;
-  margin-left: 64rem;
-  
-}
-
-.juxing{
-  z-index: 2;
-  position: fixed;
-  margin-top:9rem;
-  margin-left: 14rem;
-}
-
-.juxing01{
-  z-index: 2;
-  position: fixed;
-  margin-top:9rem;
-  margin-left: 29rem
-}
-.juxing02{
-  z-index: 2;
-  position: fixed;
-  justify-content: center;
-  margin-top:16rem;
-  margin-left: 12rem;
-  background-color: white;
-  border-radius:14px ;
-  text-align: center;
-  font-size: 1.2rem;
-  color:rgb(50, 184, 184) ;
-}
-
-.ziti{
-  z-index: 2;
-  position: fixed;
-  margin-top: 8rem;
-  margin-left: 14.5rem;
-}
-
-.ziti01{
-  z-index: 2;
-  position: fixed;
-  margin-top: 8rem;
-  margin-left: 30rem;
-}
-
-.ziti02{
-  z-index: 2;
-  position: fixed;
-  margin-top: 8rem;
-  margin-left: 14.5rem;
-}
-
-.ziti03{
-  z-index: 2;
-  position: fixed;
-  margin-top: 8rem;
-  margin-left: 14.5rem;
-}
-
-.ziti04{
-  z-index: 2;
-  position: fixed;
-  margin-top: 8rem;
-  margin-left: 14.5rem;
-}
-
-
-.tubiao{
-  z-index:3;
-  position: fixed;
-  width: 90px;
-  height: 55px;
-  margin-top: 10.5rem;
-  margin-left: 29rem;
-}
-
-.juxing03{
+.touxiang {
+  position: absolute;
+  top: -50%;
+  left: 18%;
+  transform: rotate(12deg);
   z-index: 3;
-  position: fixed;
-  margin-top: 14rem ;
-  margin-left: 30.5rem;
-  width: 800px;
-  height: 6px;
-  background-color: rgb(123, 221, 221);
 }
 
-.ys{
-  margin-top: 0.8rem;
+.touxiang img {
+  width: 6rem;
 }
 
-.ditu-lian
+.div1 {
+  display: flex;
+  text-align: center;
+  justify-content: space-between;
+  padding: 0rem 15rem;
+  padding-top: -6rem;
+  position: relative;
+}
+
+.div1 > a {
+  text-decoration: none;
+  color: black;
+  padding: 0rem 2.7rem;
+}
+
+.div1 > a:hover {
+  text-decoration: none;
+  color: black;
+  padding: 0rem 2.7rem;
+}
+
+.div1 > a > div:first-child img {
+  display: block;
+  width: 3rem;
+  height: auto;
+}
+
+.div1 > a:last-child > div:first-child img {
+  display: block;
+  width: 3.6rem;
+  height: 52px;
+}
+
+.center-box {
+  display: flex;
+  justify-content: center;
+}
+
+.center-box > div {
+  width: 80%;
+  display: flex;
+}
+
+.center-box .left-box {
+  flex: 2;
+  background-color: rgb(88, 240, 232);
+  padding-top: 11rem;
+  padding-right: 1rem;
+}
+
+.center-box .right-box {
+  flex: 9;
+}
+
+.center-box .right-box01 {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  border-bottom: 4px solid rgb(88, 240, 232);
+  font-size: 1.2rem;
+  padding: 10px;
+}
+
+.center-box .left-box01 {
+  flex: 3;
+  background-color: white;
+  border-radius: 0rem 3rem 3rem 0rem;
+  font-size: 1.2rem;
+}
+
+.div2 {
+  display: flex;
+  text-align: center;
+  padding: 15px 1rem;
+}
+
+.div2 > div {
+  flex: 1;
+}
+
+.div2 > div > div:first-child img {
+  display: inline;
+  width: 3rem;
+  height: auto;
+  border: 3px solid rgb(88, 240, 232);
+}
+.yangshi {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 3px solid rgb(88, 240, 232);
+  padding: 1rem 1rem;
+}
+
+.yangshi02 {
+  display: flex;
+  align-items: center;
+  padding-left: 2rem;
+}
+
+.yangshi03 {
+  font-size: 1.1rem;
+  padding-top: 3rem;
+  padding-left: 7rem;
+}
+
+.address > div {
+  margin: 3rem;
+}
+
+/* 底部图片 */
+.tupian {
+  margin-top: 4rem;
+}
+
+.tupian img {
+  width: 100vw;
+  height: 60px;
+}
+
+/* 栏目鼠标指针效果 */
+.lan:hover {
+  background-color: rgba(59, 197, 221, 0.329);
+  cursor: pointer;
+}

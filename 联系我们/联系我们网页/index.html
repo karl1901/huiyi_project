@@ -1,52 +1,123 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh">
 
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>联系我们</title>
+  <link rel="icon" href="images/huiyilogo.png">
   <link rel="stylesheet" href="css/index.css">
-  <title>Document</title>
-
 </head>
 
 <body>
-  <div class="bg">
-    <div>
-      <div class="bg01"><img src="bg01.jpg" alt=""></div>
-    </div>
-    <div>
-      <div class="ys">
-        <div class="tupian"><img src="bg02.jpg" alt="" width="80" height="80"></div>
-        <img src="sc05.png" alt="" width="50" height="50" class="sucai">
-        <img src="sc01.png" alt="" width="50" height="50" class="sucai01">
-        <img src="sc06.png" alt="" width="50" height="50" class="sucai02">
-        <img src="sc04.png" alt="" width="50" height="50" class="sucai03">
-        <img src="sc03.png" alt="" width="50" height="50" class="sucai04">
-        <img src="yd.png" alt="" width="20" height="20" class="circle">
-        <span class="ziti">个人档案</span>
-        <span class="ziti01">路上风景</span>
-        <span class="ziti02">更新日志</span>
-        <span class="ziti03">一些话</span>
-        <span class="ziti04">联系我们</span>
-      </div>
-    </div>
-    <div>
-      <div style="width: 250px;height: 600px; background-color: rgb(123, 221, 221);" class="juxing"></div>
-      <div style="width: 850px; height: 600px; background-color: rgb(209, 248, 242);" class="juxing01"></div>
-      <div style="width: 140px; height: 33px;" class="juxing02"></div>
-      <img src="tubiao.png" alt="" class="tubiao">
-      <span
-        style="z-index:3; position: fixed; margin-top: 11.5rem; margin-left: 34rem; font-size: 1.5rem; color:rgb(123, 221, 221); font-style: italic;">联系我们</span>
-      <span
-        style="z-index: 3; position: fixed; margin-top:12rem ; margin-left:62rem;  font-size: 1.1rem; color:rgb(51, 59, 59);">当前位置：主页>联系我们>联系方式</span>
-      <div class="juxing03"></div>
-    </div>
+  <!-- 上面图片 -->
+  <div style="z-index: 1;">
+    <img src="images/bg01.jpg" alt="" style="height: 70px;width: 100%;">
   </div>
 
+  <!-- 中间部分 -->
+  <div>
+    <!-- 个人档案等 -->
+    <div class="div1">
+      <!-- 头像部分 -->
+      <div class="touxiang">
+        <img src="images/bg02.jpg" alt="">
+      </div>
+      <a href="../../首页/首页网页/index.html" style="z-index: 5;" class="lan">
+        <div><img src="images/sc05.png" alt=""></div>
+        <div> <span>个人档案</span></div>
+        <!-- <div> <img src="yd.png" alt=""></div> -->
+      </a>
+      <a href="../../首页/首页网页/index.html" class="lan">
+        <div> <img src="images/sc01.png" alt=""></div>
+        <div> <span>路上风景</span></div>
+        <!-- <div> <img src="yd.png" alt=""></div> -->
+      </a>
+      <a href="../../首页/首页网页/index.html" class="lan">
+        <div> <img src="images/sc06.png" alt=""></div>
+        <div> <span>更新日志</span></div>
+        <!-- <div> <img src="yd.png" alt=""></div> -->
+      </a>
+      <a href="../../首页/首页网页/index.html" class="lan">
+        <div> <img src="images/sc04.png" alt=""></div>
+        <div> <span>一些话</span></div>
+        <!-- <div> <img src="yd.png" alt=""></div> -->
+      </a>
+      <a class="lan">
+        <div> <img src="images/sc03.png" alt=""></div>
+        <div> <span>联系我们</span></div>
+        <div> <img src="images/yd.png" alt=""></div>
+      </a>
 
 
-  <script src="js/index.js"></script>
+    </div>
+    <!-- 名片 -->
+    <div class="center-box">
+      <div>
+        <!-- 左边矩形 -->
+        <div class="left-box">
+          <div class="left-box01">
+            <div class="yangshi02">
+              <svg t="1622469720505" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="26059" width="30" height="30">
+                <path d="M740.8 928H459.2C372.8 928 304 857.6 304 772.8v-46.4c0-86.4 70.4-155.2 155.2-155.2h281.6c86.4 0 155.2 70.4 155.2 155.2v46.4c0 84.8-70.4 155.2-155.2 155.2z" fill="#96E8BA" p-id="26060"></path>
+                <path
+                  d="M315.2 648c-4.8 0-11.2-1.6-14.4-6.4L68.8 432c-6.4-4.8-8-12.8-6.4-20.8 1.6-8 6.4-14.4 12.8-17.6l752-308.8c9.6-4.8 20.8 0 27.2 8 6.4 9.6 4.8 20.8-3.2 28.8l-520 520c-4.8 4.8-11.2 6.4-16 6.4zM124.8 422.4l188.8 172.8 425.6-425.6-614.4 252.8z m449.6 486.4c-4.8 0-11.2-1.6-14.4-6.4l-195.2-176-12.8-12.8c-8-8-8-22.4 0-32 8-8 22.4-8 32 0l12.8 12.8L566.4 848l254.4-630.4c4.8-11.2 17.6-17.6 28.8-12.8 11.2 4.8 17.6 17.6 12.8 28.8L595.2 894.4c-3.2 6.4-8 11.2-16 12.8-1.6 1.6-3.2 1.6-4.8 1.6z"
+                  fill="#103E26" p-id="26061"></path>
+              </svg>
+              <div>联系我们</div>
+            </div>
+          </div>
+          <div class="yangshi03">
+            <!-- 在线反馈 -->
+          </div>
+        </div>
+        <!-- 右边矩形 -->
+        <div class="right-box" style="background-color: rgb(180, 252, 252);">
+          <div class="right-box01">
+            <div>
+              <img style="width: 5rem;" src="images/tubiao.png" alt="">联系我们
+            </div>
+            <div>当前位置：主页>联系我们>联系方式</div>
+          </div>
+          <!-- 介绍部分 -->
+          <div class="yangshi">
+            <div class="address">
+              <div>名称：回忆班会主题</div>
+              <div>地址：湖南文理学院</div>
+              <div>电话：123456</div>
+              <div>传真：123456</div>
+            </div>
+            <!-- 地图 -->
+            <div title="去这里">
+              <img src="images/ditu.png" alt="" style="width: 20rem; border: 3px solid rgb(88, 240, 232);">
+            </div>
+          </div>
+          <div class="div2">
+            <!-- 二维码及人员 -->
+            <div>
+              <div> <img src="images/ewm.jpg" alt=""></div>
+              <div> <span>前端页面：熊云轩，熊羽佳，杨淳</span></div>
+              <!-- <div> <img src="yd.png" alt=""></div> -->
+            </div>
+            <div>
+              <div> <img src="images/ewm.jpg" alt=""></div>
+              <div> <span>后端：康翔辉</span></div>
+              <!-- <div> <img src="yd.png" alt=""></div> -->
+            </div>
+            <div>
+              <div> <img src="images/ewm.jpg" alt=""></div>
+              <div> <span>页面设计：张芳萱</span></div>
+              <!-- <div> <img src="yd.png" alt=""></div> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- 底部图片 -->
+    <div class="tupian">
+      <img src="images/bg03.png" alt="">
+    </div>
 </body>
 
 </html>
