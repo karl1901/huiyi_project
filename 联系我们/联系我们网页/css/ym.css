@@ -3,251 +3,94 @@ body {
   margin: 0px;
 }
 
-bg {
+.bg01 > div > div:img {
   background-size: cover;
+  width: 100%;
+  height: 30px;
+}
+
+.div1 {
+  display: flex;
+  text-align: center;
+  justify-content: space-between;
+  padding: 5px 15rem;
+}
+
+.div1 > div > div:first-child img {
+  display: block;
+  width: 4rem;
+  height: auto;
+}
+
+.center-box {
+  display: flex;
+  justify-content: center;
+}
+
+.center-box > div {
+  width: 60%;
+  display: flex;
+}
+
+.center-box .left-box {
+  flex: 2;
+  background-color: rgb(88, 240, 232);
+  padding-top: 5rem;
+}
+
+.center-box .right-box {
+  flex: 7;
+}
+
+.center-box .right-box01 {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  border-bottom: 2px solid #ff0000;
+  font-size: 1.2rem;
   padding: 10px;
 }
 
-/* 顶部图片 */
-.bg01 {
-  position: fixed;
-  width: 100%;
+.center-box .left-box01 {
+  flex: 3;
+  background-color: white;
+  border-radius: 0rem 3rem 3rem 0rem;
+  padding-right: 3rem;
 }
 
-.bg01 img {
-  height: 65px;
-  width: 100%;
-}
-
-/* 头像 */
-.tupian {
-  z-index: 1;
-  position: fixed;
-  width: 80px;
-  transform: rotate(10deg);
-  margin-top: 1.5rem;
-  margin-left: 17rem;
-}
-
-.tupian img {
-  max-width: 100%;
-  max-height: 100%;
-  display: none;
-  margin: auto;
-}
-
-/* 个人档案等图片样式 */
-.div1 {
-  z-index: 2;
-  position: fixed;
-  margin-top: 4.5rem;
-  display: flex;
-  justify-content: center;
-  width: 100%;
-}
-
-.div1 img {
-  width: 50px;
-  height: 50px;
-  justify-content: space-around;
-  text-align: center;
-  margin: 0rem 5.5rem;
-}
-
-/* 个人档案等字体样式 */
 .div2 {
-  z-index: 2;
-  position: fixed;
-  margin-top: 8rem;
-  width: 100%;
   display: flex;
-  justify-content: center;
-  color: rgba(28, 187, 187, 0.836);
-}
-
-.div2 span {
-  font-size: 1rem;
-  margin: 0rem 5.2rem;
-}
-
-/* 圆点样式 */
-.div3 {
-  z-index: 2;
-  position: fixed;
-  margin-top: 9rem;
-  display: flex;
-  justify-content: flex-end;
-  width: 100%;
-}
-
-.div3 img {
-  width: 25px;
-  height: 25px;
-  margin-right: 19rem;
-}
-
-/* 左边矩形样式 */
-.juxing {
-  position: fixed;
-  width: 200px;
-  height: 470px;
-  background-color: rgb(111, 221, 216);
-  margin: 11rem 15rem;
-}
-
-/* 白色矩形样式 */
-.juxing02 {
-  position: fixed;
-  width: 12%;
-  height: 35px;
-  background-color: rgb(242, 247, 245);
-  margin: 10rem 0rem;
-  border-radius: 0rem 2rem 2rem 0rem;
-}
-
-/*左边联系我们图标样式 */
-.yudian {
-  position: fixed;
-  width: 30px;
-  height: 30px;
-  margin: 0rem 1rem;
-}
-
-/* 左边联系我们字体样式 */
-.ziti {
-  font-size: 1.2rem;
-  margin: 0.2rem 4rem;
-  width: 100%;
-}
-
-/* 在线反馈 */
-.ziti02 {
-  font-size: 1.2rem;
-  margin-top: 15rem;
-  margin-left: 5rem;
-  color: white;
-}
-
-/* 右边矩形样式 */
-.juxing03 {
-  position: fixed;
-  width: 58%;
-  height: 470px;
-  background-color: rgb(202, 245, 238);
-  margin: 11rem 27.5rem;
-}
-
-/* 右边联系我们图标 */
-.div4 {
-  margin-top: 1rem;
-  width: 100%;
-}
-
-.div4 img {
-  width: 80px;
-  margin-right: 19rem;
-}
-
-/* 右边联系我们字体样式 */
-.div4 span {
-  position: fixed;
-  font-size: 1.2rem;
-  margin: 1rem -20rem;
-  color: rgb(111, 221, 216);
-}
-
-/* 右侧联系我们下面矩形样式 */
-.juxing04 {
-  position: fixed;
-  width: 55%;
-  height: 6px;
-  background-color: rgb(111, 221, 216);
-  margin: 0rem 1.5rem;
-}
-
-/* 当前位置字体样式 */
-.ziti03 {
-  position: fixed;
-  font-size: 1.1rem;
-  margin-top: -2rem;
-  margin-left: 35rem;
-  color: rgb(66, 68, 68);
-}
-
-/* 介绍部分字体样式 */
-.div5 {
-  height: 100%;
-  font-size: 1rem;
-  margin-top: 1rem;
-  margin-left: 3rem;
-  color: rgba(28, 187, 187, 0.836);
-}
-
-.div5 span{
-  color: rgb(66, 68, 68);
-  margin-left: 1.1rem;
-}
-
-/* 边框及地图 */
-.bk {
-  width: 100%;
-}
-
-.bk img {
-  display: flex;
-  width: 300px;
-  margin: -13rem 30rem;
-  border: 5px solid rgb(111, 221, 216);
-}
-
-/* 地图下矩形样式 */
-.juxing05 {
-  position: fixed;
-  width: 55%;
-  height: 5px;
-  background-color: rgb(136, 236, 231);
-  margin: 14rem 1.5rem;
-}
-
-/* 二维码 */
-.ewm{
-  width: 100%;
-}
-
-.ewm img{
-  width: 50px;
-  height: 50px;
-  justify-content: space-around;
   text-align: center;
-  margin: 15rem 7rem;
-  border: 5px solid rgb(111, 221, 216);
+  justify-content: space-between;
+  padding: 9px 5rem;
 }
 
-/* 人员 */
-.ziti04{
-  position: fixed;
-  color: red;
-  margin: 10rem ;
+.div2 > div > div:first-child img {
+  display: block;
+  width: 3rem;
+  height: auto;
+  border: 3px solid rgb(88, 240, 232);
+}
+.yangshi {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 3px solid #ff0000;
+  padding: 1rem 1rem;
 }
 
-.ziti04 span{
-  font-size: 1rem;
-  margin: 0rem 5.2rem;
+.yangshi02 {
+  display: flex;
+  align-items: center;
+  padding-left: 2rem;
 }
 
-/* 底部图片 */
-.bg03 {
-  position: fixed;
-  width: 100%;
+.yangshi03 {
+  font-size: 1.1rem;
+  padding-top: 3rem;
+  padding-left: 7rem;
 }
 
-.bg03 img {
-  height: 60px;
-  width: 100%;
-  margin: 41.2rem 0rem;
-}
-
-.yangshi{
-  position: fixed;
-  font-size: 1.5rem;
+.address > div {
+  margin: 3rem;
 }
