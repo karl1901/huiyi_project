@@ -1,19 +1,33 @@
 body {
   padding: 0px;
   margin: 0px;
+  overflow-x: hidden;
 }
 
-.bg01 > div > div:img {
+/* .bg01 > div > div:img {
   background-size: cover;
   width: 100%;
   height: 30px;
+} */
+
+.touxiang {
+  position: absolute;
+  top: -50%;
+  transform: rotate(5deg);
+  z-index: 3;
+}
+
+.touxiang img {
+  width: 6rem;
 }
 
 .div1 {
   display: flex;
   text-align: center;
   justify-content: space-between;
-  padding: 5px 15rem;
+  padding: 0rem 15rem;
+  padding-top: -6rem;
+  position: relative;
 }
 
 .div1 > div > div:first-child img {
@@ -22,31 +36,38 @@ body {
   height: auto;
 }
 
+.div1 > div:last-child > div:first-child img {
+  display: block;
+  width: 4rem;
+  height: 60px;
+}
+
 .center-box {
   display: flex;
   justify-content: center;
 }
 
 .center-box > div {
-  width: 60%;
+  width: 80%;
   display: flex;
 }
 
 .center-box .left-box {
   flex: 2;
   background-color: rgb(88, 240, 232);
-  padding-top: 5rem;
+  padding-top: 11rem;
+  padding-right: 1rem;
 }
 
 .center-box .right-box {
-  flex: 7;
+  flex: 9;
 }
 
 .center-box .right-box01 {
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
-  border-bottom: 2px solid #ff0000;
+  border-bottom: 4px solid rgb(88, 240, 232);
   font-size: 1.2rem;
   padding: 10px;
 }
@@ -55,18 +76,22 @@ body {
   flex: 3;
   background-color: white;
   border-radius: 0rem 3rem 3rem 0rem;
-  padding-right: 3rem;
+  font-size: 1.2rem;
 }
 
 .div2 {
   display: flex;
   text-align: center;
-  justify-content: space-between;
-  padding: 9px 5rem;
+  padding: 15px 1rem;
+}
+
+
+.div2 > div {
+  flex: 1;
 }
 
 .div2 > div > div:first-child img {
-  display: block;
+  display: inline;
   width: 3rem;
   height: auto;
   border: 3px solid rgb(88, 240, 232);
@@ -75,7 +100,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 3px solid #ff0000;
+  border-bottom: 3px solid rgb(88, 240, 232);
   padding: 1rem 1rem;
 }
 
@@ -93,4 +118,14 @@ body {
 
 .address > div {
   margin: 3rem;
+}
+
+/* 底部图片 */
+.tupian {
+  margin-top: 4rem;
+}
+
+.tupian img {
+  width: 100vw;
+  height: 60px;
 }
