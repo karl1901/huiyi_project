@@ -118,7 +118,7 @@
                 </div>
               </div>
               <div>
-                <el-table :data="fjtplist" stripe v-loading="fjtploading" height="420">
+                <el-table :data="fjtplist" stripe v-loading="fjtploading" height="423">
                   <el-table-column label="文件编号" prop="fid"></el-table-column>
                   <el-table-column label="文件名称" prop="filename"></el-table-column>
                   <el-table-column label="风景图片">
@@ -158,7 +158,7 @@
                 </div>
               </div>
               <div>
-                <el-table :data="fjtpxxlist" stripe v-loading="fjtpxxloading" height="420">
+                <el-table :data="fjtpxxlist" stripe v-loading="fjtpxxloading" height="423">
                   <el-table-column label="信息分组" prop="messageGroup"></el-table-column>
                   <el-table-column label="信息关键词" prop="messageKey"></el-table-column>
                   <el-table-column label="对应的展示图片">
@@ -1741,10 +1741,6 @@ export default {
 };
 </script>
 <style>
-body {
-  overflow: hidden;
-}
-
 .main {
   position: absolute;
   top: 0px;

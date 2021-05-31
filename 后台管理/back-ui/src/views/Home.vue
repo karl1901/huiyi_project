@@ -4,7 +4,7 @@
     <div class="forms">
       <el-card v-loading="loading">
         <el-form :model="formdata" :rules="rules">
-          <div class="title">回忆--后台登录</div>
+          <div class="title"><img src="../../public/huiyilogo.png" alt="" width="30px" />-后台管理</div>
           <div>
             <el-form-item prop="tbUser.username">
               <el-input v-model="formdata.tbUser.username" @keyup.enter.native="login()" suffix-icon="el-icon-user" placeholder="用户名"></el-input>
@@ -201,7 +201,7 @@ export default {
 }
 
 .el-card {
-  background: rgba(180, 198, 199, 0.288);
+  background: rgba(226, 218, 218, 0.384);
   width: 350px;
 }
 

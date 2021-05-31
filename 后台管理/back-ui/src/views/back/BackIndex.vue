@@ -1,7 +1,8 @@
 <template>
   <div class="main" v-loading="loading" element-loading-text="拼命加载中" element-loading-spinner="el-icon-loading" element-loading-background="rgba(0, 0, 0, 0.8)">
     <!-- 标题部分 -->
-    <div class="title" v-if="ifus(userinfo)">回忆主题网站后台管理</div>
+
+    <div class="title" v-if="ifus(userinfo)">回忆-后台首页</div>
     <!-- 用户管理部分 -->
     <div class="usr">
       <div class="usname" v-if="ifus(userinfo)">欢迎管理员<i class="el-icon-s-custom">：</i></div>

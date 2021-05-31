@@ -308,7 +308,7 @@ export default {
     },
     // 取消添加内容的方法
     editorqx() {
-      this.Visibleadd01 = false;
+      this.Visibleadd = false;
       this.resetaddfjtpxx();
     },
     // 获取富文本编辑器的内容给添加表单的方法
