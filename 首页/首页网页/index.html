@@ -5,10 +5,11 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>项目首页</title>
-  <link rel="stylesheet" href="home.css">
-  <link rel="stylesheet" href="bootstrap.min.css">
-  <link rel="stylesheet" href="iconfont.css">
+  <title>首页</title>
+  <link rel="icon" href="/image/huiyilogo.png">
+  <link rel="stylesheet" href="css/home.css">
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/iconfont.css">
 </head>
 <style>
   /* 回到顶部样式 */
@@ -41,22 +42,33 @@
 <body>
   <span id="app">
 
+    <!-- 用户登录部分 -->
     <span v-if="!loginUser">
-      <div>
-        用户名:
-        <input type="text" v-model="tbUser.username" />
-        密码:
-        <input type="password" v-model="tbUser.password" />
-        图片校验码:
-        <input type="text" v-model="imgcode" />
-        <img :src="imgSrc" title="点击更换图片" @click="changeImg" />
-        <button @click="login">登陆</button>
+      <div class="user-login">
         <div>
-          {{data.message}}
+          <div>
+            <input type="text" v-model="tbUser.username" placeholder="用户名" />
+          </div>
+          <div>
+            <input type="password" v-model="tbUser.password" placeholder="密码" />
+          </div>
+          <div>
+            <input type="text" v-model="imgcode" placeholder="图片校验码" />
+          </div>
+          <div>
+            <img :src="imgSrc" title="点击更换图片" @click="changeImg" />
+          </div>
+          <div>
+            <button @click="login">登陆</button>
+          </div>
+          <!-- <div>
+            {{data.message}}
+          </div> -->
         </div>
       </div>
     </span>
 
+    <!-- 登录后的网页部分 -->
     <span v-if="loginUser">
 
       <!-- 头部样式及布局 -->
@@ -380,9 +392,10 @@
       <script src="https://cdn.bootcdn.net/ajax/libs/spark-md5/3.0.0/spark-md5.min.js"></script>
       <script src="js/ajax.js"></script>
       <script src="js/ajax-index.js"></script>
-      <script src="home.js"></script>
+      <script src="js/home.js"></script>
 
     </span>
+
   </span>
 </body>
 

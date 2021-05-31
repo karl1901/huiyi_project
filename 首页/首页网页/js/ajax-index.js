@@ -32,11 +32,13 @@
       };
     },
     methods: {
+      // 查看活动图片的方法
       ckActiveimg(paid) {
         // console.log(paid);
         app.hdimgpaid = paid;
         queryActivetp();
       },
+      // 更换图片验证码的方法
       changeImg() {
         ajax.send(
           '/tools/imageCode ',
@@ -47,7 +49,20 @@
           'get'
         );
       },
+      // 用户登录的方法
       login() {
+        if (app.tbUser.username == '') {
+          alert('用户名不能为空！');
+          return;
+        }
+        if (app.tbUser.password == '') {
+          alert('密码不能为空！');
+          return;
+        }
+        if (app.imgcode == '') {
+          alert('图片验证码必须填写！');
+          return;
+        }
         app.tbUser.password = SparkMD5.hash(app.tbUser.password);
         ajax.send(
           '/user/login',
@@ -59,22 +74,28 @@
             app.tbUser.password = '';
             app.changeImg();
             // 如果登陆成功就保存用户信息
-            if (data.success) {
-              app.loginUser = data.resultData.tbUser;
-              ajax.saveUser(app.loginUser);
-              app.query();
-              app.queryActive();
-              app.queryFjbt();
-              app.queryYxh();
-              app.queryActivetp();
+            if (!data.success) {
+              if (data.message != '请求失败') {
+                alert(data.message);
+                return;
+              }
             }
+            app.loginUser = data.resultData.tbUser;
+            ajax.saveUser(app.loginUser);
+            app.query();
+            app.queryActive();
+            app.queryFjbt();
+            app.queryYxh();
+            app.queryActivetp();
             app.data = data;
           }
         );
       },
+      // 获取图片地址的方法
       getImg(fid) {
         return ajax.getFileUrl(fid);
       },
+      // 查询图片的方法
       query() {
         ajax.send(
           '/file/query',
@@ -99,7 +120,9 @@
     },
     created() {
       app = this;
+      // 刷新页面刷新验证码
       app.changeImg();
+      // 如果登录成功就触发所有查询
       if (app.loginUser) {
         app.query();
         queryActive();
@@ -107,14 +130,23 @@
         queryFjtpxx();
         queryYxh();
       }
+      // 页面刷新触发所有查询
       queryActive();
       queryFjbt();
       queryFjtpxx();
       queryYxh();
       queryActivetp();
+      // 回车绑定登录事件
+      $(document).keypress(function (e) {
+        if ((e.keyCode || e.which) == 13) {
+          // 触发需要调用的方法
+          $(app.login()).click();
+        }
+      });
     }
   });
 
+  // 查询活动
   function queryActive() {
     ajax.send(
       '/portable/active/queryAll',
@@ -135,6 +167,8 @@
       }
     );
   }
+
+  // 查询活动信息
   function queryFjbt() {
     ajax.send(
       '/portable/message/queryAll',
@@ -151,6 +185,27 @@
       }
     );
   }
+
+  // 查询活动图片
+  function queryActivetp() {
+    ajax.send(
+      '/portable/active/imgaes/queryAllByPaid ',
+      {
+        tbPortableActiveImages: {
+          accessKey: ajax.getAccessKey(),
+          paid: app.hdimgpaid
+        },
+        page: { pageSize: 1, pageNumber: 1 }
+      },
+      function (data) {
+        // console.log(app.hdimgpaid);
+        // console.log(data.resultData.list);
+        app.activetplist = data.resultData.list;
+      }
+    );
+  }
+
+  // 查询风景图片信息
   function queryFjtpxx() {
     ajax.send(
       '/portable/message/queryAll',
@@ -168,6 +223,8 @@
       }
     );
   }
+
+  // 查询一些话
   function queryYxh() {
     ajax.send(
       '/portable/message/queryAll',
@@ -181,24 +238,6 @@
       function (data) {
         let result = ajax.converData(data.resultData.list);
         app.resultYxh = result;
-      }
-    );
-  }
-
-  function queryActivetp() {
-    ajax.send(
-      '/portable/active/imgaes/queryAllByPaid ',
-      {
-        tbPortableActiveImages: {
-          accessKey: ajax.getAccessKey(),
-          paid: app.hdimgpaid
-        },
-        page: { pageSize: 1, pageNumber: 1 }
-      },
-      function (data) {
-        // console.log(app.hdimgpaid);
-        // console.log(data.resultData.list);
-        app.activetplist = data.resultData.list;
       }
     );
   }
