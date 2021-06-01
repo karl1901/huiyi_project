@@ -43,7 +43,7 @@
       </div>
     </div>
 
-    <!-- 添加一些话的对话框 -->
+    <!-- 添加门户信息的对话框 -->
     <div>
       <el-dialog :visible.sync="openaddyxh" :close-on-click-modal="false" title="添加门户信息">
         <el-form>
@@ -64,7 +64,7 @@
       </el-dialog>
     </div>
 
-    <!-- 修改一些话的对话框 -->
+    <!-- 修改门户信息的对话框 -->
     <div>
       <el-dialog :visible.sync="openupdateyxh" :close-on-click-modal="false" title="修改门户信息">
         <div>
@@ -87,7 +87,7 @@
       </el-dialog>
     </div>
 
-    <!-- 查看一些话的对话框 -->
+    <!-- 查看门户信息的对话框 -->
     <div>
       <el-dialog :visible.sync="openckyxh" :close-on-click-modal="false" title="查看门户信息">
         <div>
@@ -145,7 +145,7 @@ export default {
     backindex() {
       this.$router.push('/back/backindex');
     },
-    // 刷新一些话页面的方法
+    // 刷新门户信息页面的方法
     queryNewyxh() {
       this.queryInfo = {
         accessKey: this.$accessKey,
@@ -157,12 +157,12 @@ export default {
       };
       this.queryYxh();
     },
-    // 获取一些话修改数据的方法
+    // 获取门户信息修改数据的方法
     showupdateyxh(info) {
       this.openupdateyxh = true;
       this.updateInfoyxh = JSON.parse(JSON.stringify(info));
     },
-    // 修改一些话息的方法
+    // 修改门户信息的方法
     updateyxh() {
       this.$ajax(
         '/portable/message/update',
@@ -189,7 +189,7 @@ export default {
       );
       this.queryYxh();
     },
-    // 删除一些话的方法
+    // 删除门户信息的方法
     delyxh(info) {
       this.$confirm('是否删除此项门户信息?', '提示', {
         confirmButtonText: '确定',
@@ -230,21 +230,21 @@ export default {
           });
         });
     },
-    // 查看一些话的方法
+    // 查看门户信息的方法
     ckyxh(info) {
       this.openckyxh = true;
       this.ckyxhlist = JSON.parse(JSON.stringify(info));
     },
-    // 重置一些话添加表单的方法
+    // 重置门户信息添加表单的方法
     resetaddyxh() {
       this.addInfoyxh = {
         accessKey: this.$accessKey,
-        messageGroup: 'indexyxh',
-        messageKey: 'yxh',
+        messageGroup: '',
+        messageKey: '',
         message: ''
       };
     },
-    // 添加一些话的方法
+    // 添加门户信息的方法
     addyxh() {
       if (this.addInfoyxh.messageGroup == '') {
         this.$message({
@@ -290,15 +290,15 @@ export default {
           });
           this.addInfoyxh = {
             accessKey: this.$accessKey,
-            messageGroup: 'indexyxh',
-            messageKey: 'yxh',
+            messageGroup: '',
+            messageKey: '',
             message: ''
           };
           this.queryYxh();
         }
       );
     },
-    // 查询一些话息的方法
+    // 查询门户信息的方法
     queryYxh() {
       this.$ajax(
         '/portable/message/queryAll',

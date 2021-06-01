@@ -72,6 +72,7 @@
           },
           function (data) {
             app.tbUser.password = '';
+            app.imgcode = '';
             app.changeImg();
             // 如果登陆成功就保存用户信息
             if (!data.success) {
