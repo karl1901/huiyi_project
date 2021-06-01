@@ -50,9 +50,9 @@
         <el-table-column label="操作">
           <template slot-scope="scope">
             <el-button @click="download(scope.row.fid)" type="primary" icon="el-icon-download" plain>下载</el-button>
-            <el-button v-if="isImage(scope.row)" @click="showImage(scope.row)" type="success" plain>预览</el-button>
+            <el-button v-if="isImage(scope.row)" @click="showImage(scope.row)" icon="el-icon-search" type="success" plain></el-button>
             <br />
-            <el-button @click="showFileUrl(scope.row.fid)" type="primary" class="el-icon-link" plain>链接</el-button>
+            <el-button @click="showFileUrl(scope.row.fid)" type="primary" class="el-icon-link" plain> 链接</el-button>
             <el-button @click="del(scope.row)" type="danger" icon="el-icon-delete" plain></el-button>
           </template>
         </el-table-column>

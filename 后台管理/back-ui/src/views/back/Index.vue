@@ -560,13 +560,13 @@
       <el-dialog :visible.sync="openupdateyxh" :close-on-click-modal="false" title="修改一些话">
         <div>
           <el-form>
-            <el-form-item>
+            <el-form-item label="信息分组：">
               <el-input v-model="updateInfoyxh.messageGroup" placeholder="信息分组" clearable></el-input>
             </el-form-item>
-            <el-form-item>
+            <el-form-item label="信息关键词：">
               <el-input v-model="updateInfoyxh.messageKey" placeholder="信息关键词" type="textarea" autosize clearable></el-input>
             </el-form-item>
-            <el-form-item>
+            <el-form-item label="信息内容：">
               <el-input v-model="updateInfoyxh.message" placeholder="信息内容" type="textarea" autosize clearable></el-input>
             </el-form-item>
             <el-form-item>
@@ -883,7 +883,7 @@ export default {
       this.openupdateyxh = true;
       this.updateInfoyxh = JSON.parse(JSON.stringify(info));
     },
-    // 修改一些话息的方法
+    // 修改一些话的方法
     updateyxh() {
       this.$ajax(
         '/portable/message/update',
@@ -1019,7 +1019,7 @@ export default {
         }
       );
     },
-    // 查询一些话息的方法
+    // 查询一些话的方法
     queryYxh() {
       this.$ajax(
         '/portable/message/queryAll',
