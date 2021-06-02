@@ -1,6 +1,6 @@
 <template>
   <div class="main" v-loading="loading" element-loading-text="拼命加载中" element-loading-spinner="el-icon-loading" element-loading-background="rgba(0, 0, 0, 0.8)">
-    <div class="title">图片展示页面管理</div>
+    <div class="title">图片展示页管理</div>
     <div class="rt">
       <div><el-button type="info" icon="el-icon-d-arrow-left" @click="rtindex">返回</el-button></div>
     </div>

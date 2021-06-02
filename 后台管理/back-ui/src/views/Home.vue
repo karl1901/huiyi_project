@@ -4,7 +4,7 @@
     <div class="forms">
       <el-card v-loading="loading">
         <el-form :model="formdata" :rules="rules">
-          <div class="title"><img src="../../public/huiyilogo.png" alt="" width="30px" />-后台管理</div>
+          <div class="title">回<img src="../../public/huiyilogo.png" alt="" width="30px" />网站</div>
           <div>
             <el-form-item prop="tbUser.username">
               <el-input v-model="formdata.tbUser.username" @keyup.enter.native="login()" suffix-icon="el-icon-user" placeholder="用户名"></el-input>
@@ -140,6 +140,7 @@ export default {
         function(data) {
           this.loading = false;
           this.formdata.tbUser.password = '';
+          this.formdata.imgcode = '';
           if (data.success) {
             this.$router.push('/back/backindex');
           } else {
@@ -176,7 +177,7 @@ export default {
 <style scoped>
 .main {
   position: fixed;
-  background-image: url('../imgs/loginbg.jpg');
+  background-image: url('../imgs/bg01.png');
   background-size: cover;
   top: 0px;
   left: 0px;
@@ -201,7 +202,7 @@ export default {
 }
 
 .el-card {
-  background: rgba(226, 218, 218, 0.384);
+  background: rgba(255, 255, 255, 0.103);
   width: 350px;
 }
 

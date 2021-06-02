@@ -14,7 +14,7 @@ header {
 
 header div:first-child {
   /* background: rgb(45, 206, 255); */
-  background-image: url('./image/头部图片.jpg');
+  background-image: url('../image/头部图片.jpg');
   height: 100px;
   position: relative;
   /* background-size: cover; */
@@ -273,11 +273,26 @@ header div:last-child {
   /* margin-bottom: 25%; */
 }
 
-跑马灯图片大小 #main img {
+/* 跑马灯图片大小  */
+#main img {
   width: 450px;
   height: 250px;
   background-size: cover;
   border-radius: 1.5rem;
+}
+
+/* 活动图片信息描述 */
+.carousel-caption {
+  position: fixed;
+  top: 20rem;
+  display: flex;
+  justify-content: center;
+}
+
+/* 活动描述 */
+.text-left {
+  display: flex;
+  margin: 1rem;
 }
 
 /* 班级档案选择列表 */

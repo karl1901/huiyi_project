@@ -84,7 +84,7 @@
             <a href="#m-2"><img src="image/路上风景.png"><br>路上风景</a>
             <a href="#m-3"><img src="image/更新日志.png"><br>更新日志</a>
             <a href="#m-4"><img src="image/一些话.png"><br>一些话</a>
-            <a href="../../联系我们/联系我们网页/index.html"><img src="image/联系我们.png"><br>联系我们</a>
+            <a href="call/index.html"><img src="image/联系我们.png"><br>联系我们</a>
           </ul>
         </div>
       </header>
@@ -169,15 +169,16 @@
                     <div class="carousel-inner">
                       <div class="item active" v-for="a1 in resultActive" :key="a1.paid">
                         <span v-for="aimg in activetplist" v-if="a1.paid==aimg.paid">
+                          <!-- 活动图片 -->
                           <img class="img-responsive" :src="getImg(aimg.fid)" alt="">
                           <div class="carousel-caption">
                             <!-- 活动有关图片1 -->
                             {{aimg.imgInfo}}
                           </div>
-                          <br>
-                          <p class="text-left">
+                          <!-- <br> -->
+                          <div class="text-left">
                           <h5>{{a1.activeInfo}}</h5>
-                          </p>
+                          </div>
                         </span>
                         <!-- <div class="item">
                         <img class="img-responsive" src="https://img.zcool.cn/community/01c8f15aeac135a801207fa16836ae.jpg@1280w_1l_2o_100sh.jpg" alt="">
@@ -261,7 +262,7 @@
             </div>
 
             <span>
-              <a href="../../图片展示/图片展示网页/index.html">更多>></a>
+              <a href="image/index.html">更多>></a>
             </span>
 
 

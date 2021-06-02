@@ -31,7 +31,7 @@
 
     <!-- 数据表格 -->
     <div>
-      <el-table :data="list" height="550px">
+      <el-table :data="list" v-loading="tableloading" height="550px">
         <el-table-column label="文件编号" prop="fid"></el-table-column>
         <el-table-column label="文件名称" prop="filename"></el-table-column>
         <el-table-column label="文件描述" prop="fileinfo"></el-table-column>
@@ -50,14 +50,14 @@
         <el-table-column label="操作">
           <template slot-scope="scope">
             <el-button @click="download(scope.row.fid)" type="primary" icon="el-icon-download" plain>下载</el-button>
-            <el-button v-if="isImage(scope.row)" @click="showImage(scope.row)" type="success" plain>预览</el-button>
+            <el-button v-if="isImage(scope.row)" @click="showImage(scope.row)" icon="el-icon-search" type="success" plain></el-button>
             <br />
-            <el-button @click="showFileUrl(scope.row.fid)" type="primary" class="el-icon-link" plain>链接</el-button>
+            <el-button @click="showFileUrl(scope.row.fid)" type="primary" class="el-icon-link" plain> 链接</el-button>
             <el-button @click="del(scope.row)" type="danger" icon="el-icon-delete" plain></el-button>
           </template>
         </el-table-column>
       </el-table>
-      <page :page="page" @page-change="query" class="pg"></page>
+      <page :page="page" @page-change="query" v-loading="tableloading" class="pg"></page>
     </div>
 
     <!-- 预览对话框 -->
@@ -105,6 +105,8 @@ export default {
     return {
       // 全局加载
       loading01: false,
+      // 数据表格和分页加载
+      tableloading: false,
       page: {
         pageNumber: 1,
         pageSize: 4
@@ -115,7 +117,7 @@ export default {
         contentType: ''
       },
       list: [],
-      loading: false,
+      // loading: false,
       imgUrl: '',
       imgDialog: false,
       // 添加相关
@@ -143,6 +145,8 @@ export default {
         .$confirm('是否删除文件：' + file.filename, '删除文件')
         .then(function() {
           app.$ajax('/file/delete', { 'tbFile.fid': file.fid }, function(data) {
+            // 执行删除时刷新一下页面
+            this.query();
             app.$message({
               message: data.message,
               onClose: app.query,
@@ -220,7 +224,7 @@ export default {
     },
     // 查询文件
     query() {
-      this.loading = true;
+      // this.loading = true;
       this.$ajax(
         '/file/query',
         {
@@ -228,7 +232,7 @@ export default {
           page: this.page
         },
         function(data) {
-          this.loading = false;
+          // this.loading = false;
           if (data.success) {
             this.page = data.resultData.page;
             this.list = data.resultData.list;
@@ -237,6 +241,10 @@ export default {
           this.$message.error(data.message);
         }
       );
+      this.tableloading = true;
+      setTimeout(() => {
+        this.tableloading = false;
+      }, 200);
     },
     // 文件管理界面加载的方法
     queryAll() {
