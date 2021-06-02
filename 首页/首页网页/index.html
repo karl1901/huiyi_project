@@ -169,15 +169,16 @@
                     <div class="carousel-inner">
                       <div class="item active" v-for="a1 in resultActive" :key="a1.paid">
                         <span v-for="aimg in activetplist" v-if="a1.paid==aimg.paid">
+                          <!-- 活动图片 -->
                           <img class="img-responsive" :src="getImg(aimg.fid)" alt="">
                           <div class="carousel-caption">
                             <!-- 活动有关图片1 -->
                             {{aimg.imgInfo}}
                           </div>
-                          <br>
-                          <p class="text-left">
+                          <!-- <br> -->
+                          <div class="text-left">
                           <h5>{{a1.activeInfo}}</h5>
-                          </p>
+                          </div>
                         </span>
                         <!-- <div class="item">
                         <img class="img-responsive" src="https://img.zcool.cn/community/01c8f15aeac135a801207fa16836ae.jpg@1280w_1l_2o_100sh.jpg" alt="">
