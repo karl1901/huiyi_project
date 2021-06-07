@@ -4,6 +4,85 @@ body {
   overflow-x: hidden;
 }
 
+/* 头部样式 */
+header {
+  display: block;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+header div:first-child {
+  /* background: rgb(45, 206, 255); */
+  background-image: url("../images/bg01.jpg");
+  height: 100px;
+  position: relative;
+  /* background-size: cover; */
+  padding: 3rem;
+}
+
+header div:last-child {
+  display: flex;
+  height: auto;
+  background: rgb(255, 255, 255);
+  padding: 0.5rem;
+}
+
+/* 头像 */
+.toux {
+  position: absolute;
+  left: 20%;
+  top: 10%;
+  transform: rotate(15deg);
+}
+
+/* 项目导航样式 */
+
+.content-nav {
+  background-color: #f0f4f0;
+}
+
+.content-nav ul {
+  width: 1000px;
+  margin: auto;
+  overflow: hidden;
+  height: 70px;
+}
+
+.content-nav ul a {
+  position: relative;
+  padding-top: 8px;
+  float: left;
+  width: 20%;
+  text-align: center;
+  font-size: 0.9rem;
+  font-weight: 3rem;
+  height: 62px;
+}
+
+.content-nav ul a {
+  color: #000201;
+  vertical-align: middle;
+  text-decoration: none;
+}
+
+.content-nav ul a img {
+  width: 35px;
+  height: 35px;
+}
+
+.content-nav ul a:hover {
+  background-color: rgba(166, 221, 247, 0.5);
+  border-top: 0px solid;
+  border-radius: 0.5rem;
+  color: #ffffff;
+}
+
+.content-nav ul a:hover a {
+  color: #696d71;
+  display: block;
+  width: 100%;
+}
 /* .bg01 > div > div:img {
   background-size: cover;
   width: 100%;
@@ -12,29 +91,31 @@ body {
 
 .touxiang {
   position: absolute;
-  top: -50%;
-  left: 18%;
-  transform: rotate(12deg);
+  top: -80%;
+  left: 20%;
+  transform: rotate(15deg);
   z-index: 3;
 }
 
 .touxiang img {
-  width: 6rem;
+  width: 6.3rem;
 }
 
+/* 栏目 */
 .div1 {
   display: flex;
   text-align: center;
   justify-content: space-between;
-  padding: 0rem 15rem;
-  padding-top: -6rem;
+  padding: 1rem 19rem;
   position: relative;
+  font-size: 0.5rem;
 }
 
 .div1 > a {
   text-decoration: none;
   color: black;
-  padding: 0rem 2.7rem;
+  padding: 0px 2.7rem;
+  display: inline-block;
 }
 
 .div1 > a:hover {
@@ -45,14 +126,14 @@ body {
 
 .div1 > a > div:first-child img {
   display: block;
-  width: 3rem;
-  height: auto;
+  width: 35px;
+  height: 35px;
 }
 
 .div1 > a:last-child > div:first-child img {
   display: block;
-  width: 3.6rem;
-  height: 52px;
+  width: 35px;
+  height: 35px;
 }
 
 .center-box {
