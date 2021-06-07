@@ -2,7 +2,7 @@
   <div>
     <div>
       <!-- <span slot="label"><i class="el-icon-tickets"> 活动信息</i></span> -->
-      <div class="classhd">活动图片</div>
+      <div class="classhd">活动图片信息</div>
 
       <div class="query-btn">
         <div>
@@ -11,13 +11,15 @@
       </div>
       <div>
         <el-table :data="activetplist" stripe v-loading="activetploading" height="340">
-          <el-table-column label="活动编号" prop="paid"></el-table-column>
+          <!-- <el-table-column label="活动编号" prop="paid"></el-table-column> -->
+          <el-table-column label="图片描述" prop="imgInfo"></el-table-column>
           <el-table-column label="活动图片">
             <template slot-scope="scope">
-              <img :src="scope.row.fid | fileurl" alt="" height="55px" width="110px" @click="showfjtp(scope.row)" />
+              <el-tooltip content="点击查看图片" placement="right" effect="light">
+                <img :src="scope.row.fid | fileurl" alt="" height="55px" width="110px" @click="ckimg(scope.row)" />
+              </el-tooltip>
             </template>
           </el-table-column>
-          <el-table-column label="图片描述" prop="imgInfo"></el-table-column>
           <el-table-column label="最后修改时间" sortable prop="lastupdate">
             <template slot-scope="scope">
               {{ scope.row.lastupdate | formatDate('MM:dd hh:mm:ss') }}
@@ -31,6 +33,15 @@
         </el-table>
         <page :page="activetpPage" @page-change="queryActivetp" v-loading="activetploading" class="pg"></page>
       </div>
+    </div>
+
+    <!-- 查看图片的对话框 -->
+    <div>
+      <el-dialog :append-to-body="true" top="5rem" title="查看图片" :visible.sync="ckfjtp">
+        <div class="show-img">
+          <img :src="imgfid | fileurl" alt="" />
+        </div>
+      </el-dialog>
     </div>
   </div>
 </template>
@@ -48,7 +59,9 @@ export default {
       activetpPage: {
         pageSize: 4,
         pageNumber: 1
-      }
+      },
+      imgfid: '',
+      ckfjtp: false
       // queryInfotp: {
       //   accessKey: this.$accessKey,
       //   paid: ''
@@ -69,6 +82,11 @@ export default {
     }
   },
   methods: {
+    // 查看图片的方法
+    ckimg(info) {
+      this.ckfjtp = true;
+      this.imgfid = info.fid;
+    },
     // 删除活动图片
     del(info) {
       this.$confirm('是否删除此活动图片?', '提示', {

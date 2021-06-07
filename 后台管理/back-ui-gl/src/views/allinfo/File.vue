@@ -19,12 +19,12 @@
 
         <el-form-item>
           <el-button @click="query" icon="el-icon-search" type="primary" round>查询</el-button>
-          <el-button @click="reset" icon="el-icon-refresh" type="warning" round>刷新</el-button>
           <el-button @click="toAdd" icon="el-icon-upload" type="success" round>上传</el-button>
+          <el-button @click="reset" icon="el-icon-refresh" type="warning" round>刷新</el-button>
         </el-form-item>
 
         <el-form-item>
-          <el-button @click="backindex" type="primary" icon="el-icon-d-arrow-left" round>首页</el-button>
+          <el-button @click="backindex" type="primary" icon="el-icon-back" round>返回</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -75,17 +75,19 @@
         <div>
           <el-form>
             <el-form-item label="文件描述：">
-              <el-input v-model="addInfo.fileinfo" placeholder="文件描述"></el-input>
+              <el-input v-model="addInfo.fileinfo" placeholder="文件描述" clearable></el-input>
             </el-form-item>
 
             <el-form-item>
               <el-button @click="openFile">选择文件...</el-button>
               <span v-if="file">{{ file.name }}</span>
+              <br />
+              <span style="color:	#FFA500;">友情提示：文件大小不能超过2M！</span>
             </el-form-item>
 
             <el-form-item>
-              <el-button @click="resetAdd">重置</el-button>
               <el-button type="success" @click="upload">上传</el-button>
+              <el-button @click="resetAdd">重置</el-button>
             </el-form-item>
           </el-form>
         </div>
@@ -166,6 +168,20 @@ export default {
     // 上传文件
     upload() {
       let app = this;
+      if (app.addInfo.fileinfo == '') {
+        this.$message({
+          message: '文件描述必须填写!',
+          type: 'warning'
+        });
+        return;
+      }
+      if (app.file == null) {
+        this.$message({
+          message: '必须选择一个文件!',
+          type: 'warning'
+        });
+        return;
+      }
       app.$sendFile(
         '/file/upload',
         app.file,
@@ -215,11 +231,11 @@ export default {
     },
     // 下载图片
     download(fid) {
-      console.log('下载的文件id：', fid);
+      // console.log('下载的文件id：', fid);
       // 下载是get请求，需要后端服务器完整地址
       // 需要传递请求参数，其中包括文件的id和token
       // 除了id，其他信息都在ajax封装类中可以拿到
-      console.log('下载的请求地址：', this.$getDownloadUrl(fid));
+      // console.log('下载的请求地址：', this.$getDownloadUrl(fid));
       window.open(this.$getDownloadUrl(fid));
     },
     // 查询文件

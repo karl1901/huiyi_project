@@ -2,10 +2,10 @@
   <div class="main" v-loading="loading" element-loading-text="拼命加载中" element-loading-spinner="el-icon-loading" element-loading-background="rgba(0, 0, 0, 0.8)">
     <!-- 标题部分 -->
 
-    <div class="title" v-if="ifus(userinfo)">回忆-后台首页</div>
+    <div class="title" v-if="ifus(userinfo)">回忆主题网站-后台管理首页</div>
     <!-- 用户管理部分 -->
     <div class="usr">
-      <div class="usname" v-if="ifus(userinfo)">欢迎超级管理员<i class="el-icon-s-custom">：</i></div>
+      <div class="usname" v-if="ifus(userinfo)">欢迎管理员<i class="el-icon-user-solid">：</i></div>
       <div class="usname" v-if="!ifus(userinfo)">欢迎：</div>
       <el-dropdown split-button @command="handMenu">
         <span>{{ userinfo.nickname }}</span>
@@ -38,17 +38,28 @@
     <!-- 页面管理跳转按钮部分 -->
     <div class="btn" v-if="ifus(userinfo)">
       <div>
-        <el-button type="success" icon="el-icon-s-home" plain @click="ToIndex">首页管理</el-button>
+        <el-button type="primary" icon="el-icon-s-home" plain @click="ToIndex">首页</el-button>
       </div>
       <div>
-        <el-button type="success" icon="el-icon-picture-outline" plain @click="ToImg">图片展示页管理</el-button>
+        <el-button type="primary" icon="el-icon-picture-outline" plain @click="ToImg">更多图片展示</el-button>
       </div>
       <div>
-        <el-button type="success" icon="el-icon-phone-outline" plain @click="ToCall">联系页管理</el-button>
+        <el-button type="primary" icon="el-icon-phone-outline" plain @click="ToCall">联系我们</el-button>
       </div>
     </div>
 
-    <div class="btn01" v-if="ifus(userinfo)">
+    <!-- 开启高级管理功能按钮 -->
+    <div v-if="ifus(userinfo)" class="srk">
+      <div>
+        <div>高级管理功能：</div>
+        <div>
+          <el-switch v-model="value" active-color="#13ce66" inactive-color="#ff4949"></el-switch>
+        </div>
+      </div>
+    </div>
+
+    <!-- 高级管理功能项 -->
+    <div class="btn01" v-if="glpassword == glpwd || value == true">
       <div>
         <el-button type="primary" icon="el-icon-folder" plain @click="ToFile">文件信息管理</el-button>
       </div>
@@ -72,31 +83,41 @@ export default {
       pwd: '',
       pwd2: '',
       pwdVisible: false,
-      gl: 'karl2021'
+      gl: 'huiyi1901',
+      glpassword: '',
+      glpwd: 'huiyi1901',
+      value: false
     };
   },
   methods: {
+    // 判断是否为管理员用户
     ifus(userinfo) {
       if (userinfo.username == this.gl) {
         return true;
       }
       return false;
     },
+    // 跳转门户信息管理界面
     ToMh() {
       this.$router.push('/allinfo/protable');
     },
+    // 跳转文件管理界面
     ToFile() {
       this.$router.push('/allinfo/file');
     },
+    // 跳转主页管理界面
     ToIndex() {
       this.$router.push('/back/index');
     },
+    // 跳转联系我们管理
     ToCall() {
       this.$router.push('/back/call');
     },
+    // 跳转更多图片展示管理
     ToImg() {
       this.$router.push('/back/img');
     },
+    // 登录的方法
     modifyPwd() {
       if (this.pwd.trim() == '') {
         // this.$message.error('密码必须填写')
@@ -126,6 +147,7 @@ export default {
         }
       );
     },
+    // 安全退出
     logout() {
       this.loading = true;
       this.$ajax('/usr/logout', {}, function() {
@@ -133,6 +155,7 @@ export default {
         this.$router.push('../');
       });
     },
+    // 用户操作：安全退出、修改密码
     handMenu(command) {
       console.log(command);
       if (command == 'exit') {
@@ -141,6 +164,7 @@ export default {
         this.pwdVisible = true;
       }
     },
+    // 查询用户信息
     queryUserInfo() {
       this.loading = true;
       this.$ajax('/user/queryUserInfo', {}, function(data) {
@@ -161,7 +185,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 .main {
   position: absolute;
   top: 0px;
@@ -222,5 +246,16 @@ export default {
   font-weight: bold;
   margin-top: 12rem;
   color: red;
+}
+
+.srk {
+  display: flex;
+  justify-content: center;
+}
+
+.srk > div {
+  display: flex;
+  color: rgb(0, 0, 0);
+  font-size: 1.1rem;
 }
 </style>

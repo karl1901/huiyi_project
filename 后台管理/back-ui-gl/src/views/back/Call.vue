@@ -1,29 +1,38 @@
 <template>
   <div class="main" v-loading="loading" element-loading-text="拼命加载中" element-loading-spinner="el-icon-loading" element-loading-background="rgba(0, 0, 0, 0.8)">
-    <div class="title">联系页管理</div>
+    <div class="title">联系我们管理</div>
     <div class="rt">
-      <div><el-button type="info" icon="el-icon-d-arrow-left" @click="rtindex">返回</el-button></div>
+      <div><el-button type="info" icon="el-icon-back" @click="rtindex">返回</el-button></div>
     </div>
 
     <!-- 数据表格部分 -->
     <el-tabs type="card">
       <!-- 联系信息管理 -->
-      <el-tab-pane label="联系信息管理">
-        <span slot="label"><i class="el-icon-phone"></i> 联系信息管理</span>
-        <div class="classhd">联系信息管理</div>
+      <el-tab-pane label="联系信息">
+        <span slot="label"><i class="el-icon-phone"></i> 联系信息</span>
+        <div class="classhd">联系信息</div>
 
         <div class="query-btn">
           <div>
-            <el-button type="success" icon="el-icon-plus" @click="openaddyxh = true">添加</el-button>
+            <el-button type="success" icon="el-icon-plus" @click="openTjyxh">添加</el-button>
           </div>
           <div>
             <el-button type="primary" icon="el-icon-refresh-right" round @click="queryNewyxh">刷新</el-button>
           </div>
         </div>
         <div>
-          <el-table :data="yxhlist" stripe v-loading="yxhloading" height="380">
-            <el-table-column label="信息分组" prop="messageGroup"></el-table-column>
-            <el-table-column label="信息关键词" prop="messageKey"></el-table-column>
+          <el-table :data="yxhlist" stripe v-loading="yxhloading" height="410">
+            <!-- <el-table-column label="信息分组" prop="messageGroup"></el-table-column> -->
+            <el-table-column label="所属分类" prop="messageKey">
+              <template slot-scope="scope">
+                {{ scope.row.messageKey | isCallMessagekey }}
+              </template>
+            </el-table-column>
+            <el-table-column label="内容">
+              <template slot-scope="scope">
+                <span v-html="scope.row.message"></span>
+              </template>
+            </el-table-column>
             <el-table-column label="最后修改时间" sortable prop="lastupdate">
               <template slot-scope="scope">
                 {{ scope.row.lastupdate | formatDate }}
@@ -31,7 +40,7 @@
             </el-table-column>
             <el-table-column label="操作">
               <template slot-scope="socpe">
-                <el-button type="success" plain icon="el-icon-search" @click="ckyxh(socpe.row)">查看</el-button>
+                <!-- <el-button type="success" plain icon="el-icon-search" @click="ckyxh(socpe.row)">查看</el-button> -->
                 <el-button type="primary" plain icon="el-icon-edit" @click="showupdateyxh(socpe.row)">编辑</el-button>
                 <el-button type="danger" plain icon="el-icon-delete" @click="delyxh(socpe.row)">删除</el-button>
               </template>
@@ -40,44 +49,98 @@
           <page :page="yxhPage" @page-change="queryYxh" class="pg" v-loading="yxhloading"></page>
         </div>
       </el-tab-pane>
-      <!-- 二维码管理 -->
-      <el-tab-pane label="二维码">
-        <span slot="label"><i class="el-icon-s-grid"></i> 二维码管理</span>
-        <div class="classhd">二维码管理</div>
-
-        <div class="query-btn">
-          <div>
-            <el-button type="success" icon="el-icon-plus" @click="openaddfjtpxx = true">添加</el-button>
-          </div>
-          <div>
-            <el-button type="primary" icon="el-icon-refresh-right" round @click="queryNewfjtpxx">刷新</el-button>
-          </div>
-        </div>
+      <!-- 页面设计人员 -->
+      <el-tab-pane label="页面设计人员">
+        <span slot="label"><i class="el-icon-user"></i> 页面设计人员</span>
         <div>
-          <el-table :data="fjtpxxlist" stripe v-loading="fjtpxxloading" height="420">
-            <el-table-column label="信息分组" prop="messageGroup"></el-table-column>
-            <el-table-column label="信息关键词" prop="messageKey"></el-table-column>
-            <el-table-column label="对应的二维码">
-              <template slot-scope="socpe">
-                <el-tooltip content="点击查看图片" placement="right" effect="light">
-                  <img :src="getUrl(socpe.row)" alt="" height="55px" width="90px" @click="ckimg(socpe.row)" />
-                </el-tooltip>
-              </template>
-            </el-table-column>
-            <el-table-column label="最后修改时间" sortable prop="lastupdate">
-              <template slot-scope="scope">
-                {{ scope.row.lastupdate | formatDate }}
-              </template>
-            </el-table-column>
-            <el-table-column label="操作">
-              <template slot-scope="socpe">
-                <el-button type="success" size="medium" plain icon="el-icon-search" @click="ckfjtpxx(socpe.row)">查看</el-button>
-                <el-button type="primary" size="medium" plain icon="el-icon-edit" @click="showupdatefjtpxx(socpe.row)">编辑</el-button>
-                <el-button type="danger" size="medium" plain icon="el-icon-delete" @click="delfjtpxx(socpe.row)"></el-button>
-              </template>
-            </el-table-column>
-          </el-table>
-          <page :page="fjtpxxPage" @page-change="queryFjtpxx" class="pg" v-loading="fjtpxxloading"></page>
+          <el-tabs :tab-position="(tabPosition = 'left')" style="height: 640px;">
+            <!-- 设计人员信息 -->
+            <el-tab-pane label="设计人员信息">
+              <span slot="label"><i class="el-icon-postcard"></i> 人员信息</span>
+              <div class="classhd">页面设计人员信息</div>
+
+              <div class="query-btn">
+                <div>
+                  <el-button type="success" icon="el-icon-plus" @click="openaddfjtpxx = true">添加</el-button>
+                </div>
+                <div>
+                  <el-button type="primary" icon="el-icon-refresh-right" round @click="queryNewfjtpxx">刷新</el-button>
+                </div>
+              </div>
+              <div>
+                <el-table :data="fjtpxxlist" stripe v-loading="fjtpxxloading" height="420">
+                  <!-- <el-table-column label="信息分组" prop="messageGroup"></el-table-column>
+            <el-table-column label="信息关键词" prop="messageKey"></el-table-column> -->
+                  <el-table-column label="二维码">
+                    <template slot-scope="socpe">
+                      <el-tooltip content="点击查看图片" placement="right" effect="light">
+                        <img :src="getUrl(socpe.row)" alt="" height="55px" width="90px" @click="ckimg(socpe.row)" />
+                      </el-tooltip>
+                    </template>
+                  </el-table-column>
+                  <el-table-column label="人员信息">
+                    <template slot-scope="socpe">
+                      <span v-html="socpe.row.message"></span>
+                    </template>
+                  </el-table-column>
+                  <el-table-column label="最后修改时间" sortable prop="lastupdate">
+                    <template slot-scope="scope">
+                      {{ scope.row.lastupdate | formatDate }}
+                    </template>
+                  </el-table-column>
+                  <el-table-column label="操作">
+                    <template slot-scope="socpe">
+                      <!-- <el-button type="success" size="medium" plain icon="el-icon-search" @click="ckfjtpxx(socpe.row)">查看</el-button> -->
+                      <el-button type="primary" size="medium" plain icon="el-icon-edit" @click="showupdatefjtpxx(socpe.row)">编辑</el-button>
+                      <el-button type="danger" size="medium" plain icon="el-icon-delete" @click="delfjtpxx(socpe.row)">删除</el-button>
+                    </template>
+                  </el-table-column>
+                </el-table>
+                <page :page="fjtpxxPage" @page-change="queryFjtpxx" class="pg" v-loading="fjtpxxloading"></page>
+              </div>
+            </el-tab-pane>
+            <!-- 二维码管理 -->
+            <el-tab-pane label="二维码">
+              <span slot="label"><i class="el-icon-picture"></i> 二维码</span>
+              <div class="classhd">二维码</div>
+
+              <div class="query-btn">
+                <div>
+                  <el-button type="success" icon="el-icon-plus" @click="openaddfjtp = true">添加</el-button>
+                </div>
+                <div>
+                  <el-button type="primary" icon="el-icon-refresh-right" round @click="queryNewfjtp">刷新</el-button>
+                </div>
+              </div>
+              <div>
+                <el-table :data="fjtplist" stripe v-loading="fjtploading" height="450">
+                  <!-- <el-table-column label="文件编号" prop="fid"></el-table-column>
+            <el-table-column label="文件名称" prop="filename"></el-table-column> -->
+                  <el-table-column label="文件描述" prop="fileinfo"></el-table-column>
+                  <el-table-column label="二维码图片">
+                    <template slot-scope="scope">
+                      <el-tooltip content="点击查看图片" placement="right" effect="light">
+                        <img :src="scope.row.fid | fileurl" alt="" height="75px" width="110px" @click="showfjtp(scope.row)" />
+                      </el-tooltip>
+                    </template>
+                  </el-table-column>
+                  <el-table-column label="最后修改时间" sortable prop="lastupdate">
+                    <template slot-scope="scope">
+                      {{ scope.row.lastupdate | formatDate }}
+                    </template>
+                  </el-table-column>
+                  <el-table-column label="操作">
+                    <template slot-scope="socpe">
+                      <el-button type="success" plain icon="el-icon-search" v-if="isImage(socpe.row)" @click="showfjtp(socpe.row)">预览</el-button>
+                      <el-button type="primary" plain icon="el-icon-download" @click="downloadfjtp(socpe.row)"></el-button>
+                      <el-button type="danger" plain icon="el-icon-delete" @click="delfjtp(socpe.row)"></el-button>
+                    </template>
+                  </el-table-column>
+                </el-table>
+                <page :page="fjtpPage" @page-change="queryFjtp" v-loading="fjtploading" class="pg"></page>
+              </div>
+            </el-tab-pane>
+          </el-tabs>
         </div>
       </el-tab-pane>
     </el-tabs>
@@ -86,15 +149,24 @@
     <div>
       <el-dialog :visible.sync="openaddyxh" :close-on-click-modal="false" title="添加联系信息">
         <el-form>
-          <el-form-item label="信息分组：">
+          <!-- <el-form-item label="信息分组：">
             <el-input v-model="addInfoyxh.messageGroup" placeholder="信息分组"></el-input>
+          </el-form-item> -->
+          <el-form-item label="所属分类：">
+            <!-- {{ addInfoyxh.messageKey }} -->
+            <el-select v-model="addInfoyxh.messageKey" clearable placeholder="请选择">
+              <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"> </el-option>
+            </el-select>
+            <!-- <el-input v-model="addInfoyxh.messageKey" placeholder="信息关键词" clearable></el-input> -->
           </el-form-item>
-          <el-form-item label="信息关键字：">
-            <el-input v-model="addInfoyxh.messageKey" placeholder="信息关键词" clearable></el-input>
-          </el-form-item>
-          <el-form-item label="内容描述：">
-            <el-button type="primary" plain @click="Visibleadd01 = true">添加内容</el-button>
-            <el-input v-model="addInfoyxh.message" placeholder="信息内容" type="textarea" autosize></el-input>
+          <el-form-item label="内容：">
+            <div class="add-message">
+              <el-button type="primary" plain @click="Visibleadd01 = true">添加内容</el-button>
+            </div>
+            <!-- <el-input v-model="addInfoyxh.message" placeholder="信息内容" type="textarea" autosize></el-input> -->
+            <div class="bj-message">
+              <span v-html="addInfoyxh.message"></span>
+            </div>
           </el-form-item>
           <el-form-item>
             <el-button type="success" @click="addyxh">添加</el-button>
@@ -108,7 +180,7 @@
     <div>
       <el-dialog title="添加内容编辑框" :close-on-click-modal="false" :visible.sync="Visibleadd01">
         <div>
-          <my-editor @data-change="editorChange02"></my-editor>
+          <my-editor :upmessage.sync="addInfoyxh.message" @data-change="editorChange02"></my-editor>
         </div>
         <div>
           <el-button type="primary" @click="Visibleadd01 = false">确定</el-button>
@@ -119,18 +191,24 @@
 
     <!-- 修改联系信息的对话框 -->
     <div>
-      <el-dialog :visible.sync="openupdateyxh" :close-on-click-modal="false" title="修改联系信息">
+      <el-dialog :visible.sync="openupdateyxh" :close-on-click-modal="false" title="编辑联系信息">
         <div>
           <el-form>
-            <el-form-item label="信息分组：">
+            <!-- <el-form-item label="信息分组：">
               <el-input v-model="updateInfoyxh.messageGroup" placeholder="信息分组" clearable></el-input>
             </el-form-item>
             <el-form-item label="信息关键词：">
               <el-input v-model="updateInfoyxh.messageKey" placeholder="信息关键词" clearable></el-input>
+            </el-form-item> -->
+            <el-form-item label="所属分类：">
+              {{ updateInfoyxh.messageKey | isCallMessagekey }}
             </el-form-item>
             <el-form-item label="信息内容：">
               <el-button type="primary" plain @click="Visibleupdate01 = true">编辑内容</el-button>
-              <el-input v-model="updateInfoyxh.message" placeholder="信息内容" type="textarea" autosize></el-input>
+              <!-- <el-input v-model="updateInfoyxh.message" placeholder="信息内容" type="textarea" autosize></el-input> -->
+              <div class="bj-message">
+                <span v-html="updateInfoyxh.message"></span>
+              </div>
             </el-form-item>
             <el-form-item>
               <el-button type="success" @click="updateyxh">保存</el-button>
@@ -178,18 +256,26 @@
     <div>
       <el-dialog :visible.sync="openaddfjtpxx" :close-on-click-modal="false" title="添加二维码信息">
         <el-form>
-          <el-form-item label="信息分组：">
+          <!-- <el-form-item label="信息分组：">
             <el-input v-model="addInfofjtpxx.messageGroup" placeholder="信息分组"></el-input>
+          </el-form-item> -->
+          <el-form-item label="二维码：">
+            <!-- <el-input v-model="addInfofjtpxx.messageKey" placeholder="信息关键词" clearable></el-input>
           </el-form-item>
-          <el-form-item label="信息关键字：">
-            <el-input v-model="addInfofjtpxx.messageKey" placeholder="信息关键词" clearable></el-input>
-          </el-form-item>
-          <el-form-item label="选择文件：">
-            <el-button type="info" plain @click="fileVisible03 = true">浏览文件</el-button>
+          <el-form-item label="选择文件："> -->
+            <div v-if="addInfofjtpxx.messageKey != ''">
+              <img :src="addInfofjtpxx.messageKey | fileurl" width="190px" height="130px" alt="" />
+            </div>
+            <div class="bj-ewmImg">
+              <el-button type="info" plain @click="fileVisible03 = true">选择图片</el-button>
+            </div>
           </el-form-item>
           <el-form-item label="内容描述：">
             <el-button type="primary" plain @click="Visibleadd = true">添加内容</el-button>
-            <el-input v-model="addInfofjtpxx.message" placeholder="信息内容" type="textarea" autosize clearable></el-input>
+            <!-- <el-input v-model="addInfofjtpxx.message" placeholder="信息内容" type="textarea" autosize clearable></el-input> -->
+            <div class="bj-message">
+              <span v-html="addInfofjtpxx.message"></span>
+            </div>
           </el-form-item>
           <el-form-item>
             <el-button type="success" @click="addfjtpxx">添加</el-button>
@@ -203,7 +289,7 @@
     <div>
       <el-dialog top="3rem" :close-on-click-modal="false" :visible.sync="fileVisible03" title="文件选择对话框">
         <div>
-          <file-choose @file-selected="fileSelected01"></file-choose>
+          <file-ewm-choose @file-selected="fileSelected01"></file-ewm-choose>
         </div>
       </el-dialog>
     </div>
@@ -212,7 +298,7 @@
     <div>
       <el-dialog title="添加内容编辑框" :close-on-click-modal="false" :visible.sync="Visibleadd">
         <div>
-          <my-editor @data-change="editorChange"></my-editor>
+          <my-editor :upmessage.sync="addInfofjtpxx.message" @data-change="editorChange"></my-editor>
         </div>
         <div>
           <el-button type="primary" @click="Visibleadd = false">确定</el-button>
@@ -223,23 +309,31 @@
 
     <!-- 修改二维码信息的对话框 -->
     <div>
-      <el-dialog :visible.sync="openupdatefjtpxx" :close-on-click-modal="false" title="修改二维码信息">
+      <el-dialog :visible.sync="openupdatefjtpxx" :close-on-click-modal="false" title="编辑设计人员信息">
         <div>
           <el-form>
-            <el-form-item label="信息分组：">
+            <!-- <el-form-item label="信息分组：">
               <el-input v-model="updateInfofjtpxx.messageGroup" placeholder="信息分组" clearable></el-input>
+            </el-form-item> -->
+            <el-form-item label="二维码：">
+              <!-- <el-input v-model="updateInfofjtpxx.messageKey" placeholder="信息关键词" type="textarea" autosize clearable></el-input>
             </el-form-item>
-            <el-form-item label="信息关键词：">
-              <el-input v-model="updateInfofjtpxx.messageKey" placeholder="信息关键词" type="textarea" autosize clearable></el-input>
-            </el-form-item>
-            <el-form-item label="选择文件：">
-              <el-button type="info" plain @click="fileVisible04 = true">浏览文件</el-button>
+            <el-form-item label="选择文件："> -->
+              <div>
+                <img :src="updateInfofjtpxx.messageKey | fileurl" width="190px" height="130px" alt="" />
+              </div>
+              <div class="bj-ewmImg">
+                <el-button type="info" plain @click="fileVisible04 = true">选择图片</el-button>
+              </div>
             </el-form-item>
             <el-form-item label="信息内容：">
               <!-- <br /> -->
               <!-- <my-editor :upmessage.sync="updateInfofjtpxx.message" @data-change="editorChange01"></my-editor> -->
               <el-button type="primary" plain @click="Visibleupdate = true">编辑内容</el-button>
-              <el-input v-model="updateInfofjtpxx.message" placeholder="信息内容" type="textarea" autosize clearable></el-input>
+              <!-- <el-input v-model="updateInfofjtpxx.message" placeholder="信息内容" type="textarea" autosize clearable></el-input> -->
+              <div class="bj-message">
+                <span v-html="updateInfofjtpxx.message"></span>
+              </div>
             </el-form-item>
             <el-form-item>
               <el-button type="success" @click="updatefjtpxx">保存</el-button>
@@ -254,7 +348,7 @@
     <div>
       <el-dialog top="3rem" :close-on-click-modal="false" :visible.sync="fileVisible04" title="文件选择对话框">
         <div>
-          <file-choose @file-selected="fileSelected02"></file-choose>
+          <file-ewm-choose @file-selected="fileSelected02"></file-ewm-choose>
         </div>
       </el-dialog>
     </div>
@@ -293,9 +387,41 @@
 
     <!-- 查看图片的对话框 -->
     <div>
-      <el-dialog top="0rem" title="查看图片" :visible.sync="ckfjtp01">
+      <el-dialog top="0rem" title="图片预览" :visible.sync="ckfjtp01">
         <div class="show-img">
           <img :src="imgUrl02" alt="" />
+        </div>
+      </el-dialog>
+    </div>
+
+    <!-- 添加二维码图片的对话框 -->
+    <div>
+      <el-dialog :visible.sync="openaddfjtp" :close-on-click-modal="false" title="添加二维码图片">
+        <el-form>
+          <el-form-item label="文件描述：">
+            <br />
+            <div>例如：<span style="color: #1E90FF;">二维码01/二维码02....</span></div>
+            <el-input v-model="addInfofjtp.fileinfo" placeholder="文件描述："></el-input>
+          </el-form-item>
+          <el-form-item>
+            <el-button @click="openFile">选择文件...</el-button>
+            <span v-if="file">&nbsp;{{ file.name }}</span>
+            <br />
+            <span style="color:	#FFA500;">提示：文件大小不能超过2M！</span>
+          </el-form-item>
+          <el-form-item>
+            <el-button type="success" @click="addfjtp">添加</el-button>
+            <el-button @click="resetaddfjtp">重置</el-button>
+          </el-form-item>
+        </el-form>
+      </el-dialog>
+    </div>
+
+    <!-- 预览二维码图片的对话框 -->
+    <div>
+      <el-dialog top="0rem" title="二维码图片预览" :visible.sync="ckfjtp">
+        <div class="show-img">
+          <img :src="imgUrl" alt="" />
         </div>
       </el-dialog>
     </div>
@@ -304,11 +430,12 @@
 
 <script>
 import Page from '../../components/Page';
-import FileChoose from '../../components/FileChoose';
+import FileEwmChoose from '../../components/FileEwmChoose.vue';
 import MyEditor from '../../components/MyEditor';
+import tools from '../../js/tools';
 export default {
   name: 'Call',
-  components: { Page, FileChoose, MyEditor },
+  components: { Page, FileEwmChoose, MyEditor },
   data() {
     return {
       // 全局loading
@@ -333,6 +460,25 @@ export default {
       updateInfoyxh: {},
       Visibleadd01: false,
       Visibleupdate01: false,
+      // 添加联系信息选择的分类
+      options: [
+        {
+          value: 'name',
+          label: '名称'
+        },
+        {
+          value: 'address',
+          label: '地址'
+        },
+        {
+          value: 'chuanzhen',
+          label: '传真'
+        },
+        {
+          value: 'phone',
+          label: '电话'
+        }
+      ],
       // 二维码信息
       fjtpxxlist: [],
       fjtpxxPage: {
@@ -356,10 +502,170 @@ export default {
       fileVisible03: false,
       fileVisible04: false,
       Visibleadd: false,
-      Visibleupdate: false
+      Visibleupdate: false,
+      // 二维码图片
+      fjtplist: [],
+      fjtploading: false,
+      fjtpPage: {
+        pageSize: 4,
+        pageNumber: 1
+      },
+      queryInfofjtp: {
+        fileinfo: '二维码',
+        filename: '',
+        contentType: ''
+      },
+      openaddfjtp: false,
+      file: null,
+      addInfofjtp: {
+        fileinfo: '二维码'
+      },
+      imgUrl: '',
+      ckfjtp: false
     };
   },
   methods: {
+    // 删除图片的方法
+    delfjtp(file) {
+      this.$confirm('是否删除：' + file.fileinfo + ' ?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      })
+        .then(() => {
+          this.$ajax(
+            '/file/delete',
+            {
+              'tbFile.fid': file.fid
+            },
+            function(data) {
+              if (!data.success) {
+                this.$notify.error({
+                  title: '失败',
+                  message: '删除失败',
+                  type: 'success'
+                });
+                return;
+              }
+              this.$notify({
+                title: '成功',
+                message: '删除成功',
+                type: 'success'
+              });
+              this.queryFjtp();
+            }
+          );
+        })
+        .catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消删除'
+          });
+        });
+    },
+    // 判断是否是图片的方法
+    isImage(file) {
+      return file.contentType.substr(0, 6) == 'image/';
+    },
+    // 查看二维码图片的方法
+    showfjtp(file) {
+      this.ckfjtp = true;
+      this.imgUrl = this.$getDownloadUrl(file.fid);
+    },
+    // 下载二维码图片的方法
+    downloadfjtp(info) {
+      window.open(this.$getDownloadUrl(info.fid));
+    },
+    // 重置二维码图片添加表单的方法
+    resetaddfjtp() {
+      this.addInfofjtp = {
+        fileinfo: '二维码'
+      };
+      this.file = null;
+    },
+    // 获取二维码图片的文件的方法
+    openFile() {
+      let app = this;
+      tools.openFile(function(file) {
+        app.file = file;
+      });
+    },
+    // 添加二维码图片的方法
+    addfjtp() {
+      let app = this;
+      if (this.addInfofjtp.fileinfo == '') {
+        app.$message({
+          message: '文件描述必须填写!',
+          type: 'warning'
+        });
+        return;
+      }
+      if (app.file == null) {
+        app.$message({
+          message: '必须选择一个文件!',
+          type: 'warning'
+        });
+        return;
+      }
+      app.$sendFile(
+        '/file/upload',
+        app.file,
+        {
+          'tbFile.fileinfo': this.addInfofjtp.fileinfo
+        },
+        function(data) {
+          // app.$message(data.message);
+          if (!data.success) {
+            app.$notify.error({
+              title: '失败',
+              message: '添加失败,' + data.message,
+              type: 'success'
+            });
+            app.resetaddfjtp();
+            return;
+          }
+          app.$message(data.message);
+          app.openaddfjtp = false;
+          app.$notify({
+            title: '成功',
+            message: '添加成功',
+            type: 'success'
+          });
+          app.resetaddfjtp();
+          app.queryFjtp();
+        }
+      );
+    },
+    // 刷新二维码图片页面的方法
+    queryNewfjtp() {
+      this.fjtpPage = {
+        pageSize: 4,
+        pageNumber: 1
+      };
+      this.queryFjtp();
+    },
+    // 查询二维码图片的方法
+    queryFjtp() {
+      this.$ajax(
+        '/file/query',
+        {
+          tbFile: this.queryInfofjtp,
+          page: this.fjtpPage
+        },
+        function(data) {
+          if (!data.success) {
+            this.$message.error(data.message);
+            return;
+          }
+          this.fjtplist = data.resultData.list;
+          this.fjtpPage = data.resultData.page;
+        }
+      );
+      this.fjtploading = true;
+      setTimeout(() => {
+        this.fjtploading = false;
+      }, 200);
+    },
     // 获取富文本编辑器的内容给修改的内容
     editorChange01(info) {
       this.updateInfofjtpxx.message = info;
@@ -367,7 +673,8 @@ export default {
     // 取消添加内容的方法
     editorqx() {
       this.Visibleadd = false;
-      this.resetaddfjtpxx();
+      // this.resetaddfjtpxx();
+      this.addInfofjtpxx.message = '';
     },
     // 获取富文本编辑器的内容给添加表单的方法
     editorChange(info) {
@@ -425,7 +732,7 @@ export default {
     },
     // 删除二维码信息的方法
     delfjtpxx(info) {
-      this.$confirm('是否删除此项二维码信息?', '提示', {
+      this.$confirm('是否删除此项人员信息?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
@@ -490,14 +797,14 @@ export default {
       }
       if (this.addInfofjtpxx.messageKey == '') {
         this.$message({
-          message: '信息关键词必须填写!',
+          message: '必须选择一个图片!',
           type: 'warning'
         });
         return;
       }
       if (this.addInfofjtpxx.message == '') {
         this.$message({
-          message: '内容描述必须填写!',
+          message: '内容不能为空!',
           type: 'warning'
         });
         return;
@@ -573,7 +880,8 @@ export default {
     // 取消添加内容的方法
     editorqx01() {
       this.Visibleadd01 = false;
-      this.resetaddyxh();
+      // this.resetaddyxh();
+      this.addInfoyxh.message = '';
     },
     // 获取富文本编辑器的内容给添加表单的方法
     editorChange02(info) {
@@ -619,9 +927,24 @@ export default {
       );
       this.queryYxh();
     },
+    // 转化联系信息关键词的方法
+    isCallMessagekey(value) {
+      if (value == 'name') {
+        return '名称';
+      }
+      if (value == 'address') {
+        return '地址';
+      }
+      if (value == 'chuanzhen') {
+        return '传真';
+      }
+      if (value == 'phone') {
+        return '电话';
+      }
+    },
     // 删除联系信息的方法
     delyxh(info) {
-      this.$confirm('是否删除此项信息?', '提示', {
+      this.$confirm('是否删除：“' + this.isCallMessagekey(info.messageKey) + ' ”分类及其内容?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
@@ -686,14 +1009,14 @@ export default {
       }
       if (this.addInfoyxh.messageKey == '') {
         this.$message({
-          message: '信息关键词必须填写!',
+          message: '必须选择所属分类!',
           type: 'warning'
         });
         return;
       }
       if (this.addInfoyxh.message == '') {
         this.$message({
-          message: '内容描述必须填写!',
+          message: '内容必须填写!',
           type: 'warning'
         });
         return;
@@ -727,6 +1050,17 @@ export default {
           this.queryYxh();
         }
       );
+    },
+    // 打开添加联系信息对话框的方法
+    openTjyxh() {
+      if (this.yxhPage.total == 4) {
+        this.$message({
+          message: '分类已加满，无法添加!',
+          type: 'warning'
+        });
+        return;
+      }
+      this.openaddyxh = true;
     },
     // 查询联系信息的方法
     queryYxh() {
@@ -769,6 +1103,7 @@ export default {
     this.queryAll();
     this.queryYxh();
     this.queryFjtpxx();
+    this.queryFjtp();
   }
 };
 </script>
@@ -842,5 +1177,23 @@ body {
   display: flex;
   width: 100%;
   height: auto;
+}
+
+/* 添加、编辑联系信息、编辑设计人员信息，显示的html样式 */
+.bj-message {
+  display: flex;
+  margin-left: 5.3rem;
+}
+
+/* 添加联系信息按钮样式 */
+.add-message {
+  display: flex;
+  margin-left: 5.2rem;
+}
+
+/* 编辑设计人员信息选择图片的按钮样式 */
+.bj-ewmImg {
+  display: flex;
+  margin-left: 5.2rem;
 }
 </style>

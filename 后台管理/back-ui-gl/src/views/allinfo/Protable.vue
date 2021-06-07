@@ -18,11 +18,11 @@
           <el-button type="warning" icon="el-icon-refresh-right" round @click="queryNewyxh">刷新</el-button>
         </div>
         <div>
-          <el-button @click="backindex" type="primary" icon="el-icon-d-arrow-left" round>首页</el-button>
+          <el-button @click="backindex" type="primary" icon="el-icon-back" round>返回</el-button>
         </div>
       </div>
       <div>
-        <el-table :data="yxhlist" stripe v-loading="yxhloading" height="573px">
+        <el-table :data="yxhlist" stripe v-loading="yxhloading" height="585">
           <el-table-column label="主键" prop="pmid"></el-table-column>
           <el-table-column label="信息分组" prop="messageGroup"></el-table-column>
           <el-table-column label="信息关键词" prop="messageKey"></el-table-column>
@@ -48,19 +48,41 @@
       <el-dialog :visible.sync="openaddyxh" :close-on-click-modal="false" title="添加门户信息">
         <el-form>
           <el-form-item label="信息分组：">
-            <el-input v-model="addInfoyxh.messageGroup" placeholder="信息分组"></el-input>
+            <el-input v-model="addInfoyxh.messageGroup" placeholder="信息分组" clearable=""></el-input>
           </el-form-item>
           <el-form-item label="信息关键字：">
             <el-input v-model="addInfoyxh.messageKey" placeholder="信息关键词" clearable></el-input>
           </el-form-item>
           <el-form-item label="内容描述：">
-            <el-input v-model="addInfoyxh.message" placeholder="信息内容" type="textarea" autosize clearable></el-input>
+            <el-select v-model="type">
+              <el-option v-for="t in types" :key="t.key" :value="t.key" :label="t.info"></el-option>
+            </el-select>
+            <div v-if="type == 'text'" style="display: flex;margin: 1rem 5.1rem;">
+              <el-input v-model="addInfoyxh.message" placeholder="信息内容" type="textarea" :autosize="{ minRows: 4, maxRows: 4 }"></el-input>
+            </div>
+            <div v-else-if="type == 'editor'" style="display: flex;margin: 1rem 5.3rem;">
+              <el-button type="primary" plain @click="Visibleadd = true">添加信息内容</el-button>
+              <i class="el-icon-check icons" v-if="Visivleicon01"></i>
+            </div>
           </el-form-item>
           <el-form-item>
             <el-button type="success" @click="addyxh">添加</el-button>
             <el-button @click="resetaddyxh">重置</el-button>
           </el-form-item>
         </el-form>
+      </el-dialog>
+    </div>
+
+    <!-- 添加内容的对话框 -->
+    <div>
+      <el-dialog title="添加信息内容对话框" :close-on-click-modal="false" :visible.sync="Visibleadd">
+        <div>
+          <my-editor :upmessage.sync="addInfoyxh.message" @data-change="editorChange"></my-editor>
+        </div>
+        <div>
+          <el-button type="primary" @click="(Visibleadd = false), (Visivleicon01 = true)">确定</el-button>
+          <el-button @click="Visibleadd = false">取消</el-button>
+        </div>
       </el-dialog>
     </div>
 
@@ -73,16 +95,38 @@
               <el-input v-model="updateInfoyxh.messageGroup" placeholder="信息分组" clearable></el-input>
             </el-form-item>
             <el-form-item label="信息关键词：">
-              <el-input v-model="updateInfoyxh.messageKey" placeholder="信息关键词" type="textarea" autosize clearable></el-input>
+              <el-input v-model="updateInfoyxh.messageKey" placeholder="信息关键词" clearable></el-input>
             </el-form-item>
             <el-form-item label="信息内容：">
-              <el-input v-model="updateInfoyxh.message" placeholder="信息内容" type="textarea" autosize clearable></el-input>
+              <el-select v-model="type">
+                <el-option v-for="t in types" :key="t.key" :value="t.key" :label="t.info"></el-option>
+              </el-select>
+              <div v-if="type == 'text'" style="display: flex;margin: 1rem 5.1rem;">
+                <el-input v-model="updateInfoyxh.message" placeholder="信息内容" type="textarea" :autosize="{ minRows: 4, maxRows: 4 }"></el-input>
+              </div>
+              <div v-else-if="type == 'editor'" style="display: flex;margin: 1rem 5.3rem;">
+                <el-button type="primary" plain @click="Visibleupdate = true">编辑信息内容</el-button>
+                <i class="el-icon-check icons" v-if="Visivleicon"></i>
+              </div>
             </el-form-item>
             <el-form-item>
               <el-button type="success" @click="updateyxh">保存</el-button>
               <el-button @click="openupdateyxh = false">关闭</el-button>
             </el-form-item>
           </el-form>
+        </div>
+      </el-dialog>
+    </div>
+
+    <!-- 编辑内容的对话框 -->
+    <div>
+      <el-dialog title="编辑内容对话框" :close-on-click-modal="false" :visible.sync="Visibleupdate">
+        <div>
+          <my-editor :upmessage.sync="updateInfoyxh.message" @data-change="editorChange01"></my-editor>
+        </div>
+        <div>
+          <el-button type="primary" @click="(Visibleupdate = false), (Visivleicon = true)">确定</el-button>
+          <el-button @click="Visibleupdate = false">取消</el-button>
         </div>
       </el-dialog>
     </div>
@@ -110,8 +154,9 @@
 
 <script>
 import Page from '../../components/Page';
+import MyEditor from '../../components/MyEditor';
 export default {
-  components: { Page },
+  components: { Page, MyEditor },
   name: 'Protable',
   data() {
     return {
@@ -137,7 +182,27 @@ export default {
       queryInfo: {
         accessKey: this.$accessKey,
         messageGroup: ''
-      }
+      },
+      // 编辑内容选项
+      types: [
+        {
+          key: 'text',
+          info: '文本输入框'
+        },
+        {
+          key: 'editor',
+          info: '富文本编辑器'
+        }
+      ],
+      type: 'text',
+      // 打开添加内容框的判定元素
+      Visibleadd: false,
+      // 添加内容确定显示图标判定元素
+      Visivleicon01: false,
+      // 打开编辑内容框的判定元素
+      Visibleupdate: false,
+      // 编辑内容确定显示图标判定元素
+      Visivleicon: false
     };
   },
   methods: {
@@ -156,6 +221,10 @@ export default {
         pageNumber: 1
       };
       this.queryYxh();
+    },
+    // 获取富文本编辑器的内容给修改的内容
+    editorChange01(info) {
+      this.updateInfoyxh.message = info;
     },
     // 获取门户信息修改数据的方法
     showupdateyxh(info) {
@@ -179,6 +248,8 @@ export default {
             return;
           }
           this.openupdateyxh = false;
+          this.type = 'text';
+          this.Visivleicon = false;
           this.$notify({
             title: '成功',
             message: '修改成功',
@@ -191,7 +262,7 @@ export default {
     },
     // 删除门户信息的方法
     delyxh(info) {
-      this.$confirm('是否删除此项门户信息?', '提示', {
+      this.$confirm('是否删除门户信息：' + info.messageGroup + ' ?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
@@ -235,6 +306,10 @@ export default {
       this.openckyxh = true;
       this.ckyxhlist = JSON.parse(JSON.stringify(info));
     },
+    // 获取富文本编辑器的内容给添加的内容
+    editorChange(info) {
+      this.addInfoyxh.message = info;
+    },
     // 重置门户信息添加表单的方法
     resetaddyxh() {
       this.addInfoyxh = {
@@ -243,6 +318,8 @@ export default {
         messageKey: '',
         message: ''
       };
+      // this.type = 'text';
+      this.Visivleicon01 = false;
     },
     // 添加门户信息的方法
     addyxh() {
@@ -283,6 +360,8 @@ export default {
             return;
           }
           this.openaddyxh = false;
+          this.type = 'text';
+          this.Visivleicon01 = false;
           this.$notify({
             title: '成功',
             message: '添加成功',
@@ -405,5 +484,16 @@ body {
   display: flex;
   width: 100%;
   height: auto;
+}
+
+/* 编辑内容旁边图标 */
+.icons {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  margin: 0.7rem 0.7rem;
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: rgb(21, 231, 21);
 }
 </style>
