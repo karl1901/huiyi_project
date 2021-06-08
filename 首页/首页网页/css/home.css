@@ -422,7 +422,7 @@ footer {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-image: url('https://cn.bing.com/th?id=OHR.TearDropEclipse_ZH-CN2282761840_1920x1080.jpg&rf=LaDigue_1920x1080.jpg&pid=hp');
+  background-image: url('../image/loginbg.jpg');
   background-size: cover;
 }
 
@@ -442,19 +442,19 @@ footer {
 .user-login input:hover {
   outline: none;
   padding: 0.6rem 2.3rem;
-  border: 2.2px solid rgb(39, 187, 180);
+  border: 2.2px solid rgb(39, 182, 187);
   border-radius: 1.6rem;
 }
 
 .user-login button {
-  font-weight: bold;
+  /* font-weight: bold; */
   padding: 0.8rem 8rem;
-  border: 0.3rem solid rgb(39, 187, 180);
-  background-color: rgb(39, 187, 180);
+  border: 0.3rem solid rgb(23, 211, 236);
+  background-color: rgb(23, 211, 236);
   border-radius: 2rem;
 }
 
 .user-login button:hover {
-  border: 0.3rem solid rgb(35, 161, 155);
-  background-color: rgb(35, 161, 155);
+  border: 0.3rem solid rgb(24, 201, 224);
+  background-color: rgb(24, 201, 224);
 }

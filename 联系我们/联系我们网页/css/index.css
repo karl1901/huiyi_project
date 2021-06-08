@@ -14,7 +14,7 @@ header {
 
 header div:first-child {
   /* background: rgb(45, 206, 255); */
-  background-image: url("../images/bg01.jpg");
+  background-image: url('../images/bg01.jpg');
   height: 100px;
   position: relative;
   /* background-size: cover; */
@@ -148,7 +148,7 @@ header div:last-child {
 
 .center-box .left-box {
   flex: 2;
-  background-color: rgb(88, 240, 232);
+  background-color: rgb(85, 221, 231);
   padding-top: 11rem;
   padding-right: 1rem;
 }
@@ -166,8 +166,8 @@ header div:last-child {
   justify-content: space-between;
   align-items: flex-end;
   border-bottom: 4px solid rgb(88, 240, 232);
-  width: 99.4%;
-  font-size: 1.2rem;
+  width: 100%;
+  font-size: 1.7rem;
   padding: 10px;
 }
 
@@ -197,9 +197,14 @@ header div:last-child {
   background-color: rgba(0, 255, 255, 0.39);
 }
 
+.div2 > div > div:first-child {
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+}
+
 .div2 > div > div:first-child img {
   display: inline;
-  width: 3rem;
+  width: 8rem;
   height: auto;
   border: 3px solid rgb(88, 240, 232);
 }
@@ -208,14 +213,20 @@ header div:last-child {
   justify-content: space-between;
   align-items: center;
   border-bottom: 4px solid rgb(88, 240, 232);
-  width: 98.1%;
+  width: 100%;
   padding: 1rem 1rem;
+  font-size: 1.6rem;
 }
 
 .yangshi02 {
   display: flex;
+  height: 100%;
   align-items: center;
   padding-left: 2rem;
+}
+
+.yangshi02 div {
+  font-size: 1.7rem;
 }
 
 .yangshi03 {
@@ -225,11 +236,15 @@ header div:last-child {
 }
 
 .address > div {
+  display: flex;
   margin: 3rem;
   height: 100%;
-  align-items: center;
-  display: flex;
+  /* align-items: center; */
 }
+
+/* .address span {
+  margin-top: 1rem;
+} */
 
 /* 底部图片 */
 .tupian {
@@ -241,11 +256,11 @@ header div:last-child {
   height: 130px;
 }
 
-/* 栏目鼠标指针效果 */
+/* 栏目鼠标指针效果
 .lan:hover {
   background-color: rgba(59, 197, 221, 0.329);
   cursor: pointer;
-}
+} */
 
 /* 中间栏目logo和联系我们字样样式 */
 .left-logo {
@@ -257,4 +272,8 @@ header div:last-child {
 /* 地图样式 */
 .map {
   cursor: pointer;
+}
+
+.map img {
+  margin-right: 2rem;
 }

@@ -15,13 +15,13 @@
   /* 回到顶部样式 */
   .btn {
     position: fixed;
-    bottom: 20px;
-    right: 20px;
+    bottom: 50px;
+    right: 60px;
     width: 40px;
     height: 40px;
     border: 1px solid transparent;
     border-radius: 50%;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.288);
   }
 
   .btn a {
@@ -35,7 +35,7 @@
   }
 
   .btn a:hover {
-    color: #27d1fc;
+    color: #43d7f1;
   }
 </style>
 
@@ -177,7 +177,7 @@
                           </div>
                           <!-- <br> -->
                           <div class="text-left">
-                          <h5>{{a1.activeInfo}}</h5>
+                            <h5>{{a1.activeInfo}}</h5>
                           </div>
                         </span>
                         <!-- <div class="item">
@@ -262,7 +262,7 @@
             </div>
 
             <span>
-              <a href="image/index.html">更多>></a>
+              <a href="images/index.html">更多>></a>
             </span>
 
 
@@ -360,7 +360,7 @@
       </div>
 
       <!-- 回到顶部按钮 -->
-      <div class="btn">
+      <div class="btn" id="top-btn">
         <a onclick="pageScroll()"><i class="iconfont">&#xe631;</i></a>
       </div>
 
@@ -382,6 +382,16 @@
           //判断当页面到达顶部，取消延时代码（否则页面滚动到顶部会无法再向下正常浏览页面）
           if (sTop == 0) clearTimeout(scrolldelay);
         }
+
+        // 显示隐藏回顶部按钮
+        window.onscroll = function () {
+          if (document.documentElement.scrollTop + document.body.scrollTop > 775) {
+            document.getElementById("top-btn").style.display = "block";
+          } else {
+            document.getElementById("top-btn").style.display = "none";
+          }
+        }
+
       </script>
 
       <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.0/jquery.min.js"></script>
