@@ -1,9 +1,9 @@
 超级管理员：
-user--karl2021
-password--huiyi1901
+用户名：karl2021
+密码：huiyi1901
 
 -----------------------
 
 普通管理员：
-user--huiyi1901
-password--huiyi1901
+用户名：huiyi1901
+密码：huiyi1901
