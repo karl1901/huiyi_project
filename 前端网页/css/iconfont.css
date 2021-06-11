@@ -1,0 +1,14 @@
+.iconfont {
+  font-family: 'iconfont' !important;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@font-face {
+  font-family: 'iconfont';
+  /* Project id 1552819 */
+  src: url('//at.alicdn.com/t/font_1552819_ec2tzfzubwt.woff2?t=1621939251028') format('woff2'),
+    url('//at.alicdn.com/t/font_1552819_ec2tzfzubwt.woff?t=1621939251028') format('woff'),
+    url('//at.alicdn.com/t/font_1552819_ec2tzfzubwt.ttf?t=1621939251028') format('truetype');
+}

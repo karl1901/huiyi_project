@@ -1,0 +1,460 @@
+body {
+  padding: 0px;
+  margin: 0px;
+  background: rgb(32, 32, 32);
+}
+
+/* 头部样式 */
+header {
+  display: block;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+header div:first-child {
+  /* background: rgb(45, 206, 255); */
+  background-image: url('../image/头部图片.jpg');
+  height: 100px;
+  position: relative;
+  /* background-size: cover; */
+  padding: 3rem;
+}
+
+header div:last-child {
+  display: flex;
+  height: auto;
+  background: rgb(255, 255, 255);
+  padding: 0.5rem;
+}
+
+/* 头像 */
+.toux {
+  position: absolute;
+  left: 20%;
+  top: 10%;
+  transform: rotate(15deg);
+}
+
+/* 项目导航样式 */
+
+.content-nav {
+  background-color: #f0f4f0;
+}
+
+.content-nav ul {
+  width: 1000px;
+  margin: auto;
+  overflow: hidden;
+  height: 70px;
+}
+
+.content-nav ul a {
+  position: relative;
+  padding-top: 8px;
+  float: left;
+  width: 20%;
+  text-align: center;
+  font-size: 0.9rem;
+  font-weight: 3rem;
+  height: 62px;
+}
+
+.content-nav ul a {
+  color: #000201;
+  vertical-align: middle;
+  text-decoration: none;
+}
+
+.content-nav ul a img {
+  width: 35px;
+  height: 35px;
+}
+
+.content-nav ul a:hover {
+  background-color: rgba(166, 221, 247, 0.5);
+  border-top: 0px solid;
+  border-radius: 0.5rem;
+  color: #ffffff;
+}
+
+.content-nav ul a:hover a {
+  color: #696d71;
+  display: block;
+  width: 100%;
+}
+
+/* 班级档案 、跟新日志*/
+.g1 {
+  background: #c4e5fa;
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: center;
+}
+
+.g2 {
+  width: 1000px;
+  height: auto;
+  padding: 2rem;
+}
+
+/* 路上风景、一些话 */
+.g11 {
+  display: flex;
+  justify-content: center;
+  background: #fdfdfd;
+  width: 100%;
+  height: auto;
+}
+
+.g22 {
+  width: 1000px;
+  height: auto;
+  padding: 1rem;
+}
+
+/* 横线 */
+.hx {
+  border: 1px solid #ffffff;
+  background: #ffffff;
+  width: 100%;
+  height: 4px;
+  margin-top: 1rem;
+}
+
+/* 太阳图片 */
+.taiy {
+  transform: rotate(15deg);
+  margin-left: -0.5rem;
+  margin-top: -1.8rem;
+}
+
+/* 横线2 */
+.hx1 {
+  border: 1px solid #c4e5fa;
+  background: #c4e5fa;
+  width: 100%;
+  height: 4px;
+  margin-top: 1rem;
+}
+
+/* 蝴蝶图片 */
+.taiy1 {
+  transform: rotate(15deg);
+  margin-left: -1.2rem;
+  margin-top: -1.8rem;
+}
+
+/* 路上风景 */
+.fj {
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  align-items: center;
+  border: 3px solid transparent;
+  box-shadow: 0px 0px 8px #000000;
+  /* border-style: dashed; */
+  background-color: rgba(176, 235, 250, 0.5);
+  border-radius: 0.5rem;
+  width: 100%;
+  height: auto;
+  padding: 2rem;
+}
+
+.fj > div {
+  display: block;
+  position: relative;
+  border: 10px solid #ffffff;
+  border-style: groove;
+  width: 280px;
+  height: 160px;
+  background-color: #ffffff;
+
+  overflow: hidden;
+  margin: 1rem;
+}
+
+.fj span {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+}
+
+.fj a {
+  color: rgb(0, 0, 0);
+  font-size: 1.3rem;
+  font-weight: bold;
+}
+
+.fj a:hover {
+  color: rgb(0, 0, 0);
+  font-size: 1.3rem;
+  font-weight: bold;
+}
+
+.fj > div img {
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+}
+
+.fj > div > div:nth-child(1) {
+  position: absolute;
+  padding: 1rem;
+  color: #ffffff;
+  top: 0px;
+  left: 0px;
+  /* right: 0px;
+  bottom: 0px; */
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.3);
+  transition: transform 0.5s;
+  clip-path: polygon(0 0, 100% 0, 0 100%, 0 0);
+  transform: translate(-50%, -50%);
+}
+
+.fj > div:hover > div:nth-child(1) {
+  transform: translate(0%, 0%);
+}
+
+/* 相册字体、分页定位 */
+.bi {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+/* 班级档案 */
+.bj {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 100%;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.bj1 {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 100%;
+  font-size: 1rem;
+  color: #ffffff;
+  margin-bottom: 1rem;
+}
+
+/* 班级档案导航位置大小样式 */
+.da {
+  width: 50%;
+  height: auto;
+  border: 0px solid transparent;
+  box-shadow: 0px 0px 1rem #ffffff;
+  border-radius: 1rem;
+  background-color: rgba(0, 0, 0, 0.1);
+  padding: 1.5rem 1.5rem 0rem 1.5rem;
+}
+
+/* 班级档案图片位置大小样式 */
+.da1 {
+  width: 45%;
+  height: 450px;
+  border: 0px solid transparent;
+  box-shadow: 0px 0px 1rem #ffffff;
+  border-radius: 1rem;
+  background-color: rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+  /* margin-bottom: 25%; */
+}
+
+/* 跑马灯图片大小  */
+#main img {
+  width: 450px;
+  height: 250px;
+  background-size: cover;
+  border-radius: 1.5rem;
+}
+
+/* 活动图片信息描述 */
+.carousel-caption {
+  position: fixed;
+  top: 20rem;
+  display: flex;
+  justify-content: center;
+}
+
+/* 活动描述 */
+.text-left {
+  display: flex;
+  margin: 1rem;
+}
+
+/* 班级档案选择列表 */
+.ou {
+  width: 100%;
+  height: auto;
+  margin-top: 0px;
+  padding: 0px;
+}
+
+.ou a {
+  padding: 2.5rem;
+  background: rgb(250, 254, 255);
+  color: #232424;
+  font-size: 20px;
+  z-index: 1;
+}
+
+.fk {
+  border: 1px solid transparent;
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  padding: 1rem;
+}
+
+.ti {
+  margin-top: 1rem;
+}
+
+/* 更新日志 */
+.rz {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1.5rem solid #ffffff;
+  border-top-left-radius: 5rem;
+  border-style: dotted;
+  box-shadow: 5px 5px 1rem #3b3b3b;
+  border-bottom-right-radius: 5rem;
+  background-color: rgba(168, 168, 168, 0.3);
+  width: 100%;
+  height: auto;
+  margin-top: 2rem;
+  padding: 2rem;
+}
+
+.rz > ul > div:nth-child(odd) {
+  background: rgba(255, 255, 255, 0.507);
+  padding: 0.5rem;
+}
+
+.rz > ul > div:nth-child(even) {
+  background: rgb(253, 253, 253);
+  padding: 0.5rem;
+}
+
+.rz > ul {
+  width: 100%;
+  height: auto;
+  margin: 0;
+  padding: 0;
+}
+
+.rz > ul div {
+  padding: 16px;
+  color: #232424;
+  font-size: 15px;
+  z-index: 1;
+}
+
+/* 一些话 */
+.hua {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: auto;
+  padding: 1rem;
+}
+
+.hua1 {
+  padding: 2rem;
+  border: 0px solid transparent;
+  background-image: url('./image/笔记背景1.png');
+  background-size: cover;
+  width: 100%;
+  height: auto;
+  box-shadow: -1px 3px 3px 1px #454646;
+  color: #000000;
+}
+
+.hua2 {
+  z-index: 1;
+  height: 100%;
+  margin-top: 25rem;
+  margin-left: -4rem;
+  transform: rotate(85deg);
+}
+
+/* 脚部样式  */
+footer {
+  display: block;
+  text-align: center;
+}
+
+.tu {
+  display: flex;
+  height: 180px;
+}
+
+.tu img {
+  width: 100%;
+}
+
+.hd-time {
+  display: flex;
+  width: 8vw;
+}
+
+/* 用户登录表单样式 */
+.user-login {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url('../image/loginbg.jpg');
+  background-size: cover;
+}
+
+.user-login > div > div {
+  display: flex;
+  justify-content: center;
+  padding: 1.2rem;
+}
+
+.user-login input {
+  outline: none;
+  padding: 0.6rem 2.3rem;
+  border: 2.2px solid rgb(255, 255, 255);
+  border-radius: 1.6rem;
+}
+
+.user-login input:hover {
+  outline: none;
+  padding: 0.6rem 2.3rem;
+  border: 2.2px solid rgb(39, 182, 187);
+  border-radius: 1.6rem;
+}
+
+.user-login button {
+  /* font-weight: bold; */
+  padding: 0.8rem 8rem;
+  border: 0.3rem solid rgb(23, 211, 236);
+  background-color: rgb(23, 211, 236);
+  border-radius: 2rem;
+}
+
+.user-login button:hover {
+  border: 0.3rem solid rgb(24, 201, 224);
+  background-color: rgb(24, 201, 224);
+}

@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>首页</title>
+  <link rel="icon" href="image/huiyilogo.png">
+  <link rel="stylesheet" href="css/home.css">
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/iconfont.css">
+</head>
+<style>
+  /* 回到顶部样式 */
+  .btn {
+    position: fixed;
+    bottom: 50px;
+    right: 60px;
+    width: 40px;
+    height: 40px;
+    border: 1px solid transparent;
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.288);
+  }
+
+  .btn a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    color: #ffffff;
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+  .btn a:hover {
+    color: #43d7f1;
+  }
+</style>
+
+<body>
+  <span id="app">
+
+    <!-- 用户登录部分 -->
+    <span v-if="!loginUser">
+      <div class="user-login">
+        <div>
+          <div>
+            <input type="text" v-model="tbUser.username" placeholder="用户名" />
+          </div>
+          <div>
+            <input type="password" v-model="tbUser.password" placeholder="密码" />
+          </div>
+          <div>
+            <input type="text" v-model="imgcode" placeholder="图片校验码" />
+          </div>
+          <div>
+            <img :src="imgSrc" title="点击更换图片" @click="changeImg" />
+          </div>
+          <div>
+            <button @click="login">登陆</button>
+          </div>
+          <!-- <div>
+            {{data.message}}
+          </div> -->
+        </div>
+      </div>
+    </span>
+
+    <!-- 登录后的网页部分 -->
+    <span v-if="loginUser">
+
+      <!-- 头部样式及布局 -->
+      <header class="bs-docs-nav navbar navbar-static-top" id="top">
+        <!-- 头部图片 -->
+        <div></div>
+        <!-- 头像 -->
+        <img class="toux" src="image/头像.jpg" alt="" width="100px" height="100px">
+        <!-- 项目选项 -->
+        <div class="content-nav">
+          <ul class="nav">
+            <a href="#m-1"><img src="image/班级档案.png"><br>班级档案</a>
+            <a href="#m-2"><img src="image/路上风景.png"><br>路上风景</a>
+            <a href="#m-3"><img src="image/更新日志.png"><br>更新日志</a>
+            <a href="#m-4"><img src="image/一些话.png"><br>一些话</a>
+            <a href="call/index.html"><img src="image/联系我们.png"><br>联系我们</a>
+          </ul>
+        </div>
+      </header>
+
+      <!-- 班级档案 -->
+      <div class="g1">
+        <a name="m-1"></a>
+        <div class="g2">
+          <!-- 档案标题 -->
+          <div style=" font-size: 1.8rem; color: #ffffff;">班级档案<i class="iconfont">&#xe617;</i></div>
+          <div style="display: flex;">
+            <div class="hx"></div>
+            <div class="taiy"><img src="image/太阳.png" alt="" width="70px" height="45px"></div>
+          </div>
+          <div class="fk">
+            <!-- 档案导航 -->
+            <div class="da">
+              <article class="list-group">
+                <ul class="ou">
+                  <a href="#" class="list-group-item active">
+                    班级活动
+                  </a>
+                  <span v-for="a in resultActive">
+                    <a href="#" class="list-group-item" data-target="#mycarousel" data-slide-to="0" @click="ckActiveimg(a.paid)">
+                      <div class="media-left media-middle">
+                        <div class="hd-time">
+                          {{a.activeTime}}
+                        </div>
+                      </div>
+                      <div class="media-body">
+                        <div class="ti">
+                          <h4 class="media-heading">{{a.activeTitle}}</h4>
+                        </div>
+                      </div>
+                    </a>
+                  </span>
+                  <!-- <a href="#" class="list-group-item" data-target="#mycarousel" data-slide-to="1" class="">
+                    <div class="media-left media-middle">
+                      <div>
+                        2019.11.04
+                      </div>
+                    </div>
+                    <div class="media-body">
+                      <div class="ti">
+                        <h4 class="media-heading">篮球友谊赛</h4>
+                      </div>
+                    </div>
+                  </a>
+                  <a href="#" class="list-group-item" data-target="#mycarousel" data-slide-to="2" class="">
+                    <div class="media-left media-middle">
+                      <div>
+                        2020.1.01
+                      </div>
+                    </div>
+                    <div class="media-body">
+                      <div class="ti">
+                        <h4 class="media-heading">新生元旦晚会</h4>
+                      </div>
+                    </div>
+                  </a>
+                  <a href="#" class="list-group-item" data-target="#mycarousel" data-slide-to="3" class="">
+                    <div class="media-left media-middle">
+                      <div>
+                        2021.3.24
+                      </div>
+                    </div>
+                    <div class="media-body">
+                      <div class="ti">
+                        <h4 class="media-heading">计算机班团聚</h4>
+                      </div>
+                    </div>
+                  </a> -->
+                </ul>
+              </article>
+            </div>
+            <!-- 相关媒体 -->
+            <div class="da1">
+              <!-- 容器，用于固定跑马灯的位置和大小 -->
+              <section id="main">
+                <div>
+                  <div id="mycarousel" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner">
+                      <div class="item active" v-for="a1 in resultActive" :key="a1.paid">
+                        <span v-for="aimg in activetplist" v-if="a1.paid==aimg.paid">
+                          <!-- 活动图片 -->
+                          <img class="img-responsive" :src="getImg(aimg.fid)" alt="">
+                          <div class="carousel-caption">
+                            <!-- 活动有关图片1 -->
+                            {{aimg.imgInfo}}
+                          </div>
+                          <!-- <br> -->
+                          <div class="text-left">
+                            <h5>{{a1.activeInfo}}</h5>
+                          </div>
+                        </span>
+                        <!-- <div class="item">
+                        <img class="img-responsive" src="https://img.zcool.cn/community/01c8f15aeac135a801207fa16836ae.jpg@1280w_1l_2o_100sh.jpg" alt="">
+                        <div class="carousel-caption">
+                          活动有关图片2
+                        </div>
+                        <br>
+                        <p class="text-center">
+                          活动介绍或者感悟...
+                        </p>
+                      </div>
+                      <div class="item">
+                        <img class="img-responsive" src="https://img.zcool.cn/community/01c8f15aeac135a801207fa16836ae.jpg@1280w_1l_2o_100sh.jpg" alt="">
+                        <div class="carousel-caption">
+                          活动有关图片3
+                        </div>
+                        <br>
+                        <p class="text-center">
+                          活动介绍或者感悟...
+                        </p>
+                      </div>
+                      <div class="item">
+                        <img class="img-responsive" src="https://img.zcool.cn/community/01c8f15aeac135a801207fa16836ae.jpg@1280w_1l_2o_100sh.jpg" alt="">
+                        <div class="carousel-caption">
+                          活动有关图片4
+                        </div>
+                        <br>
+                        <p class="text-center">
+                          活动介绍或者感悟...
+                        </p>
+                      </div>
+                      <div class="item">
+                        <img class="img-responsive" src="https://img.zcool.cn/community/01c8f15aeac135a801207fa16836ae.jpg@1280w_1l_2o_100sh.jpg" alt="">
+                        <div class="carousel-caption">
+                          活动有关图片5
+                        </div>
+                        <br>
+                        <p class="text-center">
+                          活动介绍或者感悟...
+                        </p>
+                      </div>
+                      <div class="item">
+                        <img class="img-responsive" src="https://img.zcool.cn/community/01c8f15aeac135a801207fa16836ae.jpg@1280w_1l_2o_100sh.jpg" alt="">
+                        <div class="carousel-caption">
+                          活动有关图片6
+                        </div>
+                        <br>
+                        <p class="text-center">
+                          活动介绍或者感悟...
+                        </p>
+                      </div> -->
+                      </div>
+                    </div>
+                  </div>
+              </section>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 路上风景 -->
+      <div class="g11">
+        <a name="m-2"></a>
+        <div class="g22">
+          <!-- 路上风景标题 -->
+          <div style=" font-size: 1.8rem; color: #c4e5fa;">路上风景<i class="iconfont">&#xe687;</i></div>
+          <div style="display: flex;">
+            <div class="hx1"></div>
+            <div class="taiy1"><img src="image/蝴蝶.png" alt="" width="85px" height="50px"></div>
+          </div>
+          <div class="bi">
+            {{resultFjbt.fjbt}}
+          </div>
+          <div class="fj">
+
+            <div v-for="img in images" :key="img.fid">
+              <div v-for="x in resultFjtpxx" v-if="x.messageKey==img.fid">
+                {{x.message}}
+              </div>
+              <img :src="getImg(img.fid)" alt="">
+            </div>
+
+            <span>
+              <a href="images/index.html">更多>></a>
+            </span>
+
+
+          </div>
+
+        </div>
+      </div>
+
+      <!-- 去滚动条 -->
+      <!-- 更新日志 -->
+      <div class="g1">
+        <a name="m-3"></a>
+        <div class="g2">
+          <div style=" font-size: 1.8rem; color: #ffffff;">更新日志<i class="iconfont">&#xe7f9;</i></div>
+          <div style="display: flex;">
+            <div class="hx"></div>
+            <div class="taiy"><img src="image/太阳.png" alt="" width="70px" height="45px"></div>
+          </div>
+          <div class="rz">
+            <ul>
+              <div class="media" v-for="a1 in resultActive">
+                <div class="media-left" v-for="bimg in activetplist">
+
+                  <span v-if="bimg.paid==a1.paid">
+
+                    <img class="media-object " :src="getImg(bimg.fid)" alt="" width="60px" height="60px">
+                  </span>
+                  <!-- <div class="yuan">2019.9.1</div> -->
+                </div>
+                <div class="media-body">
+                  <h4 class="media-heading">{{a1.activeTitle}} （{{a1.activeTime}}）</h4>
+                  {{a1.activeInfo}}
+                </div>
+              </div>
+              <!-- 
+              <div class="media">
+                <div class="media-body">
+                  <h4 class="media-heading">日志日期或者标题（2021.5.18）</h4>
+                  .......
+                </div>
+                <div class="media-right">
+                  <img class="media-object " src="./image/头像.jpg" alt="" width="60px" height="60px">
+                  
+                </div>
+              </div>
+
+              <div class="media">
+                <div class="media-left">
+                  <img class="media-object " src="./image/头像.jpg" alt="" width="60px" height="60px">
+                  
+                </div>
+                <div class="media-body">
+                  <h4 class="media-heading">日志日期或者标题（2021.5.18）</h4>
+                  ......
+                </div>
+              </div>
+
+              <div class="media">
+                <div class="media-body">
+                  <h4 class="media-heading">日志日期或者标题（2021.5.18）</h4>
+                  我们学会了坚韧不拔，学会了服从命令。军训，就是要培养我们的品质，磨砺我们的意志。经历了军训，我们获益匪浅;通过了军训，我们无比骄傲
+                </div>
+                <div class="media-right">
+                  <img class="media-object " src="./image/头像.jpg" alt="" width="60px" height="60px">
+                  
+                </div>
+              </div> -->
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- 一些话 -->
+      <div class="g11">
+        <a name="m-4"></a>
+        <div class="g22">
+          <div style=" font-size: 1.8rem; color: #c4e5fa;">一些话<i class="iconfont">&#xe605;</i></div>
+          <div style="display: flex;">
+            <div class="hx1"></div>
+            <div class="taiy1"><img src="image/蝴蝶.png" alt="" width="85px" height="50px"></div>
+          </div>
+          <div class="hua">
+            <div class="hua1">
+              <p>{{resultYxh.yxh}}</p>
+              <p>{{resultYxh.yxh01}}</p>
+              <p>{{resultYxh.yxh02}}</p>
+              <p>{{resultYxh.yxh03}}</p>
+              <p>{{resultYxh.yxh04}}</p>
+            </div>
+            <div class="hua2">
+              <img src="./image/笔记装饰.png" alt="" width="80px" height="80">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 回到顶部按钮 -->
+      <div class="btn" id="top-btn">
+        <a onclick="pageScroll()"><i class="iconfont">&#xe631;</i></a>
+      </div>
+
+      <!-- 脚部样式 -->
+      <footer>
+        <div class="tu"><img src="image/脚部图片.png" alt=""></div>
+      </footer>
+
+
+      <!-- 回顶动画js -->
+      <script>
+        function pageScroll() {
+          //把内容滚动指定的像素数（第一个参数是向右滚动的像素数，第二个参数是向下滚动的像素数）
+          window.scrollBy(0, -100);
+          //延时递归调用，模拟滚动向上效果
+          scrolldelay = setTimeout('pageScroll()', 20);
+          //获取scrollTop值，声明了DTD的标准网页取document.documentElement.scrollTop，否则取document.body.scrollTop；因为二者只有一个会生效，另一个就恒为0，所以取和值可以得到网页的真正的scrollTop值
+          var sTop = document.documentElement.scrollTop + document.body.scrollTop;
+          //判断当页面到达顶部，取消延时代码（否则页面滚动到顶部会无法再向下正常浏览页面）
+          if (sTop == 0) clearTimeout(scrolldelay);
+        }
+
+        // 显示隐藏回顶部按钮
+        window.onscroll = function () {
+          if (document.documentElement.scrollTop + document.body.scrollTop > 775) {
+            document.getElementById("top-btn").style.display = "block";
+          } else {
+            document.getElementById("top-btn").style.display = "none";
+          }
+        }
+
+      </script>
+
+      <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.0/jquery.min.js"></script>
+      <!-- bootstrap的js导入 -->
+      <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js"></script>
+      <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.12/vue.min.js"></script>
+      <script src="https://cdn.bootcdn.net/ajax/libs/axios/0.21.1/axios.min.js"></script>
+      <script src="https://cdn.bootcdn.net/ajax/libs/qs/6.10.1/qs.min.js"></script>
+      <script src="https://cdn.bootcdn.net/ajax/libs/spark-md5/3.0.0/spark-md5.min.js"></script>
+      <script src="js/ajax.js"></script>
+      <script src="js/ajax-index.js"></script>
+      <script src="js/home.js"></script>
+
+    </span>
+
+  </span>
+</body>
+
+</html>

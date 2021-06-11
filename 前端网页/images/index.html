@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+  <meta charset="utf-8">
+  <title>更多图片</title>
+  <link rel="icon" href="images/huiyilogo.png">
+  <link rel="stylesheet" href="css/swiper.min.css">
+  <link rel="stylesheet" href="css/demo.css">
+
+
+</head>
+
+<body>
+
+  <!-- Swiper -->
+  <div class="swiper-container" id="app">
+    <div class="swiper-wrapper">
+      <!-- 主页内容部分 -->
+      <div class="swiper-slide" v-for="img in resultFjtpxx">
+        <!-- 图片文字 -->
+        <div class="title" data-swiper-parallax="-130%">
+          <h3 v-html="img.message"></h3>
+        </div>
+        <!-- 图片 -->
+        <div class="img-box"><img :src="getImg(img.messageKey)" style=" transform:translateX(0);"></div>
+      </div>
+      <!-- <div class="swiper-slide">
+        <div class="title" data-swiper-parallax="-130%">
+          <h3>2019.11.04与二班的篮球友谊赛</h3>
+        </div>
+        <div class="img-box"><img src="images/img2.jpg"></div>
+      </div>
+      <div class="swiper-slide">
+        <div class="title" data-swiper-parallax="-130%">
+          <h3>2019.11.07体育课</h3>
+        </div>
+        <div class="img-box"><img src="images/img3.jpg"></div>
+      </div>
+      <div class="swiper-slide">
+        <div class="title" data-swiper-parallax="-130%">
+          <h3>2019.12.18专业老师讲解</h3>
+        </div>
+        <div class="img-box"><img src="images/img4.jpg"></div>
+      </div>
+      <div class="swiper-slide">
+        <div class="title" data-swiper-parallax="-130%">
+          <h3>2020.01.02大一期末总结</h3>
+        </div>
+        <div class="img-box"><img src="images/img5.jpg"></div>
+      </div>
+      <div class="swiper-slide">
+        <div class="title" data-swiper-parallax="-130%">
+          <h3>2020.09.28大二上学期开始</h3>
+        </div>
+        <div class="img-box"><img src="images/img6.jpg"></div>
+      </div> -->
+    </div>
+    <div class="button-prev button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 350 160 90">
+        <g id="arrow-svg-home">
+          <g id="circ" class="cls-1">
+            <circle cx="42" cy="42" r="40" class="cls-4"></circle>
+          </g>
+          <g id="arrow">
+            <path id="arrow-trg" d="M.983,6.929,4.447,3.464.983,0,0,.983,2.482,3.464,0,5.946Z"></path>
+          </g>
+          <path id="line" d="M120,0H0" class="cls-3"></path>
+        </g>
+      </svg></div>
+    <!--左箭头-->
+    <div class="button-next button"> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 350 160 90">
+        <g id="arrow-svg-home">
+          <g id="circ" class="cls-1">
+            <circle cx="42" cy="42" r="40" class="cls-4"></circle>
+          </g>
+          <g id="arrow">
+            <path id="arrow-trg" d="M.983,6.929,4.447,3.464.983,0,0,.983,2.482,3.464,0,5.946Z" class="cls-2"></path>
+          </g>
+          <path id="line" d="M120,0H0" class="cls-3"></path>
+        </g>
+      </svg></div>
+    <!--右箭头-->
+  </div>
+
+  <script src="js/swiper.min.js"></script>
+  <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.12/vue.min.js"></script>
+  <script src="https://cdn.bootcdn.net/ajax/libs/axios/0.21.1/axios.min.js"></script>
+  <script src="https://cdn.bootcdn.net/ajax/libs/qs/6.10.1/qs.min.js"></script>
+  <script src="https://cdn.bootcdn.net/ajax/libs/spark-md5/3.0.0/spark-md5.min.js"></script>
+  <script src="js/ajax.js"></script>
+
+
+  <script>
+
+    // 页面加载Swiper的函数
+    function initSwiper() {
+
+      //转载请标注版权 Swiper中文网 www.swiper.com.cn
+      lock = false;
+      bgColor = ["rgb(179, 189, 196)", "rgb(180, 183, 166)", "rgb(140, 152, 187)"]; //背景色
+      var mySwiper = new Swiper('.swiper-container', {
+        speed: 1300,
+        allowTouchMove: false,//禁止触摸滑动
+        parallax: true,  //文字位移视差
+        on: {
+          transitionStart: function () {
+            lock = true;//锁住按钮
+            slides = this.slides
+            imgBox = slides.eq(this.previousIndex).find('.img-box') //图片包装器
+            imgPrev = slides.eq(this.previousIndex).find('img')  //当前图片
+            imgActive = slides.eq(this.activeIndex).find('img')  //下一张图片
+            derection = this.activeIndex - this.previousIndex
+            this.$el.css("background-color", bgColor[this.activeIndex]);//背景颜色动画
+
+            imgBox.transform('matrix(0.6, 0, 0, 0.6, 0, 0)');
+            imgPrev.transition(1000).transform('matrix(1.2, 0, 0, 1.2, 0, 0)');//图片缩放视差
+            this.slides.eq(this.previousIndex).find('h3').transition(1000).css('color', 'rgba(255,255,255,0)');//文字透明动画
+
+            imgPrev.transitionEnd(function () {
+              imgActive.transition(1300).transform('translate3d(0, 0, 0) matrix(1.2, 0, 0, 1.2, 0, 0)');//图片位移视差
+              imgPrev.transition(1300).transform('translate3d(' + 60 * derection + '%, 0, 0)  matrix(1.2, 0, 0, 1.2, 0, 0)');
+            });
+          },
+          transitionEnd: function () {
+            this.slides.eq(this.activeIndex).find('.img-box').transform(' matrix(1, 0, 0, 1, 0, 0)');
+            imgActive = this.slides.eq(this.activeIndex).find('img')
+            imgActive.transition(1000).transform(' matrix(1, 0, 0, 1, 0, 0)');
+            this.slides.eq(this.activeIndex).find('h3').transition(1000).css('color', 'rgba(255,255,255,1)');
+
+            imgActive.transitionEnd(function () {
+              lock = false
+            });
+            //第一个和最后一个，禁止按钮
+            if (this.activeIndex == 0) {
+              this.$el.find('.button-prev').addClass('disabled');
+            } else {
+              this.$el.find('.button-prev').removeClass('disabled');
+            }
+
+            if (this.activeIndex == this.slides.length - 1) {
+              this.$el.find('.button-next').addClass('disabled');
+            } else {
+              this.$el.find('.button-next').removeClass('disabled');
+            }
+          },
+          init: function () {
+            this.emit('transitionEnd');//在初始化时触发一次transitionEnd事件
+          },
+
+        }
+      });
+
+      //不使用自带的按钮组件，使用lock控制按钮锁定时间
+      mySwiper.$el.find('.button-next').on('click', function () {
+        if (!lock) {
+          mySwiper.slideNext();
+        }
+      })
+      mySwiper.$el.find('.button-prev').on('click', function () {
+        if (!lock) {
+          mySwiper.slidePrev();
+        }
+      })
+    }
+
+  </script>
+
+  <script src="js/ajax-index.js"></script>
+
+</body>
+
+</html>
