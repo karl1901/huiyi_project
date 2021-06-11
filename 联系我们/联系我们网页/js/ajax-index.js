@@ -24,6 +24,34 @@
       };
     },
     methods: {
+      // 获取页面人员跳转地址的方法
+      geturls(info) {
+        // console.log(info);
+        // 声明判断的字符串
+        let strhtml = '前';
+        let strback = '后';
+        let strps = '设计';
+        // 判断是否属于的分类
+        if (info.indexOf(strhtml) > 0) {
+          return (
+            window.open('../xyx/index.html', 'one'),
+            window.open('../xyj/index.html', 'two'),
+            window.open('../yc/index.html', 'three')
+          );
+        } else if (info.indexOf(strback) > 0) {
+          return (
+            window.open('../kxh/index.html', 'one'),
+            window.open('../lyh/index.html', 'two')
+          );
+        } else if (info.indexOf(strps) > 0) {
+          // 在当前页面打开
+          // location.href = '../zfx/index.html'
+          // 在新页面打开
+          return window.open('../zfx/index.html');
+        } else {
+          return null; //  都不符合就返回为空
+        }
+      },
       // 更换验证码的方法
       changeImg() {
         ajax.send(

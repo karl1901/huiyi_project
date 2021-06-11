@@ -89,29 +89,29 @@ header div:last-child {
   height: 30px;
 } */
 
-/* .touxiang {
+.touxiang {
   position: absolute;
   top: -80%;
   left: 20%;
   transform: rotate(15deg);
   z-index: 3;
-} */
+}
 
-/* .touxiang img {
+.touxiang img {
   width: 6.3rem;
-} */
+}
 
 /* 栏目 */
-/* .div1 {
+.div1 {
   display: flex;
   text-align: center;
   justify-content: space-between;
   padding: 1rem 19rem;
   position: relative;
   font-size: 0.5rem;
-} */
+}
 
-/* .div1 > a {
+.div1 > a {
   text-decoration: none;
   color: black;
   padding: 0px 2.7rem;
@@ -134,7 +134,7 @@ header div:last-child {
   display: block;
   width: 35px;
   height: 35px;
-} */
+}
 
 .center-box {
   display: flex;
@@ -146,7 +146,6 @@ header div:last-child {
   display: flex;
 }
 
-/* 左边矩形盒子 */
 .center-box .left-box {
   flex: 2;
   background-color: rgb(85, 221, 231);
@@ -154,7 +153,6 @@ header div:last-child {
   padding-right: 1rem;
 }
 
-/* 右边矩形盒子 */
 .center-box .right-box {
   flex: 9;
 }
@@ -163,7 +161,6 @@ header div:last-child {
   padding: 1rem 1rem 1rem 0rem;
 }
 
-/* 右边头部盒子*/
 .center-box .right-box01 {
   display: flex;
   justify-content: space-between;
@@ -174,7 +171,6 @@ header div:last-child {
   padding: 10px;
 }
 
-/* 左边白色部分 */
 .center-box .left-box01 {
   flex: 3;
   background-color: white;
@@ -182,7 +178,6 @@ header div:last-child {
   font-size: 1.2rem;
 }
 
-/* 二维码 */
 .div2 {
   display: flex;
   text-align: center;
