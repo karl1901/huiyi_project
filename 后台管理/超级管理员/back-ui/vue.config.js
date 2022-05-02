@@ -5,5 +5,5 @@ module.exports = {
   // outputDir: 'D:\\karl word\\aliyun.code\\kangxianghui.top.server\\myvue',
   outputDir: 'D:\\karlword\\aliyun.code\\test-server\\back',
   // 服务器虚拟路径(判断是否是本地启动还是服务器启动)
-  publicPath: process.env.NODE_ENV === 'production' ? '/back/' : '/'
+  publicPath: process.env.NODE_ENV === 'production' ? '/huiyi-admin-back/' : '/'
 };
